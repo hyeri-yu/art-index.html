@@ -15,7 +15,6 @@
   --mint:#83B99B;
   --yellow:#E9B65F;
   --text:#5F526A;
-  --light:#FAF8FB;
 }
 
 *{box-sizing:border-box}
@@ -31,12 +30,8 @@ body{
 button,textarea,input{font:inherit}
 button{cursor:pointer}
 
-.shell{
-  width:min(1120px,94%);
-  margin:auto;
-}
+.shell{width:min(1120px,94%);margin:auto}
 
-/* 상단 */
 header{
   padding:23px 0;
   display:flex;
@@ -64,7 +59,6 @@ header{
 
 .brand-pink{color:var(--pink)}
 .brand-mint{color:var(--mint)}
-.brand-yellow{color:var(--yellow)}
 
 .back-button{
   border:0;
@@ -75,7 +69,6 @@ header{
   font-weight:800;
 }
 
-/* 메인 소개 */
 .hero{
   background:#FBF6F0;
   border-radius:25px;
@@ -93,11 +86,7 @@ header{
   font-weight:800;
 }
 
-.hero p{
-  margin:5px 0;
-  color:#918398;
-  font-size:15px;
-}
+.hero p{margin:5px 0;color:#918398;font-size:15px}
 
 .hero-label{
   display:inline-block;
@@ -110,7 +99,6 @@ header{
   font-weight:800;
 }
 
-/* 감상 순서 */
 .steps{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -126,17 +114,9 @@ header{
 }
 
 .step-icon{font-size:28px}
-.step strong{
-  display:block;
-  color:var(--purple);
-  font-size:14px;
-}
-.step small{
-  color:#9B91A0;
-  font-size:11px;
-}
+.step strong{display:block;color:var(--purple);font-size:14px}
+.step small{color:#9B91A0;font-size:11px}
 
-/* 공통 제목 */
 .section-heading{
   color:var(--purple);
   font-size:23px;
@@ -150,8 +130,9 @@ header{
   margin:-5px 0 17px;
 }
 
-/* 작품 카드 */
-.artwork-section{margin-bottom:35px}
+.artwork-section,.activity-section,.feeling-section,.create-section{
+  margin:35px 0;
+}
 
 .artwork-card{
   border:1px solid #F0EBF2;
@@ -176,10 +157,7 @@ header{
   letter-spacing:1px;
 }
 
-.artwork-count{
-  color:#A48EAA;
-  font-size:13px;
-}
+.artwork-count{color:#A48EAA;font-size:13px}
 
 .artwork-image-wrap{
   background:#F6F2F7;
@@ -205,17 +183,10 @@ header{
   padding:40px 20px;
 }
 
-.image-fallback .fallback-icon{
-  font-size:55px;
-}
+.image-fallback .fallback-icon{font-size:55px}
+.image-fallback a{color:var(--purple)}
 
-.image-fallback a{
-  color:var(--purple);
-}
-
-.artwork-info{
-  padding:22px;
-}
+.artwork-info{padding:22px}
 
 .artwork-title{
   font-size:27px;
@@ -254,15 +225,7 @@ header{
   color:var(--purple);
 }
 
-.nav-button.primary{
-  background:var(--purple);
-  color:white;
-}
-
-/* 관찰 활동 */
-.activity-section{
-  margin:35px 0;
-}
+.nav-button.primary{background:var(--purple);color:white}
 
 .question-box{
   background:#F8F5FA;
@@ -270,10 +233,7 @@ header{
   padding:22px;
 }
 
-.question-list{
-  display:grid;
-  gap:12px;
-}
+.question-list{display:grid;gap:12px}
 
 .question-item{
   background:white;
@@ -303,15 +263,7 @@ header{
   font-size:15px;
 }
 
-.question-text span{
-  color:#968A9C;
-  font-size:13px;
-}
-
-/* 감상 표현 */
-.feeling-section{
-  margin:35px 0;
-}
+.question-text span{color:#968A9C;font-size:13px}
 
 .feeling-box{
   background:#FFF8ED;
@@ -336,10 +288,7 @@ header{
   font-weight:700;
 }
 
-.feeling-button span{
-  display:block;
-  font-size:27px;
-}
+.feeling-button span{display:block;font-size:27px}
 
 .feeling-button.selected{
   border-color:var(--pink);
@@ -382,14 +331,7 @@ header{
   font-size:14px;
 }
 
-.saved-reflection strong{
-  color:var(--purple);
-}
-
-/* 미술 표현 활동 */
-.create-section{
-  margin:35px 0;
-}
+.saved-reflection strong{color:var(--purple)}
 
 .create-box{
   background:#F0F7F1;
@@ -404,10 +346,7 @@ header{
   margin:0 0 7px;
 }
 
-.create-description{
-  color:#819486;
-  font-size:14px;
-}
+.create-description{color:#819486;font-size:14px}
 
 .canvas-wrap{
   background:white;
@@ -443,9 +382,7 @@ header{
   box-shadow:0 0 0 1px #DDD;
 }
 
-.color-button.selected{
-  box-shadow:0 0 0 3px var(--purple);
-}
+.color-button.selected{box-shadow:0 0 0 3px var(--purple)}
 
 .tool-button{
   border:0;
@@ -457,15 +394,8 @@ header{
   font-weight:800;
 }
 
-.brush-label{
-  font-size:13px;
-  color:#62806A;
-  font-weight:700;
-}
-
-#brushSize{
-  width:90px;
-}
+.brush-label{font-size:13px;color:#62806A;font-weight:700}
+#brushSize{width:90px}
 
 .canvas-actions{
   display:flex;
@@ -481,39 +411,10 @@ header{
   font-weight:800;
 }
 
-.clear-canvas{
-  background:white;
-  color:#68856F;
-}
+.clear-canvas{background:white;color:#68856F}
+.download-canvas{background:#63876C;color:white}
 
-.download-canvas{
-  background:#63876C;
-  color:white;
-}
-
-/* 교사 도움말 */
-.teacher-tip{
-  margin:35px 0;
-  background:#F7F4FA;
-  border-radius:20px;
-  padding:20px;
-}
-
-.teacher-tip h3{
-  color:var(--purple);
-  margin:0 0 7px;
-}
-
-.teacher-tip p{
-  font-size:14px;
-  color:#887C90;
-  margin:5px 0;
-}
-
-/* 작품 선택 */
-.gallery-section{
-  margin:40px 0;
-}
+.gallery-section{margin:40px 0}
 
 .gallery-grid{
   display:grid;
@@ -531,9 +432,7 @@ header{
   color:var(--text);
 }
 
-.gallery-item:hover{
-  border-color:var(--pink);
-}
+.gallery-item:hover{border-color:var(--pink)}
 
 .gallery-item img{
   width:100%;
@@ -542,22 +441,20 @@ header{
   background:#F5F1F6;
 }
 
-.gallery-item-info{
-  padding:10px;
+.gallery-item-info{padding:10px}
+.gallery-item-info strong{display:block;color:var(--purple);font-size:14px}
+.gallery-item-info span{color:#A092A6;font-size:12px}
+
+.teacher-tip{
+  margin:35px 0;
+  background:#F7F4FA;
+  border-radius:20px;
+  padding:20px;
 }
 
-.gallery-item-info strong{
-  display:block;
-  color:var(--purple);
-  font-size:14px;
-}
+.teacher-tip h3{color:var(--purple);margin:0 0 7px}
+.teacher-tip p{font-size:14px;color:#887C90;margin:5px 0}
 
-.gallery-item-info span{
-  color:#A092A6;
-  font-size:12px;
-}
-
-/* 하단 */
 footer{
   margin-top:45px;
   border-top:1px solid #F0EBF2;
@@ -567,41 +464,15 @@ footer{
   font-size:13px;
 }
 
-/* 모바일 */
 @media(max-width:700px){
-  header{
-    align-items:flex-start;
-  }
-
-  .steps{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .artwork-image-wrap{
-    min-height:220px;
-  }
-
-  .artwork-title{
-    font-size:23px;
-  }
-
-  .feeling-options{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .gallery-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  #drawingCanvas{
-    height:250px;
-  }
-
-  .artwork-navigation button{
-    flex:1;
-    padding:10px 8px;
-    font-size:13px;
-  }
+  header{align-items:flex-start}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .artwork-image-wrap{min-height:220px}
+  .artwork-title{font-size:23px}
+  .feeling-options{grid-template-columns:repeat(3,1fr)}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  #drawingCanvas{height:250px}
+  .artwork-navigation button{flex:1;padding:10px 8px;font-size:13px}
 }
 </style>
 </head>
@@ -610,7 +481,7 @@ footer{
 <div class="shell">
 
 <header>
-  <a href="#" class="brand">
+  <a href="../" class="brand">
     <span><span class="brand-pink">꿈</span>꾸며 <span class="brand-mint">나</span><span style="color:#70577F">아가는</span></span>
     <span class="brand-small">HA HA HA · ART CLASS</span>
   </a>
@@ -619,7 +490,6 @@ footer{
 
 <main>
 
-<!-- 소개 -->
 <section class="hero">
   <div class="hero-icon">🎨</div>
   <h1>하하하 명화감상</h1>
@@ -627,31 +497,13 @@ footer{
   <span class="hero-label">유치원 5~7세 · 오늘의 명화 한 작품</span>
 </section>
 
-<!-- 감상 순서 -->
 <section class="steps">
-  <div class="step">
-    <div class="step-icon">🖼️</div>
-    <strong>명화 만나기</strong>
-    <small>작품을 감상해요</small>
-  </div>
-  <div class="step">
-    <div class="step-icon">👀</div>
-    <strong>자세히 관찰하기</strong>
-    <small>그림 속을 찾아봐요</small>
-  </div>
-  <div class="step">
-    <div class="step-icon">💬</div>
-    <strong>생각 표현하기</strong>
-    <small>마음을 이야기해요</small>
-  </div>
-  <div class="step">
-    <div class="step-icon">🖍️</div>
-    <strong>나도 예술가</strong>
-    <small>나만의 그림을 그려요</small>
-  </div>
+  <div class="step"><div class="step-icon">🖼️</div><strong>명화 만나기</strong><small>작품을 감상해요</small></div>
+  <div class="step"><div class="step-icon">👀</div><strong>자세히 관찰하기</strong><small>그림 속을 찾아봐요</small></div>
+  <div class="step"><div class="step-icon">💬</div><strong>생각 표현하기</strong><small>마음을 이야기해요</small></div>
+  <div class="step"><div class="step-icon">🖍️</div><strong>나도 예술가</strong><small>나만의 그림을 그려요</small></div>
 </section>
 
-<!-- 오늘의 명화 -->
 <section class="artwork-section">
   <h2 class="section-heading">🖼️ 오늘의 명화</h2>
   <p class="section-description">그림을 천천히 살펴보세요. 어떤 것이 가장 먼저 눈에 들어오나요?</p>
@@ -684,62 +536,41 @@ footer{
   </div>
 </section>
 
-<!-- 그림 관찰 -->
 <section class="activity-section">
   <h2 class="section-heading">👀 그림을 자세히 관찰해요</h2>
   <p class="section-description">정답은 없어요. 그림을 보며 자유롭게 찾아보세요.</p>
-
   <div class="question-box">
     <div class="question-list" id="questionList"></div>
   </div>
 </section>
 
-<!-- 생각과 느낌 -->
 <section class="feeling-section">
   <h2 class="section-heading">💗 내 마음은 어떤가요?</h2>
   <p class="section-description">그림을 보고 떠오르는 기분을 골라보세요.</p>
 
   <div class="feeling-box">
-    <div class="feeling-options" id="feelingOptions">
-      <button class="feeling-button" data-feeling="행복해요" onclick="chooseFeeling(this)">
-        <span>😊</span>행복해요
-      </button>
-      <button class="feeling-button" data-feeling="신기해요" onclick="chooseFeeling(this)">
-        <span>🤩</span>신기해요
-      </button>
-      <button class="feeling-button" data-feeling="편안해요" onclick="chooseFeeling(this)">
-        <span>😌</span>편안해요
-      </button>
-      <button class="feeling-button" data-feeling="궁금해요" onclick="chooseFeeling(this)">
-        <span>🤔</span>궁금해요
-      </button>
-      <button class="feeling-button" data-feeling="조금 무서워요" onclick="chooseFeeling(this)">
-        <span>😮</span>조금 무서워요
-      </button>
+    <div class="feeling-options">
+      <button class="feeling-button" data-feeling="행복해요" onclick="chooseFeeling(this)"><span>😊</span>행복해요</button>
+      <button class="feeling-button" data-feeling="신기해요" onclick="chooseFeeling(this)"><span>🤩</span>신기해요</button>
+      <button class="feeling-button" data-feeling="편안해요" onclick="chooseFeeling(this)"><span>😌</span>편안해요</button>
+      <button class="feeling-button" data-feeling="궁금해요" onclick="chooseFeeling(this)"><span>🤔</span>궁금해요</button>
+      <button class="feeling-button" data-feeling="조금 무서워요" onclick="chooseFeeling(this)"><span>😮</span>조금 무서워요</button>
     </div>
 
     <div class="feeling-question">이 그림을 보니 어떤 생각이 떠오르나요?</div>
-    <textarea id="reflectionInput" class="reflection-input"
-      placeholder="예: 밤하늘의 별이 반짝반짝 춤추는 것 같아요."></textarea>
-
+    <textarea id="reflectionInput" class="reflection-input" placeholder="예: 밤하늘의 별이 반짝반짝 춤추는 것 같아요."></textarea>
     <button class="save-reflection" onclick="saveReflection()">감상 기록 저장하기</button>
-
-    <div class="saved-reflection" id="savedReflection">
-      아직 저장된 감상 기록이 없어요.
-    </div>
+    <div class="saved-reflection" id="savedReflection">아직 저장된 감상 기록이 없어요.</div>
   </div>
 </section>
 
-<!-- 미술 표현 -->
 <section class="create-section">
   <h2 class="section-heading">🖍️ 나도 예술가!</h2>
   <p class="section-description">오늘의 명화에서 마음에 든 색깔과 모양을 나만의 그림으로 표현해요.</p>
 
   <div class="create-box">
     <h3 class="create-title" id="createTitle">나만의 그림을 그려보세요!</h3>
-    <p class="create-description" id="createDescription">
-      오늘의 그림을 보고 떠오른 생각을 자유롭게 그려보세요.
-    </p>
+    <p class="create-description" id="createDescription">오늘의 그림을 보고 떠오른 생각을 자유롭게 그려보세요.</p>
 
     <div class="canvas-wrap">
       <canvas id="drawingCanvas" width="1000" height="600"></canvas>
@@ -754,7 +585,6 @@ footer{
       <button class="color-button" style="background:#E97867" data-color="#E97867" aria-label="주황색"></button>
       <button class="color-button" style="background:#333333" data-color="#333333" aria-label="검정색"></button>
       <button class="color-button" style="background:#FFFFFF" data-color="#FFFFFF" aria-label="흰색"></button>
-
       <span class="brush-label">붓 굵기</span>
       <input type="range" id="brushSize" min="2" max="35" value="8">
       <button class="tool-button" onclick="useEraser()">지우개</button>
@@ -767,14 +597,12 @@ footer{
   </div>
 </section>
 
-<!-- 작품 모아보기 -->
 <section class="gallery-section">
   <h2 class="section-heading">🌈 다른 명화도 만나볼까요?</h2>
   <p class="section-description">작품을 누르면 해당 명화를 감상할 수 있어요.</p>
   <div class="gallery-grid" id="galleryGrid"></div>
 </section>
 
-<!-- 교사 도움말 -->
 <section class="teacher-tip">
   <h3>👩‍🏫 선생님을 위한 감상 팁</h3>
   <p>• 아이에게 작품의 정답이나 작가의 의도를 먼저 알려주기보다 자유롭게 관찰하도록 도와주세요.</p>
@@ -794,169 +622,164 @@ footer{
 </div>
 
 <script>
-/* 명화 자료 */
+/* 명화 이미지 주소
+   Wikimedia Commons의 이미지 파일을 사용합니다.
+   별이 빛나는 밤은 확인된 미리보기 주소를 사용합니다.
+*/
 const artworks = [
-  {
-    title:"별이 빛나는 밤",
-    english:"The Starry Night",
-    artist:"빈센트 반 고흐 · 1889년",
-    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
-    source:"https://commons.wikimedia.org/wiki/Category:The_Starry_Night",
-    story:"고흐가 바라본 밤하늘을 표현한 그림이에요. 하늘에는 소용돌이치는 듯한 별과 달이 있고, 아래에는 마을이 보여요.",
-    questions:[
-      ["하늘에는 무엇이 보이나요?","별과 달의 모양을 찾아보세요."],
-      ["어떤 색깔이 많이 사용되었나요?","파란색과 노란색을 찾아보세요."],
-      ["하늘의 선은 어떤 모양인가요?","빙글빙글 움직이는 것처럼 보이나요?"]
-    ],
-    create:"나만의 밤하늘",
-    createDescription:"내가 좋아하는 별과 달을 그리고, 상상 속의 밤하늘을 만들어 보세요."
-  },
-  {
-    title:"해바라기",
-    english:"Sunflowers",
-    artist:"빈센트 반 고흐 · 1888년",
-    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Vincent_van_Gogh_-_Sunflowers_-_VGM_F458.jpg",
-    source:"https://commons.wikimedia.org/wiki/Category:Sunflowers_by_Vincent_van_Gogh",
-    story:"고흐는 해바라기를 여러 작품으로 그렸어요. 노란 꽃잎과 다양한 갈색, 초록색이 어우러져 있어요.",
-    questions:[
-      ["꽃은 몇 송이가 보이나요?","꽃병 속 꽃을 하나씩 살펴보세요."],
-      ["꽃잎은 어떤 색깔인가요?","노란색에도 여러 가지 느낌이 있나요?"],
-      ["꽃마다 어떤 점이 다른가요?","활짝 핀 꽃과 시든 꽃을 찾아보세요."]
-    ],
-    create:"내가 좋아하는 꽃",
-    createDescription:"세상에 하나뿐인 나만의 꽃을 그리고 예쁜 꽃병에도 담아보세요."
-  },
-  {
-    title:"수련",
-    english:"Water Lilies",
-    artist:"클로드 모네 · 1906년경",
-    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Claude_Monet_-_Water_Lilies_-_1906,_Ryerson.jpg",
-    source:"https://commons.wikimedia.org/wiki/Category:Water_lilies_by_Claude_Monet",
-    story:"모네는 정원의 연못과 수련을 여러 작품으로 그렸어요. 물 위에 비친 빛과 색깔을 표현한 그림이에요.",
-    questions:[
-      ["물 위에는 무엇이 떠 있나요?","수련과 잎을 찾아보세요."],
-      ["물은 어떤 색깔로 보이나요?","한 가지 색인가요, 여러 색인가요?"],
-      ["연못에 손을 넣으면 어떤 느낌일까요?","차가울까요, 따뜻할까요?"]
-    ],
-    create:"나만의 연못",
-    createDescription:"알록달록한 연꽃과 물고기가 사는 나만의 연못을 그려보세요."
-  },
-  {
-    title:"진주 귀걸이를 한 소녀",
-    english:"Girl with a Pearl Earring",
-    artist:"요하네스 페르메이르 · 1665년경",
-    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Meisje_met_de_parel.jpg",
-    source:"https://commons.wikimedia.org/wiki/Category:Girl_with_a_Pearl_Earring",
-    story:"한 소녀가 고개를 돌려 우리를 바라보는 듯한 그림이에요. 머리 장식과 반짝이는 진주 귀걸이가 눈에 띄어요.",
-    questions:[
-      ["소녀는 어디를 바라보고 있나요?","눈과 얼굴 방향을 살펴보세요."],
-      ["머리에는 무엇을 하고 있나요?","머리 장식의 색깔을 찾아보세요."],
-      ["소녀에게 말을 건다면 뭐라고 하고 싶나요?","상상해서 이야기해 보세요."]
-    ],
-    create:"나의 특별한 초상화",
-    createDescription:"나 또는 내가 좋아하는 사람의 얼굴을 특별한 초상화로 그려보세요."
-  },
-  {
-    title:"큰 파도",
-    english:"The Great Wave off Kanagawa",
-    artist:"가쓰시카 호쿠사이 · 1831년경",
-    image:"https://commons.wikimedia.org/wiki/Special:FilePath/The_Great_Wave_off_Kanagawa.jpg",
-    source:"https://commons.wikimedia.org/wiki/Category:The_Great_Wave_off_Kanagawa",
-    story:"커다란 파도가 배를 향해 밀려오는 장면이에요. 멀리에는 작게 보이는 후지산도 있어요.",
-    questions:[
-      ["파도는 어떤 모양인가요?","높이 솟은 파도를 찾아보세요."],
-      ["파도 끝은 무엇처럼 보이나요?","손가락이나 발톱처럼 보이나요?"],
-      ["배를 타고 있다면 어떤 기분일까요?","파도와 배의 크기를 비교해 보세요."]
-    ],
-    create:"출렁출렁 바다",
-    createDescription:"내가 상상하는 커다란 파도와 바다 생물을 그려보세요."
-  },
-  {
-    title:"모나리자",
-    english:"Mona Lisa",
-    artist:"레오나르도 다 빈치 · 1503~1519년경",
-    image:"https://commons.wikimedia.org/wiki/Special:FilePath/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg",
-    source:"https://commons.wikimedia.org/wiki/Category:Mona_Lisa",
-    story:"한 여성이 의자에 앉아 우리를 바라보고 있어요. 얼굴의 표정과 뒤쪽 풍경을 자세히 살펴볼 수 있는 작품이에요.",
-    questions:[
-      ["여성의 표정은 어떤가요?","웃고 있는 것 같나요?"],
-      ["뒤쪽에는 어떤 풍경이 있나요?","산과 길, 물을 찾아보세요."],
-      ["그림 속 인물에게 이름을 지어준다면?","어울리는 이름을 생각해 보세요."]
-    ],
-    create:"나의 비밀스러운 미소",
-    createDescription:"재미있는 표정과 배경을 넣어 나만의 인물화를 만들어 보세요."
-  }
+{
+  title:"별이 빛나는 밤",
+  english:"The Starry Night",
+  artist:"빈센트 반 고흐 · 1889년",
+  image:"https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/960px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+  source:"https://commons.wikimedia.org/wiki/Category:The_Starry_Night",
+  story:"고흐가 바라본 밤하늘을 표현한 그림이에요. 하늘에는 소용돌이치는 듯한 별과 달이 있고, 아래에는 마을이 보여요.",
+  questions:[
+    ["하늘에는 무엇이 보이나요?","별과 달의 모양을 찾아보세요."],
+    ["어떤 색깔이 많이 사용되었나요?","파란색과 노란색을 찾아보세요."],
+    ["하늘의 선은 어떤 모양인가요?","빙글빙글 움직이는 것처럼 보이나요."]
+  ],
+  create:"나만의 밤하늘",
+  createDescription:"내가 좋아하는 별과 달을 그리고, 상상 속의 밤하늘을 만들어 보세요."
+},
+{
+  title:"해바라기",
+  english:"Sunflowers",
+  artist:"빈센트 반 고흐 · 1888~1889년",
+  image:"https://commons.wikimedia.org/wiki/Special:FilePath/Vincent_van_Gogh_-_Sunflowers_-_VGM_F458.jpg?width=1000",
+  source:"https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Sunflowers_-_VGM_F458.jpg",
+  story:"고흐는 해바라기를 여러 작품으로 그렸어요. 노란 꽃잎과 다양한 갈색, 초록색이 어우러져 있어요.",
+  questions:[
+    ["꽃은 몇 송이가 보이나요?","꽃병 속 꽃을 하나씩 살펴보세요."],
+    ["꽃잎은 어떤 색깔인가요?","노란색에도 여러 가지 느낌이 있나요?"],
+    ["꽃마다 어떤 점이 다른가요?","활짝 핀 꽃과 시든 꽃을 찾아보세요."]
+  ],
+  create:"내가 좋아하는 꽃",
+  createDescription:"세상에 하나뿐인 나만의 꽃을 그리고 예쁜 꽃병에도 담아보세요."
+},
+{
+  title:"수련",
+  english:"Water Lilies",
+  artist:"클로드 모네 · 1906년",
+  image:"https://commons.wikimedia.org/wiki/Special:FilePath/Claude_Monet_-_Water_Lilies_-_1906,_Ryerson.jpg?width=1000",
+  source:"https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Water_Lilies_-_1906,_Ryerson.jpg",
+  story:"모네는 정원의 연못과 수련을 여러 작품으로 그렸어요. 물 위에 비친 빛과 색깔을 표현한 그림이에요.",
+  questions:[
+    ["물 위에는 무엇이 떠 있나요?","수련과 잎을 찾아보세요."],
+    ["물은 어떤 색깔로 보이나요?","한 가지 색인가요, 여러 색인가요?"],
+    ["연못에 손을 넣으면 어떤 느낌일까요?","차가울까요, 따뜻할까요?"]
+  ],
+  create:"나만의 연못",
+  createDescription:"알록달록한 연꽃과 물고기가 사는 나만의 연못을 그려보세요."
+},
+{
+  title:"진주 귀걸이를 한 소녀",
+  english:"Girl with a Pearl Earring",
+  artist:"요하네스 페르메이르 · 1665년경",
+  image:"https://commons.wikimedia.org/wiki/Special:FilePath/Девушка_с_жемчужной_серёжкой.jpg?width=1000",
+  source:"https://commons.wikimedia.org/wiki/File:Девушка_с_жемчужной_серёжкой.jpg",
+  story:"한 소녀가 고개를 돌려 우리를 바라보는 듯한 그림이에요. 머리 장식과 반짝이는 진주 귀걸이가 눈에 띄어요.",
+  questions:[
+    ["소녀는 어디를 바라보고 있나요?","눈과 얼굴 방향을 살펴보세요."],
+    ["머리에는 무엇을 하고 있나요?","머리 장식의 색깔을 찾아보세요."],
+    ["소녀에게 말을 건다면 뭐라고 하고 싶나요?","상상해서 이야기해 보세요."]
+  ],
+  create:"나의 특별한 초상화",
+  createDescription:"나 또는 내가 좋아하는 사람의 얼굴을 특별한 초상화로 그려보세요."
+},
+{
+  title:"큰 파도",
+  english:"The Great Wave off Kanagawa",
+  artist:"가쓰시카 호쿠사이 · 1831년경",
+  image:"https://commons.wikimedia.org/wiki/Special:FilePath/Great_Wave_off_Kanagawa.jpg?width=1000",
+  source:"https://commons.wikimedia.org/wiki/File:Great_Wave_off_Kanagawa.jpg",
+  story:"커다란 파도가 배를 향해 밀려오는 장면이에요. 멀리에는 작게 보이는 후지산도 있어요.",
+  questions:[
+    ["파도는 어떤 모양인가요?","높이 솟은 파도를 찾아보세요."],
+    ["파도 끝은 무엇처럼 보이나요?","손가락이나 발톱처럼 보이나요?"],
+    ["배를 타고 있다면 어떤 기분일까요?","파도와 배의 크기를 비교해 보세요."]
+  ],
+  create:"출렁출렁 바다",
+  createDescription:"내가 상상하는 커다란 파도와 바다 생물을 그려보세요."
+},
+{
+  title:"모나리자",
+  english:"Mona Lisa",
+  artist:"레오나르도 다 빈치 · 1503~1519년경",
+  image:"https://commons.wikimedia.org/wiki/Special:FilePath/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg?width=900",
+  source:"https://commons.wikimedia.org/wiki/File:Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg",
+  story:"한 여성이 의자에 앉아 우리를 바라보고 있어요. 얼굴의 표정과 뒤쪽 풍경을 자세히 살펴볼 수 있는 작품이에요.",
+  questions:[
+    ["여성의 표정은 어떤가요?","웃고 있는 것 같나요?"],
+    ["뒤쪽에는 어떤 풍경이 있나요?","산과 길, 물을 찾아보세요."],
+    ["그림 속 인물에게 이름을 지어준다면?","어울리는 이름을 생각해 보세요."]
+  ],
+  create:"나의 비밀스러운 미소",
+  createDescription:"재미있는 표정과 배경을 넣어 나만의 인물화를 만들어 보세요."
+}
 ];
 
-let currentIndex = 0;
-let selectedFeeling = "";
+let currentIndex=0;
+let selectedFeeling="";
 
-/* 화면 요소 */
-const artworkImage = document.getElementById("artworkImage");
-const imageFallback = document.getElementById("imageFallback");
+const artworkImage=document.getElementById("artworkImage");
+const imageFallback=document.getElementById("imageFallback");
 
-/* 작품 표시 */
 function showArtwork(index){
-  currentIndex = (index + artworks.length) % artworks.length;
-  const art = artworks[currentIndex];
+  currentIndex=(index+artworks.length)%artworks.length;
+  const art=artworks[currentIndex];
 
-  document.getElementById("artworkTitle").textContent = art.title;
-  document.getElementById("artworkArtist").textContent =
-    art.english + " · " + art.artist;
+  document.getElementById("artworkTitle").textContent=art.title;
+  document.getElementById("artworkArtist").textContent=art.english+" · "+art.artist;
+  document.getElementById("artworkStory").textContent=art.story;
+  document.getElementById("artworkCount").textContent=(currentIndex+1)+" / "+artworks.length;
 
-  document.getElementById("artworkStory").textContent = art.story;
+  artworkImage.style.display="block";
+  imageFallback.style.display="none";
+  artworkImage.alt=art.title;
 
-  document.getElementById("artworkCount").textContent =
-    (currentIndex + 1) + " / " + artworks.length;
-
-  artworkImage.style.display = "block";
-  imageFallback.style.display = "none";
-  artworkImage.alt = art.title;
-
-  artworkImage.onerror = function(){
-    artworkImage.style.display = "none";
-    imageFallback.style.display = "block";
-    document.getElementById("sourceLink").href = art.source;
+  artworkImage.onerror=function(){
+    artworkImage.style.display="none";
+    imageFallback.style.display="block";
+    document.getElementById("sourceLink").href=art.source;
   };
 
-  artworkImage.src = art.image;
+  artworkImage.src=art.image;
 
-  document.getElementById("createTitle").textContent = art.create;
-  document.getElementById("createDescription").textContent =
-    art.createDescription;
+  document.getElementById("createTitle").textContent=art.create;
+  document.getElementById("createDescription").textContent=art.createDescription;
 
   showQuestions(art);
   showGallery();
   loadReflection();
   clearCanvas();
-  selectedFeeling = "";
 
+  selectedFeeling="";
   document.querySelectorAll(".feeling-button").forEach(button=>{
     button.classList.remove("selected");
   });
 }
 
-/* 관찰 질문 */
 function showQuestions(art){
-  const list = document.getElementById("questionList");
-  list.innerHTML = "";
+  const list=document.getElementById("questionList");
+  list.innerHTML="";
 
   art.questions.forEach((question,index)=>{
-    const item = document.createElement("div");
-    item.className = "question-item";
+    const item=document.createElement("div");
+    item.className="question-item";
 
-    const number = document.createElement("div");
-    number.className = "question-number";
-    number.textContent = index + 1;
+    const number=document.createElement("div");
+    number.className="question-number";
+    number.textContent=index+1;
 
-    const text = document.createElement("div");
-    text.className = "question-text";
+    const text=document.createElement("div");
+    text.className="question-text";
 
-    const strong = document.createElement("strong");
-    strong.textContent = question[0];
+    const strong=document.createElement("strong");
+    strong.textContent=question[0];
 
-    const small = document.createElement("span");
-    small.textContent = question[1];
+    const small=document.createElement("span");
+    small.textContent=question[1];
 
     text.appendChild(strong);
     text.appendChild(small);
@@ -966,126 +789,105 @@ function showQuestions(art){
   });
 }
 
-/* 작품 이동 */
-function nextArtwork(){
-  showArtwork(currentIndex + 1);
-}
+function nextArtwork(){showArtwork(currentIndex+1)}
+function previousArtwork(){showArtwork(currentIndex-1)}
 
-function previousArtwork(){
-  showArtwork(currentIndex - 1);
-}
-
-/* 느낌 선택 */
 function chooseFeeling(button){
   document.querySelectorAll(".feeling-button").forEach(item=>{
     item.classList.remove("selected");
   });
-
   button.classList.add("selected");
-  selectedFeeling = button.dataset.feeling;
+  selectedFeeling=button.dataset.feeling;
 }
 
-/* 감상 기록 저장 */
 function reflectionKey(){
-  return "rasArtReflection_" + currentIndex;
+  return "rasArtReflection_"+currentIndex;
 }
 
 function saveReflection(){
-  const text = document.getElementById("reflectionInput").value.trim();
+  const text=document.getElementById("reflectionInput").value.trim();
 
-  if(!selectedFeeling && !text){
+  if(!selectedFeeling&&!text){
     alert("느낌을 선택하거나 생각을 적어주세요.");
     return;
   }
 
-  const data = {
-    feeling:selectedFeeling,
-    text:text
-  };
-
+  const data={feeling:selectedFeeling,text:text};
   localStorage.setItem(reflectionKey(),JSON.stringify(data));
   loadReflection();
   alert("나의 감상 기록을 저장했어요!");
 }
 
 function loadReflection(){
-  const saved = localStorage.getItem(reflectionKey());
-  const box = document.getElementById("savedReflection");
-  const input = document.getElementById("reflectionInput");
+  const saved=localStorage.getItem(reflectionKey());
+  const box=document.getElementById("savedReflection");
+  const input=document.getElementById("reflectionInput");
 
-  input.value = "";
+  input.value="";
 
   if(!saved){
-    box.textContent = "아직 저장된 감상 기록이 없어요.";
+    box.textContent="아직 저장된 감상 기록이 없어요.";
     return;
   }
 
   try{
-    const data = JSON.parse(saved);
-    input.value = data.text || "";
+    const data=JSON.parse(saved);
+    input.value=data.text||"";
 
     if(data.feeling){
-      selectedFeeling = data.feeling;
-
+      selectedFeeling=data.feeling;
       document.querySelectorAll(".feeling-button").forEach(button=>{
-        button.classList.toggle(
-          "selected",
-          button.dataset.feeling === data.feeling
-        );
+        button.classList.toggle("selected",button.dataset.feeling===data.feeling);
       });
     }
 
-    box.innerHTML = "";
+    box.innerHTML="";
+    const title=document.createElement("strong");
+    title.textContent="내가 느낀 마음: ";
 
-    const title = document.createElement("strong");
-    title.textContent = "내가 느낀 마음: ";
+    const feeling=document.createElement("span");
+    feeling.textContent=data.feeling||"선택하지 않았어요";
 
-    const feeling = document.createElement("span");
-    feeling.textContent = data.feeling || "선택하지 않았어요";
-
-    const paragraph = document.createElement("p");
-    paragraph.textContent = data.text || "작성한 생각이 없어요.";
+    const paragraph=document.createElement("p");
+    paragraph.textContent=data.text||"작성한 생각이 없어요.";
 
     box.appendChild(title);
     box.appendChild(feeling);
     box.appendChild(paragraph);
-
   }catch(error){
-    box.textContent = "저장된 감상 기록을 읽을 수 없어요.";
+    box.textContent="저장된 감상 기록을 읽을 수 없어요.";
   }
 }
 
-/* 작품 갤러리 */
 function showGallery(){
-  const gallery = document.getElementById("galleryGrid");
-  gallery.innerHTML = "";
+  const gallery=document.getElementById("galleryGrid");
+  gallery.innerHTML="";
 
   artworks.forEach((art,index)=>{
-    const button = document.createElement("button");
-    button.className = "gallery-item";
-    button.type = "button";
+    const button=document.createElement("button");
+    button.className="gallery-item";
+    button.type="button";
 
-    const image = document.createElement("img");
-    image.src = art.image;
-    image.alt = art.title;
-    image.loading = "lazy";
+    const image=document.createElement("img");
+    image.src=art.image;
+    image.alt=art.title;
+    image.loading="lazy";
 
-    image.onerror = function(){
-      image.style.display = "none";
+    image.onerror=function(){
+      image.style.display="none";
     };
 
-    const info = document.createElement("div");
-    info.className = "gallery-item-info";
+    const info=document.createElement("div");
+    info.className="gallery-item-info";
 
-    const title = document.createElement("strong");
-    title.textContent = art.title;
+    const title=document.createElement("strong");
+    title.textContent=art.title;
 
-    const artist = document.createElement("span");
-    artist.textContent = art.artist;
+    const artist=document.createElement("span");
+    artist.textContent=art.artist;
 
     info.appendChild(title);
     info.appendChild(artist);
-
     button.appendChild(image);
     button.appendChild(info);
 
@@ -1099,29 +901,26 @@ function showGallery(){
 }
 
 /* 그림판 */
-const canvas = document.getElementById("drawingCanvas");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("drawingCanvas");
+const ctx=canvas.getContext("2d");
 
-let drawing = false;
-let brushColor = "#E58B9D";
-let brushWidth = 8;
-let erasing = false;
+let drawing=false;
+let brushColor="#E58B9D";
+let brushWidth=8;
+let erasing=false;
 
 function clearCanvas(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = "#FFFFFF";
+  ctx.fillStyle="#FFFFFF";
   ctx.fillRect(0,0,canvas.width,canvas.height);
 }
 
 function setBrush(color){
-  brushColor = color;
-  erasing = false;
+  brushColor=color;
+  erasing=false;
 
   document.querySelectorAll(".color-button").forEach(button=>{
-    button.classList.toggle(
-      "selected",
-      button.dataset.color === color
-    );
+    button.classList.toggle("selected",button.dataset.color===color);
   });
 }
 
@@ -1132,31 +931,28 @@ document.querySelectorAll(".color-button").forEach(button=>{
 });
 
 document.getElementById("brushSize").addEventListener("input",e=>{
-  brushWidth = Number(e.target.value);
+  brushWidth=Number(e.target.value);
 });
 
 function useEraser(){
-  erasing = true;
+  erasing=true;
   document.querySelectorAll(".color-button").forEach(button=>{
     button.classList.remove("selected");
   });
 }
 
 function getCanvasPosition(event){
-  const rect = canvas.getBoundingClientRect();
-
+  const rect=canvas.getBoundingClientRect();
   return {
-    x:(event.clientX - rect.left) * canvas.width / rect.width,
-    y:(event.clientY - rect.top) * canvas.height / rect.height
+    x:(event.clientX-rect.left)*canvas.width/rect.width,
+    y:(event.clientY-rect.top)*canvas.height/rect.height
   };
 }
 
 function startDrawing(event){
-  drawing = true;
+  drawing=true;
   canvas.setPointerCapture(event.pointerId);
-
-  const position = getCanvasPosition(event);
-
+  const position=getCanvasPosition(event);
   ctx.beginPath();
   ctx.moveTo(position.x,position.y);
 }
@@ -1164,19 +960,17 @@ function startDrawing(event){
 function draw(event){
   if(!drawing)return;
 
-  const position = getCanvasPosition(event);
-
-  ctx.lineWidth = brushWidth;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.strokeStyle = erasing ? "#FFFFFF" : brushColor;
-
+  const position=getCanvasPosition(event);
+  ctx.lineWidth=brushWidth;
+  ctx.lineCap="round";
+  ctx.lineJoin="round";
+  ctx.strokeStyle=erasing?"#FFFFFF":brushColor;
   ctx.lineTo(position.x,position.y);
   ctx.stroke();
 }
 
 function stopDrawing(){
-  drawing = false;
+  drawing=false;
   ctx.beginPath();
 }
 
@@ -1184,19 +978,16 @@ canvas.addEventListener("pointerdown",startDrawing);
 canvas.addEventListener("pointermove",draw);
 canvas.addEventListener("pointerup",stopDrawing);
 canvas.addEventListener("pointercancel",stopDrawing);
-canvas.addEventListener("pointerleave",stopDrawing);
 
-/* 그림 저장 */
 function downloadDrawing(){
-  const link = document.createElement("a");
-  link.download = "나의-명화감상-그림.png";
-  link.href = canvas.toDataURL("image/png");
+  const link=document.createElement("a");
+  link.download="나의-명화감상-그림.png";
+  link.href=canvas.toDataURL("image/png");
   link.click();
 }
 
-/* 홈으로 이동 */
 function goHome(){
-  window.location.href = "../";
+  window.location.href="../";
 }
 
 /* 처음 실행 */
