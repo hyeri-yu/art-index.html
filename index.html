@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -100,6 +101,15 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
  .art-nav button{flex:1;padding:9px 5px;font-size:12px}
  canvas{height:230px}
 }
+
+/* 명화 전체 화면 보기 */
+.art-image{cursor:zoom-in}
+.fullscreen-viewer{display:none;position:fixed;inset:0;z-index:9999;background:rgba(20,16,24,.96);align-items:center;justify-content:center;padding:24px}
+.fullscreen-viewer.open{display:flex}
+.fullscreen-viewer img{max-width:96vw;max-height:90vh;object-fit:contain;box-shadow:0 8px 40px rgba(0,0,0,.35)}
+.fullscreen-close{position:absolute;top:18px;right:20px;border:0;border-radius:30px;background:#fff;color:#55445f;font-size:16px;font-weight:800;padding:11px 17px}
+.fullscreen-hint{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#fff;font-size:13px}
+
 </style>
 </head>
 
@@ -118,20 +128,20 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
  <div class="hero-icon">🎨</div>
  <h1>하하하 명화감상</h1>
  <p>그림을 자세히 보고, 마음을 표현하고, 나만의 작품을 만들어요.</p>
- <span class="hero-label">유치원 5~7세 · 명화 100점</span>
+ <span class="hero-label">유치원 5~7세 · 명화 50점</span>
 </section>
 
 <div class="stats">
- <div class="stat"><strong id="totalCount">100</strong><span>전체 작품</span></div>
- <div class="stat"><strong id="categoryCount">100</strong><span>현재 주제 작품</span></div>
- <div class="stat"><strong id="currentCount">1 / 100</strong><span>감상 중인 작품</span></div>
+ <div class="stat"><strong id="totalCount">50</strong><span>전체 작품</span></div>
+ <div class="stat"><strong id="categoryCount">50</strong><span>현재 주제 작품</span></div>
+ <div class="stat"><strong id="currentCount">1 / 50</strong><span>감상 중인 작품</span></div>
 </div>
 
 <h2 class="section-title">🌈 어떤 그림을 만나볼까요?</h2>
 <p class="description">주제를 선택하거나 작품 이름과 화가를 검색해 보세요.</p>
 
 <div class="filters" id="filters">
- <button class="filter active" data-category="전체">전체 100점</button>
+ <button class="filter active" data-category="전체">전체 50점</button>
  <button class="filter" data-category="서양 명화">서양 명화 40점</button>
  <button class="filter" data-category="한국 전통 그림">한국 전통 그림 20점</button>
  <button class="filter" data-category="세계 여러 나라">세계 여러 나라 20점</button>
@@ -150,7 +160,7 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
 <div class="art-card">
  <div class="art-top">
   <span class="art-label" id="todayLabel">오늘의 명화</span>
-  <span class="art-count" id="artCount">1 / 100</span>
+  <span class="art-count" id="artCount">1 / 50</span>
  </div>
  <div class="image-wrap">
   <img id="artImage" class="art-image" alt="명화">
@@ -198,7 +208,7 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
  </div>
 </div>
 
-<h2 class="section-title">🗂️ 명화 100점 둘러보기</h2>
+<h2 class="section-title">🗂️ 명화 50점 둘러보기</h2>
 <p class="description">작품을 누르면 해당 그림을 감상할 수 있어요.</p>
 <div class="gallery" id="gallery"></div>
 <div class="pager">
@@ -225,116 +235,61 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
 
 <script>
 /*
-작품 데이터 100점
+작품 데이터 50점
 각 작품의 이미지 검색어를 Wikimedia Commons에서 검색해 불러옵니다.
 */
 const raw = [
-/* 서양 명화 40 */
-["서양 명화","별이 빛나는 밤","빈센트 반 고흐","1889","Van Gogh Starry Night","고흐가 바라본 밤하늘이에요. 소용돌이치는 하늘과 반짝이는 별을 살펴보세요.","나만의 별이 빛나는 밤"],
-["서양 명화","해바라기","빈센트 반 고흐","1888","Van Gogh Sunflowers painting","노란 해바라기가 꽃병에 가득 담겨 있어요. 꽃잎과 줄기의 색을 찾아보세요.","내가 좋아하는 꽃"],
-["서양 명화","아를의 별이 빛나는 밤","빈센트 반 고흐","1888","Van Gogh Starry Night Over the Rhone","밤하늘과 강물에 비친 불빛을 표현한 그림이에요.","반짝이는 밤 풍경"],
-["서양 명화","밤의 카페 테라스","빈센트 반 고흐","1888","Van Gogh Cafe Terrace at Night","노란 불빛이 빛나는 카페와 밤거리를 살펴보세요.","나만의 밤 카페"],
-["서양 명화","자화상","빈센트 반 고흐","1889","Van Gogh self portrait 1889","화가가 거울을 보며 자신의 모습을 그렸어요.","나의 얼굴 그리기"],
-["서양 명화","수련","클로드 모네","1906","Claude Monet Water Lilies painting","연못 위에 떠 있는 수련과 물에 비친 빛을 찾아보세요.","나만의 연못"],
-["서양 명화","인상, 해돋이","클로드 모네","1872","Claude Monet Impression Sunrise","해가 떠오르는 항구의 풍경이에요. 주황빛과 푸른빛을 찾아보세요.","나만의 해돋이"],
-["서양 명화","양산을 쓴 여인","클로드 모네","1875","Claude Monet Woman with a Parasol","바람이 부는 날 양산을 든 사람의 모습을 살펴보세요.","바람 부는 날"],
-["서양 명화","정원의 여인들","클로드 모네","1866","Claude Monet Women in the Garden","정원에서 시간을 보내는 사람들과 꽃을 관찰해 보세요.","우리 반 정원"],
-["서양 명화","일본식 다리","클로드 모네","1899","Claude Monet Japanese Bridge","초록 식물과 다리, 연못의 색을 찾아보세요.","나만의 다리"],
-["서양 명화","물랭 드 라 갈레트의 무도회","오귀스트 르누아르","1876","Renoir Moulin de la Galette","사람들이 모여 춤추고 즐기는 모습을 살펴보세요.","즐거운 축제"],
-["서양 명화","뱃놀이하는 사람들의 점심","오귀스트 르누아르","1881","Renoir Luncheon of the Boating Party","사람들이 함께 식사하는 장면이에요.","친구와 함께하는 점심"],
-["서양 명화","두 자매","오귀스트 르누아르","1881","Renoir Two Sisters On the Terrace","두 사람이 나란히 앉아 있는 모습을 관찰해 보세요.","소중한 사람과 나"],
-["서양 명화","피아노 앞의 소녀들","오귀스트 르누아르","1892","Renoir Girls at the Piano","피아노 앞에 모인 소녀들의 모습을 살펴보세요.","음악이 있는 방"],
-["서양 명화","키스","구스타프 클림트","1908","Gustav Klimt The Kiss painting","금빛 무늬와 꽃 장식이 가득한 그림이에요.","반짝이는 무늬 꾸미기"],
-["서양 명화","생명의 나무","구스타프 클림트","1909","Gustav Klimt Tree of Life","나뭇가지가 빙글빙글 뻗어 나가는 모습을 찾아보세요.","나만의 생명의 나무"],
-["서양 명화","아델레 블로흐 바우어의 초상","구스타프 클림트","1907","Klimt Portrait of Adele Bloch Bauer","금빛 장식과 여러 무늬를 자세히 살펴보세요.","나만의 화려한 초상화"],
-["서양 명화","절규","에드바르 뭉크","1893","Edvard Munch The Scream","인물의 표정과 주변의 물결치는 선을 관찰해 보세요.","내 마음의 색깔"],
-["서양 명화","키스","에곤 실레","1917","Egon Schiele The Family painting","인물의 자세와 선을 살펴보세요.","사람들의 모습"],
-["서양 명화","진주 귀걸이를 한 소녀","요하네스 페르메이르","1665","Vermeer Girl with a Pearl Earring","소녀의 표정과 반짝이는 귀걸이를 찾아보세요.","나의 특별한 초상화"],
-["서양 명화","우유 따르는 여인","요하네스 페르메이르","1658","Vermeer The Milkmaid","여인이 조심스럽게 우유를 따르는 모습을 살펴보세요.","부엌에서 일어나는 일"],
-["서양 명화","모나리자","레오나르도 다 빈치","1503","Leonardo da Vinci Mona Lisa","여인의 미소와 뒤쪽 풍경을 자세히 살펴보세요.","나의 비밀스러운 미소"],
-["서양 명화","최후의 만찬","레오나르도 다 빈치","1498","Leonardo da Vinci Last Supper","긴 식탁에 모인 사람들의 모습을 관찰해 보세요.","함께하는 식탁"],
-["서양 명화","비너스의 탄생","산드로 보티첼리","1485","Botticelli Birth of Venus","바다와 조개, 바람에 날리는 머리카락을 찾아보세요.","바다에서 온 주인공"],
-["서양 명화","봄","산드로 보티첼리","1482","Botticelli Primavera painting","꽃과 나무, 여러 인물이 있는 정원을 살펴보세요.","봄의 정원"],
-["서양 명화","큰 파도","가쓰시카 호쿠사이","1831","Hokusai Great Wave off Kanagawa","커다란 파도와 작은 배, 멀리 있는 산을 찾아보세요.","출렁출렁 바다"],
-["서양 명화","아메리칸 고딕","그랜트 우드","1930","Grant Wood American Gothic","두 사람의 표정과 손에 든 물건을 살펴보세요.","우리 가족 초상화"],
-["서양 명화","크리스티나의 세계","앤드루 와이어스","1948","Andrew Wyeth Christina's World","넓은 들판과 멀리 있는 집을 관찰해 보세요.","넓은 들판"],
-["서양 명화","기억의 지속","살바도르 달리","1931","Salvador Dali Persistence of Memory","녹아내리는 시계와 낯선 풍경을 살펴보세요.","상상 속 시계"],
-["서양 명화","코끼리가 있는 공간","살바도르 달리","1948","Salvador Dali Elephants painting","길게 뻗은 다리와 상상 속 동물을 찾아보세요.","상상 속 동물"],
-["서양 명화","두 마리의 타히티 여인","폴 고갱","1899","Paul Gauguin Two Tahitian Women","인물의 옷과 배경에 쓰인 색을 찾아보세요.","알록달록한 사람들"],
-["서양 명화","우리는 어디서 왔는가","폴 고갱","1898","Gauguin Where Do We Come From painting","그림 속 사람과 자연의 모습을 살펴보세요.","나의 이야기"],
-["서양 명화","사과와 오렌지","폴 세잔","1899","Paul Cezanne Apples and Oranges","과일의 모양과 색, 놓인 위치를 살펴보세요.","과일 바구니"],
-["서양 명화","카드놀이 하는 사람들","폴 세잔","1895","Cezanne The Card Players","탁자에 앉아 있는 사람들의 모습을 살펴보세요.","친구와 놀이"],
-["서양 명화","그랑드 자트 섬의 일요일 오후","조르주 쇠라","1886","Seurat Sunday Afternoon on the Island of La Grande Jatte","작은 점으로 표현된 사람과 나무를 찾아보세요.","점으로 그리는 그림"],
-["서양 명화","서커스","조르주 쇠라","1891","Georges Seurat The Circus","서커스 무대와 사람들의 움직임을 관찰해 보세요.","신나는 서커스"],
-["서양 명화","춤","앙리 마티스","1910","Henri Matisse Dance painting","손을 잡고 원을 그리며 춤추는 사람들을 살펴보세요.","빙글빙글 춤추기"],
-["서양 명화","붉은 방","앙리 마티스","1908","Henri Matisse The Dessert Harmony in Red","빨간색으로 가득한 방의 무늬를 찾아보세요.","빨간색 방 꾸미기"],
-["서양 명화","나와 마을","마르크 샤갈","1911","Marc Chagall I and the Village","사람과 동물, 마을이 어우러진 상상 속 풍경이에요.","꿈속 마을"],
-["서양 명화","생일","마르크 샤갈","1915","Marc Chagall Birthday painting","사랑하는 사람과 떠오르는 듯한 인물을 살펴보세요.","즐거운 생일"],
-/* 한국 전통 그림 20 */
-["한국 전통 그림","서당","김홍도","18세기","Kim Hong do Seodang painting","서당에서 글을 배우는 아이들과 훈장님의 모습을 살펴보세요.","우리 교실"],
-["한국 전통 그림","씨름","김홍도","18세기","Kim Hong do Ssireum painting","씨름하는 사람들과 둘러앉은 구경꾼을 찾아보세요.","우리들의 운동회"],
-["한국 전통 그림","무동","김홍도","18세기","Kim Hong do Mudong dancing painting","춤추는 아이와 악기를 연주하는 사람들을 살펴보세요.","신나는 춤 공연"],
-["한국 전통 그림","타작","김홍도","18세기","Kim Hong do Threshing painting","곡식을 털고 나르는 사람들의 모습을 관찰해 보세요.","가을 추수"],
-["한국 전통 그림","대장간","김홍도","18세기","Kim Hong do Blacksmith painting","대장간에서 일하는 사람들의 모습을 찾아보세요.","무엇을 만드는 곳일까"],
-["한국 전통 그림","서화 감상","김홍도","18세기","Kim Hong do Korean genre painting","그림을 감상하는 사람들의 모습을 살펴보세요.","작은 미술관"],
-["한국 전통 그림","춤추는 아이","김홍도","18세기","Kim Hong do Korean dancing child painting","춤추는 사람의 자세와 주변 악기를 찾아보세요.","내가 추는 춤"],
-["한국 전통 그림","길쌈","김홍도","18세기","Kim Hong do Korean weaving painting","옛날 사람들이 천을 만드는 모습을 살펴보세요.","나만의 무늬 천"],
-["한국 전통 그림","단오풍정","신윤복","18세기","Shin Yun bok Dano day painting","단오날 사람들의 놀이와 풍경을 찾아보세요.","우리들의 전통 놀이"],
-["한국 전통 그림","미인도","신윤복","18세기","Shin Yun bok Miindo painting","한복의 색과 모양, 인물의 모습을 살펴보세요.","아름다운 한복"],
-["한국 전통 그림","월하정인","신윤복","18세기","Shin Yun bok Wolha Jeongin painting","달빛 아래 두 사람이 서 있는 모습을 관찰해 보세요.","달빛 아래 산책"],
-["한국 전통 그림","쌍검대무","신윤복","18세기","Shin Yun bok Ssanggeomdaemu painting","칼춤을 추는 사람들의 움직임을 살펴보세요.","우리들의 춤"],
-["한국 전통 그림","연소답청","신윤복","18세기","Shin Yun bok Yeonso Dapcheong painting","봄날 나들이를 나온 사람들을 찾아보세요.","봄 소풍"],
-["한국 전통 그림","타작도","김득신","18세기","Kim Deuk sin Korean threshing painting","함께 일하는 사람들의 표정과 움직임을 관찰해 보세요.","함께 일해요"],
-["한국 전통 그림","파적도","김득신","18세기","Kim Deuk sin Pajeokdo painting","그림 속에서 갑자기 일어난 재미있는 상황을 찾아보세요.","깜짝 놀란 순간"],
-["한국 전통 그림","인왕제색도","정선","1751","Jeong Seon Inwangjesaekdo painting","비가 온 뒤 산의 모습과 바위, 안개를 살펴보세요.","우리 동네 산"],
-["한국 전통 그림","금강전도","정선","1734","Jeong Seon Geumgangjeondo painting","높고 낮은 산봉우리와 자연의 모습을 찾아보세요.","나만의 산 풍경"],
-["한국 전통 그림","몽유도원도","안견","1447","An Gyeon Dream Journey to the Peach Blossom Land","산과 복숭아꽃이 있는 상상 속 풍경을 살펴보세요.","꿈속 꽃나라"],
-["한국 전통 그림","책가도","조선 민화","조선 후기","Korean Chaekgado traditional painting","책과 그릇, 여러 물건이 놓인 모습을 찾아보세요.","내 책장 꾸미기"],
-["한국 전통 그림","까치와 호랑이","한국 민화","조선 후기","Korean Minhwa Tiger Magpie painting","호랑이의 표정과 나무 위 까치를 찾아보세요.","재미있는 동물 그림"],
-/* 세계 여러 나라 20 */
-["세계 여러 나라","호쿠사이의 후지산","가쓰시카 호쿠사이","1830년대","Hokusai Mount Fuji Thirty Six Views","후지산과 주변 풍경의 모양을 살펴보세요.","내가 상상한 산"],
-["세계 여러 나라","대나무와 새","중국 전통 화가","전통 회화","Chinese traditional bamboo bird painting","대나무 잎과 작은 새의 모습을 관찰해 보세요.","대나무 숲"],
-["세계 여러 나라","연꽃 그림","중국 전통 화가","전통 회화","Chinese traditional lotus flower painting","연꽃과 물 위의 잎을 찾아보세요.","나만의 연꽃"],
-["세계 여러 나라","코끼리와 호랑이","앙리 루소","1908","Henri Rousseau Exotic Landscape tiger","울창한 숲속 동물과 식물을 찾아보세요.","신비한 정글"],
-["세계 여러 나라","잠자는 집시","앙리 루소","1897","Henri Rousseau Sleeping Gypsy","사막과 달빛, 잠든 사람과 사자를 살펴보세요.","달빛 사막"],
-["세계 여러 나라","꿈","앙리 루소","1910","Henri Rousseau The Dream painting","커다란 식물과 숲속의 인물을 찾아보세요.","나의 꿈속 정글"],
-["세계 여러 나라","두 마리의 새","아메데오 모딜리아니","20세기","Amedeo Modigliani portrait painting","길쭉한 모양과 단순한 색을 관찰해 보세요.","길쭉한 얼굴"],
-["세계 여러 나라","꽃이 있는 정물","조지아 오키프","1920년대","Georgia O Keeffe flowers painting","꽃잎의 큰 모양과 색깔을 가까이 살펴보세요.","커다란 꽃"],
-["세계 여러 나라","붉은 칸나","조지아 오키프","1924","Georgia O Keeffe Red Canna painting","꽃잎의 곡선과 색이 어떻게 이어지는지 찾아보세요.","꽃잎의 모양"],
-["세계 여러 나라","자화상","프리다 칼로","1940","Frida Kahlo Self Portrait painting","화가의 얼굴과 주변에 있는 식물을 관찰해 보세요.","나를 소개하는 그림"],
-["세계 여러 나라","두 명의 프리다","프리다 칼로","1939","Frida Kahlo The Two Fridas","두 인물의 옷과 표정을 비교해 보세요.","두 가지 내 모습"],
-["세계 여러 나라","꽃의 축제","디에고 리베라","1920년대","Diego Rivera Flower Festival painting","꽃과 사람들의 움직임을 찾아보세요.","꽃 축제"],
-["세계 여러 나라","아기 코끼리","폴 클레","1920년대","Paul Klee elephant painting","단순한 선과 색으로 표현된 동물을 살펴보세요.","내가 만든 동물"],
-["세계 여러 나라","물고기 마법","폴 클레","1925","Paul Klee Fish Magic painting","물고기와 여러 모양이 있는 신비한 장면이에요.","마법의 바닷속"],
-["세계 여러 나라","고양이와 새","파울 클레","1928","Paul Klee Cat and Bird painting","고양이 얼굴과 머리 위 작은 새를 찾아보세요.","나의 동물 친구"],
-["세계 여러 나라","푸른 말","프란츠 마르크","1911","Franz Marc Blue Horse painting","말의 색깔과 주변 자연의 색을 살펴보세요.","알록달록 동물"],
-["세계 여러 나라","노란 소","프란츠 마르크","1911","Franz Marc Yellow Cow painting","소의 몸 색과 주변 풍경을 찾아보세요.","색깔 동물 농장"],
-["세계 여러 나라","아기 코끼리들의 행렬","살바도르 달리","1948","Salvador Dali elephants painting","길고 가느다란 다리와 동물의 모습을 찾아보세요.","상상 속 동물 행렬"],
-["세계 여러 나라","아프리카 가면","아프리카 전통 미술","전통 미술","African traditional mask art","가면의 색과 반복되는 무늬를 관찰해 보세요.","나만의 가면"],
-["세계 여러 나라","인도 라자스탄 정원","인도 전통 미술","전통 회화","Indian miniature painting garden","작은 사람과 꽃, 정원의 장식을 찾아보세요.","작은 정원 이야기"],
-/* 상상력과 추상 20 */
-["상상력과 추상","구성 8","바실리 칸딘스키","1923","Wassily Kandinsky Composition VIII","원과 선, 삼각형이 어떻게 어울리는지 찾아보세요.","도형으로 만드는 그림"],
-["상상력과 추상","노랑 빨강 파랑","바실리 칸딘스키","1925","Kandinsky Yellow Red Blue painting","노랑, 빨강, 파랑이 주는 느낌을 이야기해 보세요.","색깔의 음악"],
-["상상력과 추상","여러 개의 원","바실리 칸딘스키","1926","Kandinsky Several Circles painting","크기가 다른 원을 찾아보세요.","빙글빙글 원"],
-["상상력과 추상","즉흥 28","바실리 칸딘스키","1912","Kandinsky Improvisation 28","여러 선과 색이 만들어내는 느낌을 살펴보세요.","마음대로 그은 선"],
-["상상력과 추상","빨강 파랑 노랑의 구성","피트 몬드리안","1930","Mondrian Composition Red Blue Yellow","검은 선과 네모 칸, 원색을 찾아보세요.","나만의 네모 구성"],
-["상상력과 추상","브로드웨이 부기우기","피트 몬드리안","1942","Mondrian Broadway Boogie Woogie","작은 네모들이 어떤 길을 만드는지 살펴보세요.","네모 길 만들기"],
-["상상력과 추상","빨강 파랑 노랑의 구성 2","피트 몬드리안","1930년대","Mondrian abstract composition","직선과 색 면이 만나는 곳을 찾아보세요.","색종이 네모"],
-["상상력과 추상","기억의 정원","조안 미로","1950년대","Joan Miro abstract painting","상상 속 생물처럼 보이는 모양을 찾아보세요.","상상 속 친구"],
-["상상력과 추상","여성과 새","조안 미로","1940년대","Joan Miro Woman and Bird painting","선과 점, 별처럼 보이는 모양을 살펴보세요.","별과 새"],
-["상상력과 추상","푸른 별","조안 미로","1920년대","Joan Miro Blue Star painting","파란색 바탕에 떠 있는 여러 모양을 찾아보세요.","나의 별자리"],
-["상상력과 추상","넘버 1","잭슨 폴록","1949","Jackson Pollock Number 1 painting","물감이 흘러가고 튀며 만들어낸 선을 관찰해 보세요.","톡톡 물감 놀이"],
-["상상력과 추상","가을의 리듬","잭슨 폴록","1950","Jackson Pollock Autumn Rhythm painting","여러 선이 겹쳐진 모습을 살펴보세요.","선으로 만드는 리듬"],
-["상상력과 추상","색면 회화","마크 로스코","1950년대","Mark Rothko color field painting","큰 색깔 면을 바라보며 어떤 느낌이 드는지 이야기해 보세요.","마음의 색깔"],
-["상상력과 추상","주황과 노랑","마크 로스코","1956","Mark Rothko Orange and Yellow painting","두 색이 서로 어떻게 어울리는지 살펴보세요.","색깔이 만나는 곳"],
-["상상력과 추상","빨강 파랑 의자","알렉산더 칼더","20세기","Alexander Calder mobile art","움직이는 모양과 균형을 상상해 보세요.","움직이는 조형물"],
-["상상력과 추상","모빌","알렉산더 칼더","20세기","Alexander Calder mobile sculpture","공중에 매달린 모양과 균형을 살펴보세요.","나만의 모빌"],
-["상상력과 추상","종이 오리기 작품","앙리 마티스","1940년대","Henri Matisse cut outs Blue Nude","종이를 오려 만든 색과 모양을 찾아보세요.","색종이 오리기"],
-["상상력과 추상","달팽이","앙리 마티스","1953","Henri Matisse The Snail collage","색종이 조각들이 어떤 모양을 이루는지 살펴보세요.","색종이 달팽이"],
-["상상력과 추상","검은 사각형","카지미르 말레비치","1915","Kazimir Malevich Black Square","단순한 네모 하나가 주는 느낌을 이야기해 보세요.","나만의 도형 그림"],
-["상상력과 추상","빨간 풍선","파울 클레","1922","Paul Klee Red Balloon painting","선과 색이 어떤 길과 모양을 만드는지 찾아보세요.","나의 상상 풍선"]
+  ["서양 명화", "별이 빛나는 밤", "빈센트 반 고흐", "1889", "Vincent van Gogh The Starry Night 1889", "소용돌이치는 하늘과 반짝이는 별을 찾아보세요.", "나만의 별이 빛나는 밤"],
+  ["서양 명화", "해바라기", "빈센트 반 고흐", "1888", "Vincent van Gogh Sunflowers 1888", "꽃병 속 해바라기의 색과 모양을 살펴보세요.", "내가 좋아하는 꽃"],
+  ["서양 명화", "아를의 별이 빛나는 밤", "빈센트 반 고흐", "1888", "Vincent van Gogh Starry Night Over the Rhone 1888", "강물에 비친 불빛과 밤하늘을 찾아보세요.", "반짝이는 밤 풍경"],
+  ["서양 명화", "밤의 카페 테라스", "빈센트 반 고흐", "1888", "Vincent van Gogh Cafe Terrace at Night 1888", "카페의 노란 불빛과 밤거리를 관찰해 보세요.", "나만의 밤 카페"],
+  ["서양 명화", "자화상", "빈센트 반 고흐", "1889", "Vincent van Gogh Self Portrait 1889", "화가의 얼굴과 붓 터치를 살펴보세요.", "나의 얼굴 그리기"],
+  ["서양 명화", "수련", "클로드 모네", "1906년경", "Claude Monet Water Lilies 1906", "연못 위 수련과 물에 비친 빛을 찾아보세요.", "나만의 연못"],
+  ["서양 명화", "인상, 해돋이", "클로드 모네", "1872", "Claude Monet Impression Sunrise 1872", "해가 떠오르는 항구의 색을 살펴보세요.", "나만의 해돋이"],
+  ["서양 명화", "양산을 쓴 여인", "클로드 모네", "1875", "Claude Monet Woman with a Parasol 1875", "양산과 옷자락에서 바람을 느껴보세요.", "바람 부는 날"],
+  ["서양 명화", "일본식 다리", "클로드 모네", "1899", "Claude Monet Japanese Bridge 1899", "다리와 연못, 초록 식물을 찾아보세요.", "나만의 다리"],
+  ["서양 명화", "물랭 드 라 갈레트의 무도회", "오귀스트 르누아르", "1876", "Pierre Auguste Renoir Dance at Le Moulin de la Galette 1876", "사람들이 모여 춤추는 장면을 관찰해 보세요.", "즐거운 축제"],
+  ["서양 명화", "뱃놀이하는 사람들의 점심", "오귀스트 르누아르", "1881", "Pierre Auguste Renoir Luncheon of the Boating Party 1881", "함께 식사하는 사람들의 표정과 물건을 찾아보세요.", "친구와 함께하는 점심"],
+  ["서양 명화", "두 자매", "오귀스트 르누아르", "1881", "Pierre Auguste Renoir Two Sisters On the Terrace 1881", "두 사람의 옷과 주변 풍경을 살펴보세요.", "소중한 사람과 나"],
+  ["서양 명화", "키스", "구스타프 클림트", "1907~1908", "Gustav Klimt The Kiss 1907 1908", "금빛 무늬와 옷의 장식을 관찰해 보세요.", "반짝이는 무늬 꾸미기"],
+  ["서양 명화", "아델레 블로흐 바우어의 초상 I", "구스타프 클림트", "1907", "Gustav Klimt Portrait of Adele Bloch Bauer I 1907", "금빛 장식과 작은 무늬를 찾아보세요.", "화려한 초상화"],
+  ["서양 명화", "절규", "에드바르 뭉크", "1893", "Edvard Munch The Scream 1893 NG.M.00939", "인물의 표정과 물결치는 선을 관찰해 보세요.", "내 마음의 색깔"],
+  ["서양 명화", "진주 귀걸이를 한 소녀", "요하네스 페르메이르", "1665년경", "Johannes Vermeer Girl with a Pearl Earring", "소녀의 시선과 반짝이는 귀걸이를 찾아보세요.", "나의 특별한 초상화"],
+  ["서양 명화", "우유 따르는 여인", "요하네스 페르메이르", "1660년경", "Johannes Vermeer The Milkmaid", "여인이 우유를 따르는 모습을 살펴보세요.", "부엌에서 일어나는 일"],
+  ["서양 명화", "모나리자", "레오나르도 다 빈치", "1503~1519년경", "Leonardo da Vinci Mona Lisa", "여인의 미소와 뒤쪽 풍경을 관찰해 보세요.", "나의 비밀스러운 미소"],
+  ["서양 명화", "최후의 만찬", "레오나르도 다 빈치", "1495~1498", "Leonardo da Vinci The Last Supper", "긴 식탁에 모인 사람들의 모습을 살펴보세요.", "함께하는 식탁"],
+  ["서양 명화", "비너스의 탄생", "산드로 보티첼리", "1480년대", "Sandro Botticelli The Birth of Venus", "바다와 조개, 바람에 날리는 머리카락을 찾아보세요.", "바다에서 온 주인공"],
+  ["서양 명화", "아메리칸 고딕", "그랜트 우드", "1930", "Grant Wood American Gothic 1930", "두 사람의 표정과 손에 든 물건을 살펴보세요.", "우리 가족 초상화"],
+  ["서양 명화", "기억의 지속", "살바도르 달리", "1931", "Salvador Dali The Persistence of Memory 1931", "녹아내리는 시계와 낯선 풍경을 찾아보세요.", "상상 속 시계"],
+  ["서양 명화", "사과와 오렌지", "폴 세잔", "1899년경", "Paul Cezanne Apples and Oranges 1899", "과일의 모양과 색, 놓인 위치를 살펴보세요.", "과일 바구니"],
+  ["서양 명화", "그랑드 자트 섬의 일요일 오후", "조르주 쇠라", "1884~1886", "Georges Seurat A Sunday Afternoon on the Island of La Grande Jatte", "작은 점으로 표현된 사람과 나무를 찾아보세요.", "점으로 그리는 그림"],
+  ["서양 명화", "야경", "렘브란트", "1642", "Rembrandt The Night Watch 1642", "사람들의 움직임과 빛이 비치는 곳을 찾아보세요.", "우리들의 행진"],
+  ["한국 전통 그림", "씨름", "김홍도", "18세기", "Kim Hong-do Ssireum wrestling painting", "씨름하는 사람들과 둘러앉은 구경꾼을 찾아보세요.", "우리들의 운동회"],
+  ["한국 전통 그림", "무동", "김홍도", "18세기", "Kim Hong-do Dancing Boy Mudong painting", "춤추는 아이와 악기를 연주하는 사람들을 살펴보세요.", "신나는 춤 공연"],
+  ["한국 전통 그림", "서당", "김홍도", "18세기", "Kim Hong-do Seodang painting", "글을 배우는 아이들과 훈장님의 모습을 살펴보세요.", "우리 교실"],
+  ["한국 전통 그림", "타작", "김홍도", "18세기", "Kim Hong-do Threshing painting", "곡식을 털고 나르는 사람들의 모습을 관찰해 보세요.", "가을 추수"],
+  ["한국 전통 그림", "대장간", "김홍도", "18세기", "Kim Hong-do Blacksmith painting", "대장간에서 일하는 사람들의 모습을 찾아보세요.", "무엇을 만드는 곳일까"],
+  ["한국 전통 그림", "단오풍정", "신윤복", "18세기", "Shin Yun-bok Dano Day painting", "단오날 사람들의 놀이와 풍경을 찾아보세요.", "우리들의 전통 놀이"],
+  ["한국 전통 그림", "미인도", "신윤복", "18세기", "Shin Yun-bok Portrait of a Beauty painting", "한복의 색과 모양, 인물의 모습을 살펴보세요.", "아름다운 한복"],
+  ["한국 전통 그림", "월하정인", "신윤복", "18세기", "Shin Yun-bok Lovers Under the Moon painting", "달빛 아래 두 사람이 서 있는 모습을 관찰해 보세요.", "달빛 아래 산책"],
+  ["한국 전통 그림", "쌍검대무", "신윤복", "18세기", "Shin Yun-bok Dance with Two Swords painting", "칼춤을 추는 사람들의 움직임을 살펴보세요.", "우리들의 춤"],
+  ["한국 전통 그림", "연소답청", "신윤복", "18세기", "Shin Yun-bok Spring Outing painting", "봄날 나들이를 나온 사람들을 찾아보세요.", "봄 소풍"],
+  ["한국 전통 그림", "인왕제색도", "정선", "1751", "Jeong Seon Inwangjesaekdo 1751", "비가 온 뒤 산의 모습과 바위, 안개를 살펴보세요.", "우리 동네 산"],
+  ["한국 전통 그림", "금강전도", "정선", "1734년경", "Jeong Seon Geumgangjeondo painting", "높고 낮은 산봉우리와 자연의 모습을 찾아보세요.", "나만의 산 풍경"],
+  ["한국 전통 그림", "몽유도원도", "안견", "1447", "An Gyeon Dream Journey to the Peach Blossom Land 1447", "산과 복숭아꽃이 있는 상상 속 풍경을 살펴보세요.", "꿈속 꽃나라"],
+  ["한국 전통 그림", "책가도", "조선 후기 화원", "조선 후기", "Korean Joseon chaekgado bookshelves painting", "책과 그릇, 여러 물건이 놓인 모습을 찾아보세요.", "내 책장 꾸미기"],
+  ["한국 전통 그림", "까치호랑이", "조선 민화", "조선 후기", "Korean minhwa magpie tiger folk painting", "호랑이의 표정과 나무 위 까치를 찾아보세요.", "재미있는 동물 그림"],
+  ["세계 여러 나라", "큰 파도", "가쓰시카 호쿠사이", "1831년경", "Katsushika Hokusai The Great Wave off Kanagawa 1831", "커다란 파도와 작은 배, 멀리 있는 산을 찾아보세요.", "출렁출렁 바다"],
+  ["세계 여러 나라", "잠자는 집시", "앙리 루소", "1897", "Henri Rousseau The Sleeping Gypsy 1897", "달빛과 잠든 사람, 사자의 모습을 살펴보세요.", "달빛 사막"],
+  ["세계 여러 나라", "꿈", "앙리 루소", "1910", "Henri Rousseau The Dream 1910", "커다란 식물과 숲속의 인물을 찾아보세요.", "나의 꿈속 정글"],
+  ["세계 여러 나라", "두 명의 프리다", "프리다 칼로", "1939", "Frida Kahlo The Two Fridas 1939", "두 인물의 옷과 표정을 비교해 보세요.", "두 가지 내 모습"],
+  ["세계 여러 나라", "붉은 칸나", "조지아 오키프", "1924", "Georgia O Keeffe Red Canna 1924", "꽃잎의 곡선과 색이 이어지는 모습을 찾아보세요.", "꽃잎의 모양"],
+  ["상상력과 추상", "구성 8", "바실리 칸딘스키", "1923", "Wassily Kandinsky Composition VIII 1923", "원과 선, 삼각형이 어떻게 어울리는지 찾아보세요.", "도형으로 만드는 그림"],
+  ["상상력과 추상", "여러 개의 원", "바실리 칸딘스키", "1926", "Wassily Kandinsky Several Circles 1926", "크기가 다른 원을 찾아보세요.", "빙글빙글 원"],
+  ["상상력과 추상", "빨강 파랑 노랑의 구성", "피트 몬드리안", "1930", "Piet Mondrian Composition with Red Blue and Yellow 1930", "검은 선과 네모 칸, 원색을 찾아보세요.", "나만의 네모 구성"],
+  ["상상력과 추상", "브로드웨이 부기우기", "피트 몬드리안", "1942~1943", "Piet Mondrian Broadway Boogie Woogie 1942", "작은 네모들이 만드는 길과 리듬을 살펴보세요.", "네모 길 만들기"],
+  ["상상력과 추상", "빨간 풍선", "파울 클레", "1922", "Paul Klee Red Balloon 1922", "단순한 선과 색이 만드는 마을 풍경을 찾아보세요.", "나만의 색깔 마을"]
 ];
-
 const artworks=raw.map((r,i)=>({
  id:i+1,category:r[0],title:r[1],artist:r[2],year:r[3],
  query:r[4],story:r[5],create:r[6]
@@ -402,19 +357,29 @@ function renderArtwork(){
 }
 
 async function findImage(art){
+ // 작품명·작가명과 파일명이 맞는지 단서를 확인합니다.
+ // 확실한 파일명을 찾지 못하면 엉뚱한 그림 대신 출처 검색 화면을 보여줍니다.
  const query="filetype:bitmap "+art.query;
- const url="https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch="+encodeURIComponent(query)+"&gsrnamespace=6&gsrlimit=8&prop=imageinfo&iiprop=url&iiurlwidth=1200&format=json&origin=*";
+ const url="https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch="+encodeURIComponent(query)+"&gsrnamespace=6&gsrlimit=15&prop=imageinfo&iiprop=url&iiurlwidth=1400&format=json&origin=*";
  try{
   const response=await fetch(url);
   if(!response.ok)throw new Error("이미지 검색 실패");
   const data=await response.json();
   const pages=data.query&&data.query.pages?Object.values(data.query.pages):[];
-  const usable=pages.find(p=>p.imageinfo&&p.imageinfo[0]&&p.imageinfo[0].thumburl);
-  if(!usable)throw new Error("검색 결과 없음");
+  const words=art.query.toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(w=>w.length>=4);
+  const titleWords=words.filter(w=>!["painting","image","work","artwork","picture"].includes(w));
+  const usable=pages.find(p=>{
+   if(!p.imageinfo||!p.imageinfo[0]||!p.imageinfo[0].thumburl)return false;
+   const file=(p.title||"").toLowerCase().replace(/[^a-z0-9]/g," ");
+   const hits=titleWords.filter(w=>file.includes(w)).length;
+   return hits>=2;
+  });
+  if(!usable)throw new Error("작품명과 일치하는 파일명을 확인하지 못했습니다.");
   const imageUrl=usable.imageinfo[0].thumburl;
   imageCache[art.id]=imageUrl;
   showImage(imageUrl);
  }catch(error){
+  $("artImage").style.display="none";
   $("imageLoading").style.display="none";
   $("imageFallback").style.display="block";
  }
@@ -434,6 +399,26 @@ function showImage(url){
  };
  img.src=url;
 }
+
+function openFullscreen(){
+ const src=$("artImage").src;
+ if(!src || $("artImage").style.display==="none")return;
+ $("fullscreenImage").src=src;
+ $("fullscreenViewer").classList.add("open");
+ document.body.style.overflow="hidden";
+}
+function closeFullscreen(){
+ $("fullscreenViewer").classList.remove("open");
+ $("fullscreenImage").src="";
+ document.body.style.overflow="";
+}
+$("artImage").addEventListener("click",openFullscreen);
+$("fullscreenViewer").addEventListener("click",e=>{
+ if(e.target.id==="fullscreenViewer")closeFullscreen();
+});
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape")closeFullscreen();
+});
 
 function renderQuestions(art){
  const questions=[
@@ -580,5 +565,12 @@ function downloadDrawing(){
 clearCanvas();
 renderArtwork();
 </script>
+
+<div id="fullscreenViewer" class="fullscreen-viewer" role="dialog" aria-modal="true" aria-label="명화 전체 화면">
+ <button class="fullscreen-close" onclick="closeFullscreen()">닫기 ✕</button>
+ <img id="fullscreenImage" alt="명화 크게 보기">
+ <div class="fullscreen-hint">화면 바깥을 누르거나 닫기를 누르면 돌아갑니다.</div>
+</div>
+
 </body>
 </html>
