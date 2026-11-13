@@ -34,12 +34,12 @@ footer{text-align:center;color:#A394A8;border-top:1px solid #eee;padding:22px;ma
 <body><div class="shell">
 <header><a class="brand" href="https://hyeri-yu.github.io/hahaha-ras/"><span style="color:#E58B9D">꿈</span>꾸며 <span style="color:#83B99B">나</span>아가는 <span style="color:#E9B65F">RAS</span><small>HA HA HA · ART CLASS</small></a><a class="back" href="https://hyeri-yu.github.io/hahaha-ras/">← 꿈나라 교실</a></header>
 <section class="hero"><div style="font-size:42px">🎨</div><h1>하하하 명화감상</h1><p>검증된 작품을 천천히 관찰하고 나만의 생각을 표현해요.</p><span>유치원 5~7세 · 작품별 출처 확인</span></section>
-<div class="stats"><div class="stat"><strong id="total">14</strong>전체 작품</div><div class="stat"><strong id="shown">14</strong>현재 주제 작품</div><div class="stat"><strong id="count">1 / 30</strong>감상 중인 작품</div></div>
+<div class="stats"><div class="stat"><strong id="total">50</strong>전체 작품</div><div class="stat"><strong id="shown">50</strong>현재 주제 작품</div><div class="stat"><strong id="count">1 / 50</strong>감상 중인 작품</div></div>
 <h2>어떤 그림을 만나볼까요?</h2><p class="desc">작품을 고르거나 작가·작품 이름으로 찾아보세요.</p>
 <div class="filters" id="filters"><button class="filter active" data-cat="전체">전체</button><button class="filter" data-cat="서양 명화">서양 명화</button><button class="filter" data-cat="한국 전통 그림">한국 전통 그림</button><button class="filter" data-cat="세계 명화">세계 명화</button></div>
 <div class="search"><input id="search" placeholder="작품 또는 작가 이름 검색"><button class="action soft" onclick="searchArt()">검색</button><button class="action" onclick="randomArt()">🎲 랜덤</button></div>
 <h2>오늘의 명화</h2><p class="desc">그림을 천천히 살펴보세요. 무엇이 가장 먼저 눈에 들어오나요?</p>
-<section class="card"><div class="top"><span id="today">오늘의 명화</span><span id="position">1 / 30</span></div>
+<section class="card"><div class="top"><span id="today">오늘의 명화</span><span id="position">1 / 50</span></div>
 <div class="image-wrap"><img id="artImage" class="art-image" alt="작품 이미지" style="display:none"><div id="loading" class="loading">🖼️ 작품 이미지를 불러오고 있어요.</div><div id="fallback" class="fallback"><p>이미지를 불러오지 못했습니다. 아래 미술관·박물관 출처에서 원본을 확인해 주세요.</p><a id="fallbackLink" target="_blank" rel="noopener">공식 작품 출처 열기 ↗</a></div></div>
 <div class="info"><h2 class="title" id="artTitle"></h2><div class="artist" id="artArtist"></div><div class="story" id="artStory"></div><div class="source" id="artSource"></div></div>
 <div class="nav"><button onclick="prev()">← 이전 작품</button><button class="primary" onclick="next()">다음 작품 →</button></div></section>
@@ -104,4 +104,24 @@ function clearCanvas(){ctx.clearRect(0,0,cv.width,cv.height)}
 function saveDrawing(){const a=document.createElement('a');a.download='나의_명화그림.png';a.href=cv.toDataURL('image/png');a.click()}
 const d=new Date();$('today').textContent='오늘의 명화 · '+d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';
 render();
-</script></body></html>
+</script></body></html,
+["한국 작품", "서당", "김홍도", "18세기", "https://commons.wikimedia.org/wiki/Special:FilePath/Kim_Hong-do_-_Village_School.jpg", "https://www.museum.go.kr/", "김홍도의 풍속화로 알려진 작품이에요. 아이들이 글을 배우는 모습과 훈장님의 표정을 찾아보세요.", "우리 교실 그리기"],
+["한국 작품", "무동", "김홍도", "18세기", "https://commons.wikimedia.org/wiki/Special:FilePath/Kim_Hong-do_-_Dancing_Boy.jpg", "https://www.museum.go.kr/", "장단에 맞춰 춤추는 아이와 악기를 연주하는 사람들을 살펴보세요.", "내 몸으로 리듬 표현하기"],
+["한국 작품", "타작", "김홍도", "18세기", "https://commons.wikimedia.org/wiki/Special:FilePath/Kim_Hong-do_-_Threshing.jpg", "https://www.museum.go.kr/", "가을걷이 뒤 곡식을 터는 사람들의 모습을 담은 풍속화예요. 사람들이 맡은 일을 찾아보세요.", "가을 들판 꾸미기"],
+["한국 작품", "단오풍정", "신윤복", "18세기", "https://commons.wikimedia.org/wiki/Special:FilePath/Dano_pungjeong.jpg", "https://www.museum.go.kr/", "단오날의 풍경을 그린 작품이에요. 그네와 나무, 사람들의 움직임을 찾아보세요.", "명절 놀이 장면 그리기"],
+["한국 작품", "인왕제색도", "정선", "1751", "https://commons.wikimedia.org/wiki/Special:FilePath/Jeong_Seon_-_Inwangjesaekdo.jpg", "https://www.museum.go.kr/", "비 온 뒤 인왕산의 모습을 그린 진경산수화예요. 바위와 안개, 산의 높낮이를 관찰해 보세요.", "비 온 뒤 우리 동네"],
+["한국 작품", "호작도(호랑이와 까치)", "작자 미상", "19세기", "https://commons.wikimedia.org/wiki/Special:FilePath/Korean_folk_painting_Tiger_and_Magpie.jpg", "https://mokfa.omeka.net/items/show/9", "호랑이와 까치, 소나무가 등장하는 민화예요. 익살스러운 호랑이의 표정과 까치의 위치를 찾아보세요.", "재미있는 동물 친구"],
+["한국 작품", "책가도", "작자 미상", "19세기", "https://commons.wikimedia.org/wiki/Special:FilePath/Chaekgeori.jpg", "https://www.korea.net/", "책과 여러 물건을 선반에 정리한 그림이에요. 내가 좋아하는 물건을 찾아보고 새로운 선반을 상상해 보세요.", "나만의 책장 꾸미기"],
+["한국 작품", "십장생도", "작자 미상", "조선 후기", "https://commons.wikimedia.org/wiki/Special:FilePath/Irworobongdo.jpg", "https://www.koreanculture.org/multimedia/2020/03/11/minhwa-minhwa-korean-folk-paintings-in-dialogue-with-the-contemporary", "해와 산, 물, 소나무, 학 등 오래오래 건강하게 살기를 바라는 상징을 담은 그림이에요. 자연 속 상징을 찾아보세요.", "오래오래 건강한 자연"],
+["한국 작품", "화조도", "작자 미상", "조선 후기", "https://commons.wikimedia.org/wiki/Special:FilePath/Korean_folk_painting_flowers_and_birds.jpg", "https://www.korea.net/", "꽃과 새를 함께 그린 전통 그림이에요. 꽃잎의 색과 새의 생김새를 관찰해 보세요.", "상상 속 꽃과 새"],
+["창의 미술", "정원", "호안 미로", "1925", "https://commons.wikimedia.org/wiki/Special:FilePath/Joan_Miro_-_The_Garden.jpg", "https://www.moma.org/", "모양과 선, 색이 자유롭게 어울리는 작품이에요. 그림 속에서 생물처럼 보이는 모양을 찾아보세요.", "내 마음속 정원"],
+["창의 미술", "변덕스러운 형태들", "바실리 칸딘스키", "1937", "https://commons.wikimedia.org/wiki/Special:FilePath/Kandinsky_Capricious_Forms.jpg", "https://www.guggenheim.org/artwork/1975", "동그라미와 네모, 자유로운 곡선이 춤추듯 어울려요. 어떤 모양이 움직이는 것처럼 보이나요?", "도형 친구들의 춤"],
+["창의 미술", "성 안의 태양", "파울 클레", "1928", "https://commons.wikimedia.org/wiki/Special:FilePath/Paul_Klee_-_Castle_and_Sun.jpg", "https://www.moma.org/", "작은 색면들이 모여 성과 태양처럼 보여요. 나만의 색깔 성을 상상해 보세요.", "색종이 성 만들기"],
+["창의 미술", "이카루스", "앙리 마티스", "1947", "https://commons.wikimedia.org/wiki/Special:FilePath/Henri_Matisse,_Icarus.jpg", "https://www.moma.org/", "파란 바탕에 검은 사람 모양과 별 같은 형태가 있어요. 점과 모양으로 밤하늘을 표현해 보세요.", "밤하늘 콜라주"],
+["창의 미술", "브로드웨이 부기우기", "피트 몬드리안", "1942~1943", "https://commons.wikimedia.org/wiki/Special:FilePath/Piet_Mondrian,_1942_-_Broadway_Boogie_Woogie.jpg", "https://www.moma.org/", "뉴욕의 거리와 음악에서 영감을 받은 색과 네모의 리듬을 살펴보세요.", "색과 네모의 리듬"],
+["창의 미술", "축구하는 사람들", "앙리 루소", "1908", "https://commons.wikimedia.org/wiki/Special:FilePath/Henri_Rousseau_-_The_Football_Players.jpg", "https://www.nationalgallery.org.uk/", "나무 사이에서 운동하는 사람들을 찾아보세요. 그림 속 움직임을 몸으로 표현해 볼까요?", "상상 속 운동장"],
+["창의 미술", "캠벨 수프 캔", "앤디 워홀", "1962", "https://commons.wikimedia.org/wiki/Special:FilePath/Campbells_Soup_Cans_MOMA.jpg", "https://www.moma.org/collection/works/79809", "같은 모양의 캔이 여러 개 반복돼요. 같은 물건을 색과 무늬를 바꾸어 표현해 보세요.", "반복 무늬 디자인"],
+["창의 미술", "저녁, 옹플뢰르", "조르주 쇠라", "1886", "https://commons.wikimedia.org/wiki/Special:FilePath/Georges_Seurat_-_Evening,_Honfleur.jpg", "https://www.moma.org/visit/itineraries/for-families", "작은 점과 짧은 붓질로 바다와 하늘을 표현했어요. 가까이와 멀리서 다르게 보이는 점을 찾아보세요.", "점으로 바다 그리기"],
+["창의 미술", "빨강, 노랑, 파랑의 구성", "피트 몬드리안", "1930", "https://commons.wikimedia.org/wiki/Special:FilePath/Piet_Mondrian_-_Composition_II_in_Red,_Blue,_and_Yellow.jpg", "https://www.moma.org/", "빨강과 파랑, 노랑과 검은 선으로 이루어진 그림이에요. 색과 칸의 크기를 비교해 보세요.", "나만의 색깔 칸"],
+["창의 미술", "모빌", "알렉산더 칼더", "1930년대", "https://commons.wikimedia.org/wiki/Special:FilePath/Alexander_Calder_mobile.jpg", "https://www.moma.org/", "가벼운 모양들이 균형을 이루며 움직이는 조각 작품이에요. 어떤 모양을 매달면 균형이 맞을까요?", "종이 모빌 만들기"],
+["창의 미술", "코끼리 셀레브", "살바도르 달리", "1948", "https://commons.wikimedia.org/wiki/Special:FilePath/Salvador_Dali_Elephants.jpg", "https://www.museoreinasofia.es/", "길고 가느다란 다리의 코끼리를 상상해 그린 초현실주의 작품이에요. 현실과 상상이 만나는 모습을 찾아보세요.", "상상 동물 디자인"]>
