@@ -142,10 +142,10 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
 
 <div class="filters" id="filters">
  <button class="filter active" data-category="전체">전체 50점</button>
- <button class="filter" data-category="서양 명화">서양 명화 40점</button>
- <button class="filter" data-category="한국 전통 그림">한국 전통 그림 20점</button>
- <button class="filter" data-category="세계 여러 나라">세계 여러 나라 20점</button>
- <button class="filter" data-category="상상력과 추상">상상력과 추상 20점</button>
+ <button class="filter" data-category="서양 명화">서양 명화 25점</button>
+ <button class="filter" data-category="한국 전통 그림">한국 전통 그림 15점</button>
+ <button class="filter" data-category="세계 여러 나라">세계 여러 나라 5점</button>
+ <button class="filter" data-category="상상력과 추상">상상력과 추상 5점</button>
 </div>
 
 <div class="search-row">
@@ -164,7 +164,7 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
  </div>
  <div class="image-wrap">
   <img id="artImage" class="art-image" alt="명화">
-  <div id="imageLoading" class="image-loading"><strong>🖼️</strong>작품 이미지를 찾고 있어요.</div>
+  <div id="imageLoading" class="image-loading"><strong>🖼️</strong>작품 이미지를 불러오고 있어요.</div>
   <div id="imageFallback" class="image-fallback">
    <div style="font-size:48px">🎨</div>
    <p>이 작품의 이미지를 바로 불러오지 못했어요.</p>
@@ -236,7 +236,8 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
 <script>
 /*
 작품 데이터 50점
-각 작품의 이미지 검색어를 Wikimedia Commons에서 검색해 불러옵니다.
+작품별 검색어로 Wikimedia Commons에서 이미지를 불러옵니다.
+검색 결과에 따라 일부 작품은 이미지가 없을 수 있으며, 그 경우 출처 검색 링크를 제공합니다.
 */
 const raw = [
   ["서양 명화", "별이 빛나는 밤", "빈센트 반 고흐", "1889", "Vincent van Gogh The Starry Night 1889", "소용돌이치는 하늘과 반짝이는 별을 찾아보세요.", "나만의 별이 빛나는 밤"],
@@ -334,9 +335,10 @@ function renderArtwork(){
  $("createDescription").textContent=art.story+" 그림에서 마음에 든 색과 모양을 활용해 나만의 작품을 만들어 보세요.";
 
  $("artImage").style.display="none";
+ imageRequestSerial++;
  $("imageLoading").style.display="block";
  $("imageFallback").style.display="none";
- $("imageLoading").innerHTML="<strong>🖼️</strong>작품 이미지를 찾고 있어요.";
+ $("imageLoading").innerHTML="<strong>🖼️</strong>작품 이미지를 불러오고 있어요.";
 
  const commonsSearch="https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search="+encodeURIComponent(art.query);
  $("commonsLink").href=commonsSearch;
@@ -350,66 +352,120 @@ function renderArtwork(){
  renderGallery();
 
  if(imageCache[art.id]){
-  showImage(imageCache[art.id]);
+  const requestId = ++imageRequestSerial;
+  showImage(imageCache[art.id], requestId);
  }else{
   findImage(art);
  }
 }
 
+let imageRequestSerial = 0;
+
+function artistPrefix(query){
+ const prefixes = [
+  "Vincent van Gogh","Claude Monet","Pierre Auguste Renoir","Gustav Klimt",
+  "Edvard Munch","Johannes Vermeer","Leonardo da Vinci","Sandro Botticelli",
+  "Grant Wood","Salvador Dali","Paul Cezanne","Georges Seurat","Rembrandt",
+  "Kim Hong-do","Shin Yun-bok","Jeong Seon","An Gyeon","Katsushika Hokusai",
+  "Henri Rousseau","Frida Kahlo","Georgia O Keeffe","Wassily Kandinsky",
+  "Piet Mondrian","Paul Klee"
+ ];
+ return prefixes.find(p => query.toLowerCase().startsWith(p.toLowerCase())) || "";
+}
+
+function makeFallback(art){
+ const link = $("commonsLink");
+ link.href = "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=" +
+   encodeURIComponent(art.query);
+ $("imageLoading").style.display = "none";
+ $("imageFallback").style.display = "block";
+}
+
 async function findImage(art){
- // Wikimedia Commons에서 작품명과 작가명을 함께 검색합니다.
- // 첫 검색이 실패하면 작품명만으로 다시 검색해 이미지 표시 성공률을 높입니다.
- const img=$("artImage");
- const fallback=$("imageFallback");
- const loading=$("imageLoading");
- const artistEnglish=art.query.split(/\s+/).slice(0,3).join(" ");
- const titleEnglish=art.query.split(/\s+/).slice(3).join(" ");
- const searches=[art.query, titleEnglish, artistEnglish+" "+art.title];
- const clean=s=>s.toLowerCase().replace(/[^a-z0-9가-힣 ]/g," ").split(/\s+/).filter(w=>w.length>2);
- const artistTokens=clean(artistEnglish).filter(w=>!["vincent","claude","pierre","gustav","edvard","johannes","leonardo","da","van","auguste","augustin"].includes(w));
- const titleTokens=clean(titleEnglish).filter(w=>!["the","and","with","at","on","of","a","an","over","in","i"].includes(w));
- let best=null,bestScore=-1;
- for(const q of searches){
-  const url="https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch="+encodeURIComponent(q)+"&gsrnamespace=6&gsrlimit=35&prop=imageinfo&iiprop=url&iiurlwidth=1400&format=json&origin=*";
+ const img = $("artImage");
+ const requestId = ++imageRequestSerial;
+ const prefix = artistPrefix(art.query);
+ const title = prefix ? art.query.slice(prefix.length).trim() : art.query;
+ const stop = new Set(["the","and","with","at","on","of","a","an","over","in","i","painting","art"]);
+ const words = value => value.toLowerCase()
+   .replace(/[^a-z0-9가-힣 ]/g," ").split(/\s+/)
+   .filter(w => w.length > 2 && !stop.has(w));
+ const titleWords = words(title);
+ const searchTerms = [...new Set([art.query, title, art.title + " " + art.artist])];
+
+ let bestUrl = "";
+ let bestScore = 0;
+
+ for(const term of searchTerms){
   try{
-   const response=await fetch(url);
-   if(!response.ok)continue;
-   const data=await response.json();
-   const pages=data.query&&data.query.pages?Object.values(data.query.pages):[];
+   const api = "https://commons.wikimedia.org/w/api.php?action=query&generator=search" +
+    "&gsrsearch=" + encodeURIComponent(term) +
+    "&gsrnamespace=6&gsrlimit=50&prop=imageinfo&iiprop=url&iiurlwidth=1600" +
+    "&format=json&origin=*";
+   const response = await fetch(api, {mode:"cors", cache:"no-store"});
+   if(!response.ok) continue;
+   const data = await response.json();
+   const pages = data.query && data.query.pages ? Object.values(data.query.pages) : [];
+
    for(const page of pages){
-    const info=page.imageinfo&&page.imageinfo[0];
-    if(!info||!info.thumburl)continue;
-    const file=clean(page.title||"");
-    const titleHits=titleTokens.filter(w=>file.includes(w)).length;
-    const artistHits=artistTokens.filter(w=>file.includes(w)).length;
-    const score=titleHits*3+artistHits;
-    if(score>bestScore){bestScore=score;best=info.thumburl;}
+    const info = page.imageinfo && page.imageinfo[0];
+    const url = info && (info.thumburl || info.url);
+    if(!url) continue;
+    const fileWords = words(page.title || "");
+    const titleHits = titleWords.filter(w => fileWords.includes(w)).length;
+    const score = titleHits;
+    if(score > bestScore){
+     bestScore = score;
+     bestUrl = url;
+    }
    }
-   if(best && bestScore>=3)break;
-  }catch(e){}
+   // 작품명 단어가 두 개 이상 일치하는 결과가 있으면 추가 검색을 멈춥니다.
+   if(bestScore >= 2) break;
+  }catch(error){
+   // 다음 검색 방식으로 넘어갑니다.
+  }
  }
- if(best){
-  imageCache[art.id]=best;
-  showImage(best);
+
+ // 위키미디어 검색이 실패한 경우, 영어 작품명으로 위키백과 대표 이미지를 시도합니다.
+ if(!bestUrl && prefix){
+  try{
+   const slug = title.replace(/[,:]/g,"").trim().replace(/\s+/g,"_");
+   const summaryUrl = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(slug);
+   const response = await fetch(summaryUrl, {mode:"cors", cache:"no-store"});
+   if(response.ok){
+    const data = await response.json();
+    if(data.thumbnail && data.thumbnail.source) bestUrl = data.thumbnail.source;
+  }
+  }catch(error){}
+ }
+
+ // 사용자가 다른 작품으로 이동한 뒤 도착한 이전 검색 결과는 표시하지 않습니다.
+ if(requestId !== imageRequestSerial) return;
+
+ if(bestUrl){
+  imageCache[art.id] = bestUrl;
+  showImage(bestUrl, requestId);
  }else{
-  img.style.display="none";
-  loading.style.display="none";
-  fallback.style.display="block";
+  makeFallback(art);
  }
 }
-function showImage(url){
- const img=$("artImage");
- img.onload=()=>{
-  $("imageLoading").style.display="none";
-  $("imageFallback").style.display="none";
-  img.style.display="block";
+
+function showImage(url, requestId){
+ const img = $("artImage");
+ img.onload = () => {
+  if(requestId !== undefined && requestId !== imageRequestSerial) return;
+  $("imageLoading").style.display = "none";
+  $("imageFallback").style.display = "none";
+  img.style.display = "block";
  };
- img.onerror=()=>{
-  img.style.display="none";
-  $("imageLoading").style.display="none";
-  $("imageFallback").style.display="block";
+ img.onerror = () => {
+  if(requestId !== undefined && requestId !== imageRequestSerial) return;
+  img.style.display = "none";
+  $("imageLoading").style.display = "none";
+  $("imageFallback").style.display = "block";
  };
- img.src=url;
+ img.style.display = "none";
+ img.src = url;
 }
 
 function openFullscreen(){
