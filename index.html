@@ -340,7 +340,7 @@ function renderArtwork(){
 
  const commonsSearch="https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search="+encodeURIComponent(art.query);
  $("commonsLink").href=commonsSearch;
- $("artSource").innerHTML='이미지 출처: <a href="'+commonsSearch+'" target="_blank" rel="noopener">Wikimedia Commons에서 작품 확인하기 ↗</a>';
+ $("artSource").innerHTML='이미지 검색: <a href="'+commonsSearch+'" target="_blank" rel="noopener">Wikimedia Commons에서 작품 이미지 보기 ↗</a>';
 
  renderQuestions(art);
  clearCanvas();
@@ -357,34 +357,46 @@ function renderArtwork(){
 }
 
 async function findImage(art){
- // 작품명·작가명과 파일명이 맞는지 단서를 확인합니다.
- // 확실한 파일명을 찾지 못하면 엉뚱한 그림 대신 출처 검색 화면을 보여줍니다.
- const query="filetype:bitmap "+art.query;
- const url="https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch="+encodeURIComponent(query)+"&gsrnamespace=6&gsrlimit=15&prop=imageinfo&iiprop=url&iiurlwidth=1400&format=json&origin=*";
- try{
-  const response=await fetch(url);
-  if(!response.ok)throw new Error("이미지 검색 실패");
-  const data=await response.json();
-  const pages=data.query&&data.query.pages?Object.values(data.query.pages):[];
-  const words=art.query.toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(w=>w.length>=4);
-  const titleWords=words.filter(w=>!["painting","image","work","artwork","picture"].includes(w));
-  const usable=pages.find(p=>{
-   if(!p.imageinfo||!p.imageinfo[0]||!p.imageinfo[0].thumburl)return false;
-   const file=(p.title||"").toLowerCase().replace(/[^a-z0-9]/g," ");
-   const hits=titleWords.filter(w=>file.includes(w)).length;
-   return hits>=2;
-  });
-  if(!usable)throw new Error("작품명과 일치하는 파일명을 확인하지 못했습니다.");
-  const imageUrl=usable.imageinfo[0].thumburl;
-  imageCache[art.id]=imageUrl;
-  showImage(imageUrl);
- }catch(error){
-  $("artImage").style.display="none";
-  $("imageLoading").style.display="none";
-  $("imageFallback").style.display="block";
+ // Wikimedia Commons에서 작품명과 작가명을 함께 검색합니다.
+ // 첫 검색이 실패하면 작품명만으로 다시 검색해 이미지 표시 성공률을 높입니다.
+ const img=$("artImage");
+ const fallback=$("imageFallback");
+ const loading=$("imageLoading");
+ const artistEnglish=art.query.split(/\s+/).slice(0,3).join(" ");
+ const titleEnglish=art.query.split(/\s+/).slice(3).join(" ");
+ const searches=[art.query, titleEnglish, artistEnglish+" "+art.title];
+ const clean=s=>s.toLowerCase().replace(/[^a-z0-9가-힣 ]/g," ").split(/\s+/).filter(w=>w.length>2);
+ const artistTokens=clean(artistEnglish).filter(w=>!["vincent","claude","pierre","gustav","edvard","johannes","leonardo","da","van","auguste","augustin"].includes(w));
+ const titleTokens=clean(titleEnglish).filter(w=>!["the","and","with","at","on","of","a","an","over","in","i"].includes(w));
+ let best=null,bestScore=-1;
+ for(const q of searches){
+  const url="https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch="+encodeURIComponent(q)+"&gsrnamespace=6&gsrlimit=35&prop=imageinfo&iiprop=url&iiurlwidth=1400&format=json&origin=*";
+  try{
+   const response=await fetch(url);
+   if(!response.ok)continue;
+   const data=await response.json();
+   const pages=data.query&&data.query.pages?Object.values(data.query.pages):[];
+   for(const page of pages){
+    const info=page.imageinfo&&page.imageinfo[0];
+    if(!info||!info.thumburl)continue;
+    const file=clean(page.title||"");
+    const titleHits=titleTokens.filter(w=>file.includes(w)).length;
+    const artistHits=artistTokens.filter(w=>file.includes(w)).length;
+    const score=titleHits*3+artistHits;
+    if(score>bestScore){bestScore=score;best=info.thumburl;}
+   }
+   if(best && bestScore>=3)break;
+  }catch(e){}
+ }
+ if(best){
+  imageCache[art.id]=best;
+  showImage(best);
+ }else{
+  img.style.display="none";
+  loading.style.display="none";
+  fallback.style.display="block";
  }
 }
-
 function showImage(url){
  const img=$("artImage");
  img.onload=()=>{
