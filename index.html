@@ -7,15 +7,10 @@
 <title>하하하 명화감상 교실</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Square+Round:wght@400;700;800&display=swap');
-
-:root{
- --purple:#70577F;--pink:#E58B9D;--mint:#83B99B;
- --yellow:#E9B65F;--text:#5F526A;--light:#FAF8FB;
-}
+:root{--purple:#70577F;--pink:#E58B9D;--mint:#83B99B;--yellow:#E9B65F;--text:#5F526A;--light:#FAF8FB}
 *{box-sizing:border-box}
 body{margin:0;background:#fff;color:var(--text);font-family:'Nanum Square Round',sans-serif;line-height:1.7}
-button,input,textarea{font:inherit}
-button{cursor:pointer}
+button,input,textarea{font:inherit}button{cursor:pointer}
 .shell{width:min(1120px,94%);margin:auto}
 header{padding:22px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{text-decoration:none;color:var(--purple);font-size:25px;font-weight:800}
@@ -23,14 +18,12 @@ header{padding:22px 0;display:flex;justify-content:space-between;align-items:cen
 .pink{color:var(--pink)}.mint{color:var(--mint)}.yellow{color:var(--yellow)}
 .back{border:0;background:#F2EAF7;color:var(--purple);padding:10px 17px;border-radius:25px;font-weight:800}
 .hero{background:#FBF6F0;border-radius:24px;text-align:center;padding:30px 15px;margin:10px 0 25px}
-.hero-icon{font-size:48px}
-.hero h1{font-size:clamp(25px,4vw,34px);color:var(--purple);margin:5px 0}
+.hero-icon{font-size:48px}.hero h1{font-size:clamp(25px,4vw,34px);color:var(--purple);margin:5px 0}
 .hero p{margin:5px;color:#918398}
 .hero-label{display:inline-block;background:white;border-radius:20px;padding:5px 13px;color:#927D9D;font-size:12px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
 .stat{background:#FAF8FB;border-radius:15px;padding:13px;text-align:center}
-.stat strong{display:block;font-size:24px;color:var(--purple)}
-.stat span{font-size:12px;color:#968A9C}
+.stat strong{display:block;font-size:24px;color:var(--purple)}.stat span{font-size:12px;color:#968A9C}
 .section-title{font-size:22px;color:var(--purple);margin:28px 0 8px}
 .description{font-size:14px;color:#958A9A;margin:0 0 15px}
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
@@ -50,12 +43,10 @@ header{padding:22px 0;display:flex;justify-content:space-between;align-items:cen
 .image-loading strong{display:block;font-size:36px}
 .image-fallback{display:none;text-align:center;padding:25px;color:#8E8096}
 .image-fallback a{color:var(--purple);font-weight:700}
-.art-info{padding:20px}
-.art-title{font-size:27px;font-weight:800;color:var(--purple);margin:0}
+.art-info{padding:20px}.art-title{font-size:27px;font-weight:800;color:var(--purple);margin:0}
 .art-artist{color:#A48EAA;font-size:14px;margin:3px 0 12px}
 .art-story{background:#FAF8FB;border-radius:14px;padding:14px;font-size:14px;color:#75677D}
-.art-source{font-size:12px;color:#9A8DA0;margin-top:8px}
-.art-source a{color:var(--purple)}
+.art-source{font-size:12px;color:#9A8DA0;margin-top:8px}.art-source a{color:var(--purple)}
 .art-nav{display:flex;justify-content:space-between;gap:8px;padding:0 18px 18px}
 .art-nav button{border:0;border-radius:12px;padding:10px 15px;background:#F2EAF7;color:var(--purple);font-weight:800}
 .art-nav .primary{background:var(--purple);color:white}
@@ -64,13 +55,6 @@ header{padding:22px 0;display:flex;justify-content:space-between;align-items:cen
 .q-num{width:30px;height:30px;flex-shrink:0;border-radius:50%;background:#FBECEF;color:#C4778D;display:grid;place-items:center;font-weight:800}
 .question strong{display:block;color:var(--purple);font-size:14px}
 .question span{font-size:13px;color:#968A9C}
-.feeling-box{background:#FFF8ED;border-radius:20px;padding:20px;margin-top:15px}
-.feelings{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.feeling{border:2px solid transparent;background:white;border-radius:13px;padding:9px 3px;color:#776A7F;font-size:12px;font-weight:700}
-.feeling span{display:block;font-size:25px}
-.feeling.selected{border-color:var(--pink);background:#FFF0F3}
-textarea{width:100%;min-height:85px;resize:vertical;border:1px solid #E9DFE8;background:white;border-radius:12px;padding:12px;color:var(--text);outline-color:var(--pink)}
-.saved{background:white;border-radius:12px;padding:13px;margin-top:12px;font-size:14px}
 .create-box{background:#F0F7F1;border-radius:20px;padding:20px;margin-top:15px}
 .create-box h3{color:#587F67;margin:0}
 canvas{width:100%;height:280px;background:white;border-radius:10px;display:block;touch-action:none}
@@ -83,30 +67,22 @@ canvas{width:100%;height:280px;background:white;border-radius:10px;display:block
 .gallery button{border:1px solid #EEE8F0;background:white;border-radius:12px;text-align:left;padding:10px;color:var(--text)}
 .gallery button.active{border:2px solid var(--pink);background:#FFF8FA}
 .gallery strong{display:block;color:var(--purple);font-size:13px}
-.gallery span{font-size:11px;color:#9A8DA0}
-.gallery .number{font-size:10px;color:#B29AB9}
+.gallery span{font-size:11px;color:#9A8DA0}.gallery .number{font-size:10px;color:#B29AB9}
 .pager{display:flex;justify-content:center;gap:12px;align-items:center;margin:16px 0}
 .pager button{border:0;background:#F2EAF7;color:var(--purple);padding:8px 13px;border-radius:10px}
 .tip{background:#F7F4FA;border-radius:18px;padding:18px;margin:30px 0}
-.tip h3{margin:0;color:var(--purple)}
-.tip p{font-size:13px;color:#887C90;margin:5px 0}
+.tip h3{margin:0;color:var(--purple)}.tip p{font-size:13px;color:#887C90;margin:5px 0}
 footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A394A8;font-size:13px;margin-top:35px}
 @media(max-width:700px){
- .stats{grid-template-columns:repeat(3,1fr);gap:5px}
- .stat strong{font-size:20px}
- .gallery{grid-template-columns:repeat(2,1fr)}
- .feelings{grid-template-columns:repeat(3,1fr)}
- .image-wrap{min-height:220px}
- .art-title{font-size:23px}
- .art-nav button{flex:1;padding:9px 5px;font-size:12px}
- canvas{height:230px}
+.stats{grid-template-columns:repeat(3,1fr);gap:5px}.stat strong{font-size:20px}
+.gallery{grid-template-columns:repeat(2,1fr)}.image-wrap{min-height:220px}
+.art-title{font-size:23px}.art-nav button{flex:1;padding:9px 5px;font-size:12px}
+canvas{height:230px}
 }
 </style>
 </head>
-
 <body>
 <div class="shell">
-
 <header>
  <a class="brand" href="https://hyeri-yu.github.io/hahaha-ras/">
   <span><span class="pink">꿈</span>꾸며 <span class="mint">나</span><span>아가는 </span><span class="yellow">RAS</span></span>
@@ -118,7 +94,7 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
 <section class="hero">
  <div class="hero-icon">🎨</div>
  <h1>하하하 명화감상</h1>
- <p>그림을 자세히 보고, 마음을 표현하고, 나만의 작품을 만들어요.</p>
+ <p>그림을 자세히 보고, 나만의 생각을 표현하고, 나만의 작품을 만들어요.</p>
  <span class="hero-label">유치원 5~7세 · 명화 100점</span>
 </section>
 
@@ -130,7 +106,6 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
 
 <h2 class="section-title">🌈 어떤 그림을 만나볼까요?</h2>
 <p class="description">주제를 선택하거나 작품 이름과 화가를 검색해 보세요.</p>
-
 <div class="filters" id="filters">
  <button class="filter active" data-category="전체">전체 100점</button>
  <button class="filter" data-category="서양 명화">서양 명화 40점</button>
@@ -138,7 +113,6 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
  <button class="filter" data-category="세계 여러 나라">세계 여러 나라 20점</button>
  <button class="filter" data-category="상상력과 추상">상상력과 추상 20점</button>
 </div>
-
 <div class="search-row">
  <input id="searchInput" type="search" placeholder="작품이나 화가 이름 검색하기">
  <button class="action soft" onclick="searchArt()">검색</button>
@@ -147,7 +121,6 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
 
 <h2 class="section-title">🖼️ 오늘의 명화</h2>
 <p class="description">그림을 천천히 살펴보세요. 어떤 것이 가장 먼저 눈에 들어오나요?</p>
-
 <div class="art-card">
  <div class="art-top">
   <span class="art-label" id="todayLabel">오늘의 명화</span>
@@ -214,9 +187,8 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
  <p>• “무엇이 보이니?”, “어떤 색이 가장 마음에 드니?”처럼 열린 질문을 활용해 주세요.</p>
  <p>• 아이마다 다른 느낌과 해석을 존중해 주세요.</p>
  <p>• 작품을 잘 그리는 것보다 자신의 생각을 표현하는 과정을 격려해 주세요.</p>
- <p>• 감상 기록과 그림은 사용 중인 브라우저에 저장되며, 다른 컴퓨터와 자동 공유되지는 않아요.</p>
+ <p>• 그림은 사용 중인 브라우저에서 저장되며, 다른 컴퓨터와 자동 공유되지는 않아요.</p>
 </section>
-
 <footer>
  꿈꾸며 나아가는 RAS 꿈나라 교실<br>
  READ · ART · SPORTS<br>
@@ -225,12 +197,7 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
 </div>
 
 <script>
-/*
-작품 데이터 100점
-각 작품의 이미지 검색어를 Wikimedia Commons에서 검색해 불러옵니다.
-*/
 const raw = [
-/* 서양 명화 40 */
 ["서양 명화","별이 빛나는 밤","빈센트 반 고흐","1889","Van Gogh Starry Night","고흐가 바라본 밤하늘이에요. 소용돌이치는 하늘과 반짝이는 별을 살펴보세요.","나만의 별이 빛나는 밤"],
 ["서양 명화","해바라기","빈센트 반 고흐","1888","Van Gogh Sunflowers painting","노란 해바라기가 꽃병에 가득 담겨 있어요. 꽃잎과 줄기의 색을 찾아보세요.","내가 좋아하는 꽃"],
 ["서양 명화","아를의 별이 빛나는 밤","빈센트 반 고흐","1888","Van Gogh Starry Night Over the Rhone","밤하늘과 강물에 비친 불빛을 표현한 그림이에요.","반짝이는 밤 풍경"],
@@ -271,7 +238,7 @@ const raw = [
 ["서양 명화","붉은 방","앙리 마티스","1908","Henri Matisse The Dessert Harmony in Red","빨간색으로 가득한 방의 무늬를 찾아보세요.","빨간색 방 꾸미기"],
 ["서양 명화","나와 마을","마르크 샤갈","1911","Marc Chagall I and the Village","사람과 동물, 마을이 어우러진 상상 속 풍경이에요.","꿈속 마을"],
 ["서양 명화","생일","마르크 샤갈","1915","Marc Chagall Birthday painting","사랑하는 사람과 떠오르는 듯한 인물을 살펴보세요.","즐거운 생일"],
-/* 한국 전통 그림 20 */
+
 ["한국 전통 그림","서당","김홍도","18세기","Kim Hong do Seodang painting","서당에서 글을 배우는 아이들과 훈장님의 모습을 살펴보세요.","우리 교실"],
 ["한국 전통 그림","씨름","김홍도","18세기","Kim Hong do Ssireum painting","씨름하는 사람들과 둘러앉은 구경꾼을 찾아보세요.","우리들의 운동회"],
 ["한국 전통 그림","무동","김홍도","18세기","Kim Hong do Mudong dancing painting","춤추는 아이와 악기를 연주하는 사람들을 살펴보세요.","신나는 춤 공연"],
@@ -292,7 +259,7 @@ const raw = [
 ["한국 전통 그림","몽유도원도","안견","1447","An Gyeon Dream Journey to the Peach Blossom Land","산과 복숭아꽃이 있는 상상 속 풍경을 살펴보세요.","꿈속 꽃나라"],
 ["한국 전통 그림","책가도","조선 민화","조선 후기","Korean Chaekgado traditional painting","책과 그릇, 여러 물건이 놓인 모습을 찾아보세요.","내 책장 꾸미기"],
 ["한국 전통 그림","까치와 호랑이","한국 민화","조선 후기","Korean Minhwa Tiger Magpie painting","호랑이의 표정과 나무 위 까치를 찾아보세요.","재미있는 동물 그림"],
-/* 세계 여러 나라 20 */
+
 ["세계 여러 나라","호쿠사이의 후지산","가쓰시카 호쿠사이","1830년대","Hokusai Mount Fuji Thirty Six Views","후지산과 주변 풍경의 모양을 살펴보세요.","내가 상상한 산"],
 ["세계 여러 나라","대나무와 새","중국 전통 화가","전통 회화","Chinese traditional bamboo bird painting","대나무 잎과 작은 새의 모습을 관찰해 보세요.","대나무 숲"],
 ["세계 여러 나라","연꽃 그림","중국 전통 화가","전통 회화","Chinese traditional lotus flower painting","연꽃과 물 위의 잎을 찾아보세요.","나만의 연꽃"],
@@ -313,7 +280,7 @@ const raw = [
 ["세계 여러 나라","아기 코끼리들의 행렬","살바도르 달리","1948","Salvador Dali elephants painting","길고 가느다란 다리와 동물의 모습을 찾아보세요.","상상 속 동물 행렬"],
 ["세계 여러 나라","아프리카 가면","아프리카 전통 미술","전통 미술","African traditional mask art","가면의 색과 반복되는 무늬를 관찰해 보세요.","나만의 가면"],
 ["세계 여러 나라","인도 라자스탄 정원","인도 전통 미술","전통 회화","Indian miniature painting garden","작은 사람과 꽃, 정원의 장식을 찾아보세요.","작은 정원 이야기"],
-/* 상상력과 추상 20 */
+
 ["상상력과 추상","구성 8","바실리 칸딘스키","1923","Wassily Kandinsky Composition VIII","원과 선, 삼각형이 어떻게 어울리는지 찾아보세요.","도형으로 만드는 그림"],
 ["상상력과 추상","노랑 빨강 파랑","바실리 칸딘스키","1925","Kandinsky Yellow Red Blue painting","노랑, 빨강, 파랑이 주는 느낌을 이야기해 보세요.","색깔의 음악"],
 ["상상력과 추상","여러 개의 원","바실리 칸딘스키","1926","Kandinsky Several Circles painting","크기가 다른 원을 찾아보세요.","빙글빙글 원"],
@@ -347,11 +314,12 @@ function getDayOfYear(date=new Date()){
  return Math.floor((today-start)/86400000);
 }
 function getDailyIndex(list){
- return list.length ? getDayOfYear()%list.length : 0;
+ if(!list||!list.length)return 0;
+ return getDayOfYear()%list.length;
 }
 function updateTodayLabel(){
- const d=new Date();
- $("todayLabel").textContent="오늘의 명화 · "+d.getFullYear()+"년 "+(d.getMonth()+1)+"월 "+d.getDate()+"일";
+ const now=new Date();
+ $("todayLabel").textContent="오늘의 명화 · "+now.getFullYear()+"년 "+(now.getMonth()+1)+"월 "+now.getDate()+"일";
 }
 
 let filtered=[...artworks];
@@ -389,16 +357,11 @@ function renderArtwork(){
  $("artSource").innerHTML='이미지 출처: <a href="'+commonsSearch+'" target="_blank" rel="noopener">Wikimedia Commons에서 작품 확인하기 ↗</a>';
 
  renderQuestions(art);
- loadReflection();
- clearCanvas();
  updateStats();
  renderGallery();
 
- if(imageCache[art.id]){
-  showImage(imageCache[art.id]);
- }else{
-  findImage(art);
- }
+ if(imageCache[art.id])showImage(imageCache[art.id]);
+ else findImage(art);
 }
 
 async function findImage(art){
@@ -411,41 +374,64 @@ async function findImage(art){
  img.style.display="none";
  loading.innerHTML="<strong>🖼️</strong>작품 이미지를 찾고 있어요.";
 
- const searchUrl="https://commons.wikimedia.org/w/api.php?action=query&list=search&srnamespace=6&srlimit=10&srsearch="+encodeURIComponent(art.query)+"&format=json&origin=*";
+ const controller=new AbortController();
+ const timer=setTimeout(()=>controller.abort(),20000);
 
  try{
-  const controller=new AbortController();
-  const timer=setTimeout(()=>controller.abort(),12000);
-  const response=await fetch(searchUrl,{signal:controller.signal});
-  clearTimeout(timer);
-  if(!response.ok)throw new Error("위키미디어 검색에 실패했어요.");
+  const searchParams=new URLSearchParams({
+   action:"query",
+   list:"search",
+   srnamespace:"6",
+   srlimit:"8",
+   srsearch:art.query,
+   format:"json",
+   origin:"*"
+  });
 
-  const data=await response.json();
-  const results=data.query&&data.query.search?data.query.search:[];
-  if(!results.length)throw new Error("검색 결과가 없어요.");
+  const searchResponse=await fetch(
+   "https://commons.wikimedia.org/w/api.php?"+searchParams.toString(),
+   {signal:controller.signal,mode:"cors"}
+  );
+  if(!searchResponse.ok)throw new Error("이미지 검색 서버에 연결하지 못했어요.");
+  const searchData=await searchResponse.json();
+  const results=searchData.query?.search||[];
+  if(!results.length)throw new Error("검색된 이미지가 없어요.");
 
-  // 검색어와 가장 가까운 이미지 파일을 순서대로 확인합니다.
-  let imageUrl="";
-  for(const result of results){
-   const title=result.title;
-   const infoUrl="https://commons.wikimedia.org/w/api.php?action=query&titles="+encodeURIComponent(title)+"&prop=imageinfo&iiprop=url&iiurlwidth=1200&format=json&origin=*";
-   const infoResponse=await fetch(infoUrl);
-   if(!infoResponse.ok)continue;
-   const infoData=await infoResponse.json();
-   const pages=infoData.query&&infoData.query.pages?Object.values(infoData.query.pages):[];
-   const page=pages.find(item=>item.imageinfo&&item.imageinfo[0]);
-   if(page){
-    imageUrl=page.imageinfo[0].thumburl||page.imageinfo[0].url||"";
-    if(imageUrl)break;
-   }
-  }
-  if(!imageUrl)throw new Error("사용할 수 있는 이미지가 없어요.");
+  const titles=results.map(item=>item.title).join("|");
+  const imageParams=new URLSearchParams({
+   action:"query",
+   titles:titles,
+   prop:"imageinfo",
+   iiprop:"url",
+   iiurlwidth:"1400",
+   format:"json",
+   origin:"*"
+  });
 
+  const imageResponse=await fetch(
+   "https://commons.wikimedia.org/w/api.php?"+imageParams.toString(),
+   {signal:controller.signal,mode:"cors"}
+  );
+  if(!imageResponse.ok)throw new Error("이미지 주소를 가져오지 못했어요.");
+  const imageData=await imageResponse.json();
+  const pages=Object.values(imageData.query?.pages||{});
+  const usable=pages.find(page=>
+   page.imageinfo&&page.imageinfo[0]&&
+   (page.imageinfo[0].thumburl||page.imageinfo[0].url)
+  );
+  if(!usable)throw new Error("표시할 수 있는 이미지가 없어요.");
+
+  const imageUrl=usable.imageinfo[0].thumburl||usable.imageinfo[0].url;
+  if(!imageUrl)throw new Error("이미지 주소가 비어 있어요.");
+
+  imageCache[art.id]=imageUrl;
   showImage(imageUrl);
  }catch(error){
+  console.error("명화 이미지 연결 오류:",error);
   loading.style.display="none";
   fallback.style.display="block";
-  console.warn("명화 이미지 불러오기 오류:",error);
+ }finally{
+  clearTimeout(timer);
  }
 }
 
@@ -507,10 +493,7 @@ $("filters").addEventListener("click",e=>{
 
 function searchArt(){
  const term=$("searchInput").value.trim().toLowerCase();
- if(!term){
-  setCategory("전체");
-  return;
- }
+ if(!term){setCategory("전체");return;}
  filtered=artworks.filter(a=>
   (a.title+" "+a.artist+" "+a.category+" "+a.year).toLowerCase().includes(term)
  );
@@ -536,14 +519,15 @@ $("searchInput").addEventListener("keydown",e=>{
 function renderGallery(){
  const start=galleryPage*16;
  const items=filtered.slice(start,start+16);
- $("gallery").innerHTML=items.map((art,i)=>
-  '<button class="'+(art.id===filtered[currentIndex].id?"active":"")+'" data-id="'+art.id+'">'+
+ $("gallery").innerHTML=items.map(art=>
+  '<button class="'+(art.id===filtered[currentIndex]?.id?"active":"")+'" data-id="'+art.id+'">'+
   '<span class="number">작품 '+String(art.id).padStart(3,"0")+'</span>'+
   '<strong>'+art.title+'</strong><span>'+art.artist+'</span></button>'
  ).join("");
  const pages=Math.max(1,Math.ceil(filtered.length/16));
  $("galleryPage").textContent=(galleryPage+1)+" / "+pages;
 }
+
 $("gallery").addEventListener("click",e=>{
  const b=e.target.closest("button[data-id]");
  if(!b)return;
@@ -564,6 +548,7 @@ function changeGalleryPage(delta){
 const canvas=$("drawingCanvas");
 const ctx=canvas.getContext("2d");
 let drawing=false,color="#E58B9D",brush=8,erase=false;
+
 function clearCanvas(){
  ctx.fillStyle="#fff";
  ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -589,6 +574,7 @@ canvas.addEventListener("pointermove",e=>{
 function stopDraw(){drawing=false;ctx.beginPath()}
 canvas.addEventListener("pointerup",stopDraw);
 canvas.addEventListener("pointercancel",stopDraw);
+
 document.querySelectorAll(".color").forEach(b=>{
  b.addEventListener("click",()=>{
   color=b.dataset.color;erase=false;
@@ -596,7 +582,10 @@ document.querySelectorAll(".color").forEach(b=>{
  });
 });
 $("brushSize").addEventListener("input",e=>brush=Number(e.target.value));
-function eraser(){erase=true;document.querySelectorAll(".color").forEach(b=>b.classList.remove("selected"))}
+function eraser(){
+ erase=true;
+ document.querySelectorAll(".color").forEach(b=>b.classList.remove("selected"));
+}
 function downloadDrawing(){
  const link=document.createElement("a");
  link.download="하하하-명화감상-나의그림.png";
