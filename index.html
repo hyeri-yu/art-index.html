@@ -1,4 +1,388 @@
+
 <!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>하하하 명화감상 교실</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Square+Round:wght@400;700;800&display=swap');
+:root{--bg:#171817;--panel:#222421;--panel2:#292a26;--gold:#c7a765;--gold2:#e3ca8c;--cream:#f0e8d7;--muted:#b5ad9d;--line:#514632;--purple:#c7a765;--pink:#d8a0a4;--mint:#9bb6a1;--yellow:#e3ca8c;--text:#eee7d9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Nanum Square Round',sans-serif;line-height:1.6}
+button,input{font:inherit}
+button{cursor:pointer}
+.wrap{max-width:1100px;margin:auto;padding:24px 18px 50px}
+header{text-align:center;padding:25px 10px 30px}
+.eyebrow{color:var(--gold2);letter-spacing:3px;font-size:12px;font-weight:800}
+h1{font-size:clamp(27px,5vw,42px);margin:10px 0;color:var(--cream)}
+.subtitle{color:var(--muted);font-size:14px}
+.today{color:var(--gold2);font-size:13px;margin-top:12px}
+.filters{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0 22px}
+.filter,.action,.back{border:1px solid var(--line);background:var(--panel);color:var(--cream);border-radius:30px;padding:9px 16px}
+.filter.active,.action.primary{background:var(--gold);color:#211e17;border-color:var(--gold);font-weight:800}
+.searchrow{display:flex;gap:8px;max-width:550px;margin:0 auto 22px}
+.searchrow input{flex:1;min-width:0;border:1px solid var(--line);background:var(--panel);color:var(--cream);border-radius:25px;padding:11px 16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:20px}
+.artframe{max-width:850px;margin:0 auto;background:#100f0d;border:7px solid #b99a5b;outline:1px solid #ead49d;border-radius:5px;padding:10px;box-shadow:0 10px 35px #0008;text-align:center;min-height:300px;display:flex;align-items:center;justify-content:center;position:relative}
+.artframe img{display:none;max-width:100%;max-height:65vh;object-fit:contain;cursor:zoom-in}
+.loading{padding:60px 10px;color:var(--gold2)}
+.fallback{display:none;padding:30px 12px;color:var(--cream)}
+.fallback a,.source a{color:var(--gold2)}
+.artinfo{text-align:center;padding:18px 5px 5px}
+.artinfo h2{font-size:27px;margin:5px 0;color:var(--cream)}
+.artist{font-size:13px;color:var(--gold2)}
+.story{color:#d4cbb9;margin:14px auto;max-width:700px}
+.make{display:inline-block;color:#211e17;background:var(--gold2);border-radius:20px;padding:7px 15px;font-weight:800;font-size:13px}
+.controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:17px}
+.source{text-align:center;color:var(--muted);font-size:12px;margin-top:15px}
+.gallery-title{text-align:center;color:var(--gold2);margin:30px 0 12px}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;color:var(--cream);padding:12px 8px;text-align:left;min-height:68px}
+.tile b{display:block;font-size:13px}
+.tile small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.tile.active{border-color:var(--gold2);background:#383226}
+.paging{display:flex;justify-content:center;align-items:center;gap:12px;margin:14px}
+.tip{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px;color:var(--muted);font-size:13px;margin-top:25px}
+.tip b{color:var(--gold2)}
+footer{text-align:center;color:#827968;font-size:12px;padding:30px}
+.viewer{display:none;position:fixed;inset:0;background:#000e;z-index:20;align-items:center;justify-content:center;padding:25px}
+.viewer.open{display:flex}
+.viewer img{max-width:95vw;max-height:88vh;object-fit:contain}
+.viewer button{position:absolute;top:15px;right:15px;background:#29251e;color:white;border:1px solid var(--gold);padding:9px 15px;border-radius:20px}
+.paint{display:grid;grid-template-columns:1fr;gap:10px}
+.paint canvas{width:100%;height:280px;background:#fff;border-radius:10px;touch-action:none}
+.painttools{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+@media(max-width:650px){.gallery{grid-template-columns:repeat(2,1fr)}.wrap{padding:14px 12px 35px}.artframe{min-height:230px}.card{padding:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="eyebrow">ART APPRECIATION CLASS</div>
+<h1>하하하 명화감상 교실</h1>
+<div class="subtitle">그림을 천천히 보고, 생각하고, 나만의 표현으로 이어가요.</div>
+<div class="today" id="today"></div>
+</header>
+
+<div class="filters">
+<button class="filter active" data-cat="전체">전체 작품</button>
+<button class="filter" data-cat="서양 명화">서양 명화</button>
+<button class="filter" data-cat="한국 명화">한국 명화</button>
+<button class="filter" data-cat="현대 명화">현대 명화</button>
+</div>
+
+<div class="searchrow">
+<input id="search" placeholder="작품이나 작가 이름 검색" onkeydown="if(event.key==='Enter')searchArt()">
+<button class="action" onclick="searchArt()">검색</button>
+</div>
+
+<section class="card">
+<div class="artframe">
+<div class="loading" id="loading">작품 이미지를 불러오고 있어요…</div>
+<img id="artImage" alt="명화 작품 이미지">
+<div class="fallback" id="fallback">
+<p>작품 이미지를 표시하지 못했습니다.</p>
+<a id="fallbackLink" href="#" target="_blank" rel="noopener">작품 원본 및 출처 확인하기 ↗</a>
+</div>
+</div>
+<div class="artinfo">
+<h2 id="artTitle"></h2>
+<div class="artist" id="artArtist"></div>
+<p class="story" id="artStory"></p>
+<span class="make" id="makeTitle"></span>
+</div>
+<div class="controls">
+<button class="action" onclick="prev()">이전 작품</button>
+<button class="action primary" onclick="randomArt()">다른 작품 보기</button>
+<button class="action" onclick="next()">다음 작품</button>
+</div>
+<div class="source" id="artSource"></div>
+<div class="source">작품 <span id="count">1 / 50</span></div>
+</section>
+
+<h3 class="gallery-title">작품 모아보기</h3>
+<div class="gallery" id="gallery"></div>
+<div class="paging">
+<button class="back" onclick="page(-1)">이전</button>
+<span id="pageText">1 / 5</span>
+<button class="back" onclick="page(1)">다음</button>
+</div>
+
+<section class="card">
+<h3 class="gallery-title">나만의 그림 그리기</h3>
+<div class="paint">
+<canvas id="canvas" width="1000" height="500"></canvas>
+<div class="painttools">
+<label>색상 <input type="color" id="color" value="#333333"></label>
+<label>굵기 <input type="range" id="size" min="2" max="35" value="7"></label>
+<button class="action" onclick="clearCanvas()">지우기</button>
+<button class="action primary" onclick="saveDrawing()">그림 저장하기</button>
+</div>
+</div>
+</section>
+
+<section class="tip">
+<b>선생님을 위한 안내</b>
+<p>• 작품마다 연결된 출처를 눌러 소장처와 작품 정보를 확인할 수 있어요.</p>
+<p>• 이미지 주소는 작품별로 지정되어 있으며, 이미지가 표시되지 않으면 작품명과 작가명으로 다시 검색합니다.</p>
+<p>• 자동 검색 결과가 정확하지 않을 수 있으므로, 출처 링크에서 실제 작품을 확인해 주세요.</p>
+</section>
+<footer>꿈꾸며 나아가는 RAS 꿈나라 교실<br>READ · ART · SPORTS</footer>
+</div>
+
+<div id="viewer" class="viewer" onclick="if(event.target.id==='viewer')closeViewer()">
+<button onclick="closeViewer()">닫기 ✕</button>
+<img id="viewerImg" alt="명화 크게 보기">
+</div>
+
+<script>
+const works=[
+["서양 명화","별이 빛나는 밤","빈센트 반 고흐","1889","https://commons.wikimedia.org/wiki/Special:FilePath/TheStarryNightByVincentVanGogh.jpg","https://commons.wikimedia.org/wiki/File:TheStarryNightByVincentVanGogh.jpg","뉴욕 현대미술관 소장작으로 알려진 1889년 작품이에요. 소용돌이치는 하늘과 마을을 찾아보세요.","밤하늘을 그려요"],
+["서양 명화","해바라기","빈센트 반 고흐","1888","https://commons.wikimedia.org/wiki/Special:FilePath/Sunflowers_National_Gallery.jpg","https://commons.wikimedia.org/wiki/File:Sunflowers_National_Gallery.jpg","런던 내셔널 갤러리 소장 작품이에요. 꽃의 방향과 노란색의 차이를 살펴보세요.","내가 좋아하는 꽃"],
+["서양 명화","진주 귀걸이를 한 소녀","요하네스 페르메이르","1665년경","https://commons.wikimedia.org/wiki/Special:FilePath/1665_Girl_with_a_Pearl_Earring.jpg","https://commons.wikimedia.org/wiki/File:1665_Girl_with_a_Pearl_Earring.jpg","네덜란드 마우리츠하위스 소장 작품이에요. 소녀의 시선과 진주 귀걸이를 찾아보세요.","나만의 초상화"],
+["서양 명화","양귀비 들판","클로드 모네","1873","https://commons.wikimedia.org/wiki/Special:FilePath/Claude_Monet_Poppy_Field_Argenteuil.jpg","https://commons.wikimedia.org/wiki/File:Claude_Monet_Poppy_Field_Argenteuil.jpg","초록 들판과 붉은 꽃들이 펼쳐져 있어요. 멀리 있는 사람들과 가까운 꽃의 크기를 비교해 보세요.","알록달록 꽃밭 그리기"],
+["서양 명화","사과와 오렌지가 있는 정물","폴 세잔","1899년경","https://commons.wikimedia.org/wiki/Special:FilePath/Paul_Cezanne_Still_Life_with_Apples.jpg","https://commons.wikimedia.org/wiki/File:Paul_Cezanne_Still_Life_with_Apples.jpg","사과와 오렌지, 천이 놓인 정물화예요. 둥근 과일에 빛이 닿는 부분을 찾아보세요.","과일 정물화 꾸미기"],
+["서양 명화","그랑드 자트 섬의 일요일 오후","조르주 쇠라","1884~1886","https://commons.wikimedia.org/wiki/Special:FilePath/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg","https://commons.wikimedia.org/wiki/File:A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg","시카고 미술관 소장작을 촬영한 이미지예요. 작은 색점으로 표현된 사람과 강가 풍경을 살펴보세요.","점으로 풍경 그리기"],
+["서양 명화","아메리칸 고딕","그랜트 우드","1930","https://commons.wikimedia.org/wiki/Special:FilePath/Grant_Wood_-_American_Gothic.jpeg","https://commons.wikimedia.org/wiki/File:Grant_Wood_-_American_Gothic.jpeg","시카고 미술관 소장 작품이에요. 두 인물의 표정과 손에 든 물건을 관찰해 보세요.","우리 가족 초상화"],
+["서양 명화","야경","렘브란트","1642","https://commons.wikimedia.org/wiki/Special:FilePath/The_Night_Watch.jpg","https://commons.wikimedia.org/wiki/File:The_Night_Watch.jpg","암스테르담 국립미술관의 대표작이에요. 사람들의 움직임과 빛이 비치는 곳을 찾아보세요.","우리들의 행진"],
+["서양 명화","수련","클로드 모네","1907","https://commons.wikimedia.org/wiki/Special:FilePath/Claude_Monet_-_Water_Lilies.JPG","https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Water_Lilies.JPG","연못 위 수련과 물빛을 살펴보세요.","나만의 연못"],
+["서양 명화","아몬드 꽃","빈센트 반 고흐","1890","https://commons.wikimedia.org/wiki/Special:FilePath/Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg","https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg","하늘색 바탕에 가지와 꽃이 뻗어 있어요. 꽃봉오리와 활짝 핀 꽃을 찾아보세요.","봄꽃 가지 만들기"],
+["서양 명화","우유 따르는 여인","요하네스 페르메이르","1660년경","https://commons.wikimedia.org/wiki/Special:FilePath/VermeerMilkmaid.jpg","https://commons.wikimedia.org/wiki/File:VermeerMilkmaid.jpg","암스테르담 국립미술관 소장 작품이에요. 여인이 우유를 따르는 모습과 식탁 위 물건을 관찰해 보세요.","부엌의 한 장면"],
+["한국 명화","씨름","김홍도","18세기","https://www.museum.go.kr/relic_image/PS01001001/bon006/2016/1213161649247/bon006504-22-01.jpg","https://www.museum.go.kr/MUSEUM/contents/M0502000000.do?relicId=551&schM=view&searchId=search","국립중앙박물관 소장 《단원 풍속도첩》의 작품이에요. 소장품 번호는 본관6504-22입니다. 씨름꾼과 둘러앉은 구경꾼을 찾아보세요.","우리들의 운동회"],
+["서양 명화","모나리자","레오나르도 다 빈치","1503~1519년경","https://commons.wikimedia.org/wiki/Special:FilePath/Mona_Lisa_in_the_Louvre.jpg","https://commons.wikimedia.org/wiki/File:Mona_Lisa_in_the_Louvre.jpg","루브르 박물관에 있는 작품을 촬영한 이미지예요. 인물의 미소와 뒤쪽 풍경을 살펴보세요.","나의 미소 그리기"],
+["서양 명화","아를의 반 고흐의 방","빈센트 반 고흐","1889","https://commons.wikimedia.org/wiki/Special:FilePath/Bedroom_of_Van_Gogh_in_Arles.jpg","https://commons.wikimedia.org/wiki/File:Bedroom_of_Van_Gogh_in_Arles.jpg","반 고흐가 아를에서 그린 방의 모습이에요. 의자와 침대, 창문과 벽의 색을 비교해 보세요.","내 방을 그려요"],
+["서양 명화","인상, 해돋이","클로드 모네","1872","https://commons.wikimedia.org/wiki/Special:FilePath/Monet_-_Impression%2C_Sunrise.jpg","https://commons.wikimedia.org/wiki/File:Monet_-_Impression,_Sunrise.jpg","항구 위로 해가 떠오르는 순간을 그린 작품이에요. 물 위에 비친 주황빛과 흐릿한 배를 찾아보세요.","아침 풍경의 색"],
+["서양 명화","뱃놀이 일행의 오찬","피에르 오귀스트 르누아르","1880~1881","https://commons.wikimedia.org/wiki/Special:FilePath/Luncheon_of_the_Boating_Party_Renoir_1881.jpg","https://commons.wikimedia.org/wiki/File:Luncheon_of_the_Boating_Party_Renoir_1881.jpg","필립스 컬렉션 소장 작품이에요. 함께 식사하는 사람들의 표정과 테이블 위 물건을 관찰해 보세요.","친구들과 소풍"],
+["서양 명화","무용 수업","에드가 드가","1874","https://commons.wikimedia.org/wiki/Special:FilePath/Edgar_Degas_The_Dance_Class.jpg","https://commons.wikimedia.org/wiki/File:Edgar_Degas_The_Dance_Class.jpg","발레 연습실에서 무용수들이 어떤 동작을 하는지 찾아보세요.","춤추는 몸짓"],
+["서양 명화","금붕어","앙리 마티스","1912","https://commons.wikimedia.org/wiki/Special:FilePath/Goldfish_Matisse.jpg","https://commons.wikimedia.org/wiki/File:Goldfish_Matisse.jpg","마티스가 그린 금붕어 그림이에요. 물고기와 어항 주변의 색과 모양을 살펴보세요.","알록달록 물고기"],
+["서양 명화","잠자는 집시","앙리 루소","1897","https://commons.wikimedia.org/wiki/Special:FilePath/Henri_Rousseau_-_La_Boh%C3%A9mienne_endormie_-_Google_Art_Project.jpg","https://commons.wikimedia.org/wiki/File:Henri_Rousseau_-_La_Boh%C3%A9mienne_endormie_-_Google_Art_Project.jpg","달빛 아래 잠든 사람과 사자를 그린 작품이에요. 사자의 표정과 주변 풍경에서 어떤 이야기가 떠오르나요?","상상 속 밤 풍경"],
+["서양 명화","나와 마을","마르크 샤갈","1911","https://commons.wikimedia.org/wiki/Special:FilePath/Marc_Chagall%2C_I_and_the_Village_%2850393893081%29.jpg","https://commons.wikimedia.org/wiki/File:Marc_Chagall,_I_and_the_Village_(50393893081).jpg","사람과 동물, 집과 나무가 어떤 색과 모양으로 표현되었는지 찾아보세요.","나와 우리 마을"],
+["서양 명화","델프트 풍경","요하네스 페르메이르","1660~1661","https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Delft%2C_by_Johannes_Vermeer.jpg","https://commons.wikimedia.org/wiki/File:View_of_Delft,_by_Johannes_Vermeer.jpg","물에 비친 도시와 구름이 많은 하늘을 천천히 살펴보세요.","내가 사는 동네"],
+["서양 명화","그네","장 오노레 프라고나르","1767년경","https://commons.wikimedia.org/wiki/Special:FilePath/Fragonard_-_swing.jpg","https://commons.wikimedia.org/wiki/File:Fragonard_-_swing.jpg","그네를 타는 사람과 주변 정원에 무엇이 있는지 찾아보세요.","정원에서 그네 타기"],
+["서양 명화","아르놀피니 부부의 초상","얀 반 에이크","1434","https://commons.wikimedia.org/wiki/Special:FilePath/Van_Eyck_-_Arnolfini_Portrait.jpg","https://commons.wikimedia.org/wiki/File:Van_Eyck_-_Arnolfini_Portrait.jpg","두 사람과 방 안의 거울, 강아지와 신발을 찾아보세요.","우리 가족의 하루"],
+["서양 명화","건초 수레","존 컨스터블","1821","https://commons.wikimedia.org/wiki/Special:FilePath/John_Constable_-_The_Hay_Wain_%281821%29.jpg","https://commons.wikimedia.org/wiki/File:John_Constable_-_The_Hay_Wain_(1821).jpg","강물과 나무, 수레가 있는 시골 풍경을 관찰해 보세요.","초록빛 시골 풍경"],
+["서양 명화","이삭 줍는 사람들","장프랑수아 밀레","1857","https://commons.wikimedia.org/wiki/Special:FilePath/Millet_Gleaners.jpg","https://commons.wikimedia.org/wiki/File:Millet_Gleaners.jpg","세 사람이 땅에서 무엇을 줍고 있는지, 멀리 있는 사람들은 무엇을 하는지 살펴보세요.","들판에서 일하는 사람들"],
+["서양 명화","꿈","앙리 루소","1910","https://commons.wikimedia.org/wiki/Special:FilePath/Henri_Rousseau_005.jpg","https://commons.wikimedia.org/wiki/File:Henri_Rousseau_005.jpg","커다란 식물과 동물들이 가득한 정글에서 숨은 모습을 찾아보세요.","나만의 상상 정글"],
+["서양 명화","바벨탑","피터르 브뤼헐","1563","https://commons.wikimedia.org/wiki/Special:FilePath/The_Tower_of_Babel_%28Bruegel%29.jpg","https://commons.wikimedia.org/wiki/File:The_Tower_of_Babel_(Bruegel).jpg","아주 큰 탑을 짓는 사람들과 탑의 층층이 쌓인 모습을 살펴보세요.","높이높이 탑 쌓기"],
+["서양 명화","생명의 나무","구스타프 클림트","1905~1909","https://commons.wikimedia.org/wiki/Special:FilePath/Gustav_Klimt_032.jpg","https://commons.wikimedia.org/wiki/File:Gustav_Klimt_032.jpg","나뭇가지의 둥근 곡선과 장식 무늬를 찾아보세요.","나만의 무늬 나무"],
+["서양 명화","생트빅투아르 산","폴 세잔","1904~1906","https://commons.wikimedia.org/wiki/Special:FilePath/Mont_Sainte-Victoire_by_Paul_Cezanne.jpg","https://commons.wikimedia.org/wiki/File:Mont_Sainte-Victoire_by_Paul_Cezanne.jpg","산과 나무, 하늘을 단순한 색면으로 나누어 표현했어요.","색종이로 산 풍경 만들기"],
+["서양 명화","두 자매(테라스에서)","피에르 오귀스트 르누아르","1881","https://commons.wikimedia.org/wiki/Special:FilePath/Two_Sisters_(On_the_Terrace)_by_Pierre-Auguste_Renoir.jpg","https://commons.wikimedia.org/wiki/File:Two_Sisters_(On_the_Terrace)_by_Pierre-Auguste_Renoir.jpg","테라스에 앉은 두 사람과 강가 풍경을 살펴보세요.","친구와 함께하는 봄날"],
+["서양 명화","생트아드레스의 정원","클로드 모네","1867","https://commons.wikimedia.org/wiki/Special:FilePath/Garden_at_Sainte-Adresse_by_Claude_Monet.jpg","https://commons.wikimedia.org/wiki/File:Garden_at_Sainte-Adresse_by_Claude_Monet.jpg","정원과 바다, 깃발이 있는 풍경이에요.","우리 동네 정원 그리기"],
+["한국 명화","서당","김홍도","18세기","https://commons.wikimedia.org/wiki/Special:FilePath/Kim_Hong-do_-_Seodang.jpg","https://commons.wikimedia.org/wiki/File:Kim_Hong-do_-_Seodang.jpg","조선 시대 서당에서 공부하는 아이들과 훈장님의 모습을 담았어요.","우리 교실 풍경 그리기"],
+["한국 명화","무동","김홍도","18세기","https://commons.wikimedia.org/wiki/Special:FilePath/Kim_Hong-do_-_Dance.jpg","https://commons.wikimedia.org/wiki/File:Kim_Hong-do_-_Dance.jpg","악기를 연주하는 사람들 사이에서 춤추는 아이를 찾아보세요.","장단에 맞춰 움직임 표현하기"],
+["한국 명화","타작","김홍도","18세기","https://commons.wikimedia.org/wiki/Special:FilePath/Kim_Hong-do_-_Threshing.jpg","https://commons.wikimedia.org/wiki/File:Kim_Hong-do_-_Threshing.jpg","사람들이 곡식을 거두고 나누는 모습을 그린 풍속화예요.","가을걷이 장면 꾸미기"],
+["한국 명화","단오풍정","신윤복","18세기","https://commons.wikimedia.org/wiki/Special:FilePath/Hyewon_pungsokdo_Dano_pungjeong.jpg","https://commons.wikimedia.org/wiki/File:Hyewon_pungsokdo_Dano_pungjeong.jpg","단오날의 풍경을 담은 그림이에요. 나무와 그네, 사람들의 모습을 찾아보세요.","우리 전통 명절 풍경 그리기"],
+["한국 명화","인왕제색도","정선","1751","https://commons.wikimedia.org/wiki/Special:FilePath/Jeong_Seon_-_Inwangjesaekdo.jpg","https://commons.wikimedia.org/wiki/File:Jeong_Seon_-_Inwangjesaekdo.jpg","비가 온 뒤 안개가 걷히는 인왕산을 그린 산수화예요.","먹으로 산과 안개 표현하기"],
+["한국 명화","호랑이와 까치","작자 미상","조선 후기","https://commons.wikimedia.org/wiki/Special:FilePath/Tiger_and_Magpie_Korean_folk_painting.jpg","https://mokfa.omeka.net/items/show/4","호랑이와 까치가 함께 등장하는 민화예요. 호랑이의 표정과 까치의 위치를 관찰해 보세요.","재미있는 동물 민화 만들기"],
+["한국 명화","책거리 병풍","작자 미상","조선 후기","https://commons.wikimedia.org/wiki/Special:FilePath/Chaekgeori_screen_Korean_folk_painting.jpg","https://mokfa.omeka.net/","책과 여러 생활 물건을 정성스럽게 그린 그림이에요.","내가 좋아하는 물건 진열하기"],
+["한국 명화","초충도","신사임당","16세기","https://commons.wikimedia.org/wiki/Special:FilePath/Shin_Saimdang_Chochungdo.jpg","https://commons.wikimedia.org/wiki/File:Shin_Saimdang_Chochungdo.jpg","풀과 꽃, 작은 곤충들이 어우러진 그림이에요.","꽃과 곤충 관찰 그림"],
+["현대 명화","여러 개의 원","바실리 칸딘스키","1926","https://commons.wikimedia.org/wiki/Special:FilePath/Several_Circles_by_Wassily_Kandinsky.jpg","https://commons.wikimedia.org/wiki/File:Several_Circles_by_Wassily_Kandinsky.jpg","크기가 다른 원들이 우주처럼 떠 있어요.","색깔 원으로 나만의 우주 만들기"],
+["현대 명화","달팽이","앙리 마티스","1953","https://commons.wikimedia.org/wiki/Special:FilePath/Henri_Matisse_The_Snail.jpg","https://commons.wikimedia.org/wiki/File:Henri_Matisse_The_Snail.jpg","색종이 조각을 이어 붙여 달팽이를 표현했어요.","색종이 오려 붙이기"],
+["현대 명화","성과 태양","파울 클레","1928","https://commons.wikimedia.org/wiki/Special:FilePath/Paul_Klee_Castle_and_Sun.jpg","https://commons.wikimedia.org/wiki/File:Paul_Klee_Castle_and_Sun.jpg","네모와 세모가 모여 성과 도시처럼 보여요.","도형으로 상상 마을 만들기"],
+["현대 명화","빨강, 파랑, 노랑의 구성","피트 몬드리안","1930","https://commons.wikimedia.org/wiki/Special:FilePath/Composition_with_Red_Blue_and_Yellow.jpg","https://commons.wikimedia.org/wiki/File:Composition_with_Red_Blue_and_Yellow.jpg","검은 선과 기본 색으로 화면을 나누었어요.","직선과 색면으로 꾸미기"],
+["현대 명화","세네치오","파울 클레","1922","https://commons.wikimedia.org/wiki/Special:FilePath/Paul_Klee_Senecio_1922.jpg","https://commons.wikimedia.org/wiki/File:Paul_Klee_Senecio_1922.jpg","얼굴을 여러 색과 단순한 모양으로 표현했어요.","도형 얼굴 만들기"],
+["현대 명화","꽃","앤디 워홀","1964","https://commons.wikimedia.org/wiki/Special:FilePath/Andy_Warhol_Flowers_1964.jpg","https://commons.wikimedia.org/wiki/File:Andy_Warhol_Flowers_1964.jpg","꽃 모양과 색을 반복해서 표현한 작품이에요.","반복 무늬 꽃밭 만들기"],
+["현대 명화","어릿광대의 사육제","호안 미로","1924~1925","https://commons.wikimedia.org/wiki/Special:FilePath/Joan_Miro_Harlequins_Carnival.jpg","https://commons.wikimedia.org/wiki/File:Joan_Miro_Harlequins_Carnival.jpg","점과 선, 기호 같은 모양이 가득한 상상의 세계예요.","상상 속 생물 그리기"],
+["현대 명화","빨강 파랑 노랑의 리듬","피트 몬드리안","1930년대","https://commons.wikimedia.org/wiki/Special:FilePath/Piet_Mondrian_Composition_II_Red_Blue_and_Yellow.jpg","https://commons.wikimedia.org/wiki/File:Piet_Mondrian_Composition_II_Red_Blue_and_Yellow.jpg","직선과 색면이 어우러진 추상 작품이에요.","나만의 색면 구성"],
+["현대 명화","이카루스","앙리 마티스","1947","https://commons.wikimedia.org/wiki/Special:FilePath/Matisse_Icarus.jpg","https://commons.wikimedia.org/wiki/File:Matisse_Icarus.jpg","파란 바탕에 검은 형태와 작은 별 모양이 있어요.","밤하늘 별자리 콜라주"],
+["현대 명화","모빌","알렉산더 칼더","1950년대","https://commons.wikimedia.org/wiki/Special:FilePath/Alexander_Calder_mobile.jpg","https://commons.wikimedia.org/wiki/File:Alexander_Calder_mobile.jpg","가벼운 형태들이 균형을 이루는 움직이는 조각 작품이에요.","종이 모빌 만들기"],
+["현대 명화","꿈","앙리 루소","1910","https://commons.wikimedia.org/wiki/Special:FilePath/Henri_Rousseau_The_Dream_1910.jpg","https://commons.wikimedia.org/wiki/File:Henri_Rousseau_The_Dream_1910.jpg","커다란 식물과 동물이 있는 상상의 정글이에요.","나만의 상상 정글 꾸미기"]
+].map((x,i)=>({id:i+1,cat:x[0],title:x[1],artist:x[2],year:x[3],image:x[4],source:x[5],story:x[6],make:x[7]}));
+
+let list=[...works],idx=0,cat='전체',pageNo=0,requestNo=0;
+const $=id=>document.getElementById(id);
+
+/* Wikimedia Commons API로 기존 파일을 확인하고, 실패하면 작품명으로 재검색 */
+async function commonsImageFor(w){
+  const api='https://commons.wikimedia.org/w/api.php?';
+  const params=new URLSearchParams({
+    action:'query',format:'json',origin:'*',
+    prop:'imageinfo',iiprop:'url',iiurlwidth:'1800'
+  });
+
+  let fileName='';
+  try{
+    const u=new URL(w.source);
+    const marker='/wiki/File:';
+    const at=u.pathname.indexOf(marker);
+    if(at>=0){
+      fileName=decodeURIComponent(u.pathname.slice(at+marker.length)).replace(/_/g,' ');
+    }
+  }catch(e){}
+
+  if(fileName){
+    params.set('titles','File:'+fileName);
+    const r=await fetch(api+params.toString());
+    if(r.ok){
+      const j=await r.json();
+      const p=Object.values(j.query?.pages||{})[0];
+      const info=p?.imageinfo?.[0];
+      if(info?.thumburl||info?.url)return info.thumburl||info.url;
+    }
+  }
+
+  const q=new URLSearchParams({
+    action:'query',format:'json',origin:'*',
+    generator:'search',gsrnamespace:'6',
+    gsrsearch:w.title+' '+w.artist,
+    gsrlimit:'8',prop:'imageinfo',
+    iiprop:'url',iiurlwidth:'1800'
+  });
+  const r=await fetch(api+q.toString());
+  if(!r.ok)throw new Error('Commons API 연결 실패');
+  const j=await r.json();
+  const pages=Object.values(j.query?.pages||[]);
+  const artistKey=(w.artist.split(' ').slice(-1)[0]||'').toLowerCase();
+  const titleKeys=w.title.toLowerCase().split(/\s+/).filter(x=>x.length>2);
+
+  const ranked=pages.map(p=>{
+    const name=(p.title||'').toLowerCase();
+    let score=artistKey&&name.includes(artistKey)?3:0;
+    titleKeys.forEach(k=>{if(name.includes(k))score+=1});
+    return {p,score};
+  }).sort((a,b)=>b.score-a.score);
+
+  const best=ranked.find(x=>x.score>=2&&x.p.imageinfo?.[0]);
+  if(best)return best.p.imageinfo[0].thumburl||best.p.imageinfo[0].url;
+  throw new Error('일치하는 Commons 이미지 파일을 찾지 못함');
+}
+
+function render(){
+  if(!list.length){
+    $('artTitle').textContent='검색 결과가 없습니다.';
+    $('artArtist').textContent='';
+    $('artStory').textContent='다른 검색어를 입력해 주세요.';
+    $('artImage').style.display='none';
+    $('loading').style.display='none';
+    $('fallback').style.display='none';
+    $('gallery').innerHTML='';
+    $('count').textContent='0 / 0';
+    $('pageText').textContent='0 / 0';
+    return;
+  }
+
+  const w=list[idx],ticket=++requestNo;
+  $('artTitle').textContent=w.title;
+  $('artArtist').textContent=w.artist+' · '+w.year+' · '+w.cat;
+  $('artStory').textContent=w.story;
+  $('makeTitle').textContent=w.make;
+  $('count').textContent=(idx+1)+' / '+list.length;
+  $('pageText').textContent=(pageNo+1)+' / '+Math.max(1,Math.ceil(list.length/12));
+  $('artSource').innerHTML='작품·이미지 확인: <a href="'+w.source+'" target="_blank" rel="noopener">소장처/작품 이미지 출처 보기 ↗</a>';
+  $('fallbackLink').href=w.source;
+
+  const im=$('artImage');
+  im.style.display='none';
+  $('fallback').style.display='none';
+  $('loading').style.display='block';
+  $('loading').textContent='작품 이미지를 불러오고 있어요…';
+
+  im.onload=()=>{
+    if(ticket!==requestNo)return;
+    $('loading').style.display='none';
+    $('fallback').style.display='none';
+    im.style.display='block';
+  };
+
+  im.onerror=async()=>{
+    if(ticket!==requestNo)return;
+    try{
+      $('loading').textContent='작품 파일을 다시 찾고 있어요…';
+      const repaired=await commonsImageFor(w);
+      if(ticket!==requestNo)return;
+      im.src=repaired;
+    }catch(e){
+      if(ticket!==requestNo)return;
+      im.style.display='none';
+      $('loading').style.display='none';
+      $('fallback').style.display='block';
+      $('fallback').querySelector('p').textContent='정확한 이미지 파일을 자동으로 찾지 못했습니다. 아래 출처에서 원본을 확인해 주세요.';
+    }
+  };
+
+  im.src=w.image;
+  renderGallery();
+}
+
+function renderGallery(){
+  const start=pageNo*12;
+  const part=list.slice(start,start+12);
+  $('gallery').innerHTML=part.map((w,i)=>
+    '<button class="tile '+(start+i===idx?'active':'')+'" onclick="choose('+(start+i)+')"><b>'+w.title+'</b><small>'+w.artist+'</small></button>'
+  ).join('');
+  $('pageText').textContent=(pageNo+1)+' / '+Math.max(1,Math.ceil(list.length/12));
+}
+function choose(n){idx=n;render();window.scrollTo({top:0,behavior:'smooth'})}
+function next(){if(!list.length)return;idx=(idx+1)%list.length;render()}
+function prev(){if(!list.length)return;idx=(idx-1+list.length)%list.length;render()}
+function randomArt(){if(!list.length)return;idx=Math.floor(Math.random()*list.length);render()}
+function setCat(c){
+  cat=c;
+  list=works.filter(w=>c==='전체'||w.cat===c);
+  idx=0;pageNo=0;
+  document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.cat===c));
+  render();
+}
+document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>setCat(b.dataset.cat)));
+function searchArt(){
+  const q=$('search').value.trim().toLowerCase();
+  list=works.filter(w=>(cat==='전체'||w.cat===cat)&&(w.title+' '+w.artist).toLowerCase().includes(q));
+  idx=0;pageNo=0;render();
+}
+function page(d){
+  pageNo=Math.max(0,Math.min(Math.ceil(list.length/12)-1,pageNo+d));
+  renderGallery();
+}
+function openViewer(){
+  if($('artImage').style.display!=='block')return;
+  $('viewerImg').src=$('artImage').src;
+  $('viewer').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeViewer(){
+  $('viewer').classList.remove('open');
+  $('viewerImg').src='';
+  document.body.style.overflow='';
+}
+$('artImage').addEventListener('click',openViewer);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeViewer()});
+
+const cv=$('canvas'),ctx=cv.getContext('2d');
+let drawing=false,last=null;
+function pos(e){
+  const r=cv.getBoundingClientRect();
+  return {x:(e.clientX-r.left)*cv.width/r.width,y:(e.clientY-r.top)*cv.height/r.height};
+}
+cv.addEventListener('pointerdown',e=>{drawing=true;last=pos(e);cv.setPointerCapture(e.pointerId)});
+cv.addEventListener('pointermove',e=>{
+  if(!drawing)return;
+  const p=pos(e);
+  ctx.strokeStyle=$('color').value;
+  ctx.lineWidth=+$('size').value;
+  ctx.lineCap='round';
+  ctx.beginPath();
+  ctx.moveTo(last.x,last.y);
+  ctx.lineTo(p.x,p.y);
+  ctx.stroke();
+  last=p;
+});
+cv.addEventListener('pointerup',()=>drawing=false);
+cv.addEventListener('pointercancel',()=>drawing=false);
+function clearCanvas(){ctx.clearRect(0,0,cv.width,cv.height)}
+function saveDrawing(){
+  const a=document.createElement('a');
+  a.download='나의_명화그림.png';
+  a.href=cv.toDataURL('image/png');
+  a.click();
+}
+const d=new Date();
+$('today').textContent='오늘의 명화 · '+d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';
+render();
+</script>
+</body>
+</html>
+!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
