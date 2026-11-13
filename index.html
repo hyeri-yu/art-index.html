@@ -6,40 +6,42 @@
 <title>하하하 명화감상 교실</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Square+Round:wght@400;700;800&display=swap');
-:root{--purple:#70577F;--pink:#E58B9D;--mint:#83B99B;--yellow:#E9B65F;--text:#5F526A}
-*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--text);font-family:'Nanum Square Round',sans-serif;line-height:1.65}
+:root{--bg:#171817;--panel:#222421;--panel2:#292a26;--gold:#c7a765;--gold2:#e3ca8c;--cream:#f0e8d7;--muted:#b5ad9d;--line:#514632;--purple:#c7a765;--pink:#d8a0a4;--mint:#9bb6a1;--yellow:#e3ca8c;--text:#eee7d9}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#343128 0%,#1d1e1b 42%,#141513 100%);color:var(--text);font-family:'Nanum Square Round',sans-serif;line-height:1.7}
 button,input{font:inherit}button{cursor:pointer}.shell{width:min(1080px,94%);margin:auto}
-header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:22px 0}
-.brand{font-size:24px;font-weight:800;color:var(--purple);text-decoration:none}.brand small{display:block;font-size:10px;letter-spacing:3px;color:#A48EAA}
-.back,.filter,.action,.nav button,.pager button{border:0;border-radius:12px;padding:10px 15px;font-weight:800}
-.back,.filter,.nav button,.pager button{background:#F2EAF7;color:var(--purple)}.hero{background:#FBF6F0;text-align:center;border-radius:22px;padding:25px 12px;margin:10px 0 22px}
-.hero h1{color:var(--purple);margin:4px;font-size:clamp(26px,4vw,34px)}.hero p{margin:4px;color:#918398}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.stat{background:#FAF8FB;text-align:center;border-radius:14px;padding:10px}.stat strong{display:block;font-size:23px;color:var(--purple)}
-h2{font-size:21px;color:var(--purple);margin:25px 0 7px}.desc{font-size:14px;color:#958A9A;margin:0 0 12px}
-.filters,.search{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.filter{border:1px solid #E9DDED;background:white}.filter.active{background:var(--purple);color:white}
-.search input{flex:1;min-width:180px;border:1px solid #E9DDED;border-radius:12px;padding:11px}.action{background:var(--purple);color:white}.action.soft{background:#F2EAF7;color:var(--purple)}
-.card{border:1px solid #F0EBF2;border-radius:22px;overflow:hidden}.top{display:flex;justify-content:space-between;padding:14px 18px;color:#A48EAA;font-size:13px}
-.image-wrap{height:min(62vw,560px);min-height:260px;background:#F6F2F7;display:flex;align-items:center;justify-content:center;padding:14px;position:relative}
-.art-image{max-width:100%;max-height:100%;object-fit:contain;display:block;cursor:zoom-in}.loading,.fallback{text-align:center;color:#887C90;padding:25px}.fallback{display:none}.fallback a,.source a{color:var(--purple);font-weight:700}
-.info{padding:18px}.title{font-size:26px;color:var(--purple);font-weight:800;margin:0}.artist{color:#A48EAA;font-size:14px;margin:3px 0 10px}.story{background:#FAF8FB;border-radius:13px;padding:13px;font-size:14px}.source{font-size:12px;color:#93869A;margin-top:9px}
-.nav{display:flex;justify-content:space-between;gap:8px;padding:0 18px 18px}.nav button.primary{background:var(--purple);color:white}
-.questions{background:#F8F5FA;border-radius:18px;padding:16px;margin-top:14px}.q{background:white;border-radius:12px;padding:12px;margin:8px 0}.q b{color:var(--purple)}
-.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0}.tile{border:1px solid #eee8f0;background:white;border-radius:12px;padding:10px;text-align:left;color:var(--text)}.tile.active{border:2px solid var(--pink)}.tile b{display:block;color:var(--purple);font-size:13px}.tile small{color:#968A9C}
-.pager{display:flex;justify-content:center;align-items:center;gap:12px;margin:14px}.tip{background:#F7F4FA;padding:16px;border-radius:16px;margin:25px 0}.tip p{margin:4px;font-size:13px}
-.viewer{display:none;position:fixed;inset:0;background:rgba(15,12,20,.96);z-index:1000;align-items:center;justify-content:center;padding:20px}.viewer.open{display:flex}.viewer img{max-width:96vw;max-height:90vh;object-fit:contain}.viewer button{position:absolute;right:18px;top:16px;border:0;border-radius:22px;padding:10px 16px;background:white;color:#55445f;font-weight:800}
-footer{text-align:center;color:#A394A8;border-top:1px solid #eee;padding:22px;margin-top:30px;font-size:13px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:22px 0;border-bottom:1px solid #514632}
+.brand{font-size:24px;font-weight:800;color:var(--gold2);text-decoration:none}.brand small{display:block;font-size:10px;letter-spacing:3px;color:#b8a77d}
+.back,.filter,.action,.nav button,.pager button{border:1px solid #76613a;border-radius:12px;padding:10px 15px;font-weight:800}
+.back,.filter,.nav button,.pager button{background:#292923;color:#e5d5ad}.hero{background:linear-gradient(135deg,#292a25,#393329);text-align:center;border:1px solid #76613a;border-radius:4px;padding:27px 12px;margin:20px 0 22px;box-shadow:0 12px 34px #0005}
+.hero h1{color:#e5cb8d;margin:4px;font-size:clamp(26px,4vw,34px);letter-spacing:1px}.hero p{margin:4px;color:#d0c4a8}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.stat{background:#242520;text-align:center;border:1px solid #514632;border-radius:4px;padding:10px;color:#d8cfbd}.stat strong{display:block;font-size:23px;color:var(--gold2)}
+h2{font-size:21px;color:var(--gold2);margin:25px 0 7px}.desc{font-size:14px;color:#b8b09f;margin:0 0 12px}
+.filters,.search{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.filter{border:1px solid #6e5a36;background:#252620;color:#e3d8c0}.filter.active{background:#b89650;color:#171612;border-color:#e0c27d}
+.search input{flex:1;min-width:180px;border:1px solid #75613d;background:#22231f;color:#f3ead8;border-radius:10px;padding:11px}.search input::placeholder{color:#a99f8b}.action{background:#b89650;color:#171612;border-color:#e0c27d}.action.soft{background:#292923;color:#e6d6ad}
+.card{border:1px solid #8c7140;border-radius:5px;overflow:hidden;background:#211f1b;box-shadow:0 14px 38px #0006}.top{display:flex;justify-content:space-between;padding:14px 18px;color:#d4bd85;font-size:13px;background:#292720;border-bottom:1px solid #665332}
+.image-wrap{height:min(62vw,560px);min-height:260px;background:radial-gradient(ellipse,#39362e,#1a1b18 72%);display:flex;align-items:center;justify-content:center;padding:22px;position:relative}
+.art-image{max-width:100%;max-height:100%;object-fit:contain;display:block;cursor:zoom-in;border:8px solid #b08c4d;outline:1px solid #e0c98d;box-shadow:0 8px 28px #0009}
+.loading,.fallback{text-align:center;color:#d3c6a8;padding:25px}.fallback{display:none}.fallback a,.source a{color:#e2c47d;font-weight:700}
+.info{padding:20px;background:#211f1b}.title{font-size:26px;color:#f0dfb6;font-weight:800;margin:0}.artist{color:#c5b58e;font-size:14px;margin:3px 0 10px}.story{background:#2b2922;border-left:3px solid #b89650;border-radius:3px;padding:13px;font-size:14px;color:#eee4d0}.source{font-size:12px;color:#bdb19a;margin-top:9px}
+.nav{display:flex;justify-content:space-between;gap:8px;padding:0 18px 18px;background:#211f1b}.nav button.primary{background:#b89650;color:#171612}
+.questions{background:#24241f;border:1px solid #5e4d31;border-radius:5px;padding:16px;margin-top:14px}.q{background:#302e27;border:1px solid #514632;border-radius:4px;padding:12px;margin:8px 0;color:#e9e0ce}.q b{color:#e4c77f}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0}.tile{border:1px solid #5c4d32;background:#252620;border-radius:4px;padding:10px;text-align:left;color:#e9e0ce}.tile.active{border:2px solid #d3b16a;background:#393226}.tile b{display:block;color:#e4cb91;font-size:13px}.tile small{color:#b9ae99}
+.pager{display:flex;justify-content:center;align-items:center;gap:12px;margin:14px;color:#e5d5ad}.tip{background:#292821;border:1px solid #5b4a2e;padding:16px;border-radius:4px;margin:25px 0}.tip p{margin:4px;font-size:13px;color:#d1c7b4}
+.viewer{display:none;position:fixed;inset:0;background:rgba(7,7,6,.97);z-index:1000;align-items:center;justify-content:center;padding:20px}.viewer.open{display:flex}.viewer img{max-width:96vw;max-height:90vh;object-fit:contain;border:8px solid #b08c4d;outline:1px solid #e0c98d}.viewer button{position:absolute;right:18px;top:16px;border:1px solid #c5a765;border-radius:22px;padding:10px 16px;background:#28251e;color:#f1dfb4;font-weight:800}
+footer{text-align:center;color:#b5a98d;border-top:1px solid #514632;padding:22px;margin-top:30px;font-size:13px}
+#canvas{background:#fff;border:2px solid #b89650!important}
 @media(max-width:650px){.gallery{grid-template-columns:repeat(2,1fr)}.stats{gap:5px}.stat strong{font-size:19px}.title{font-size:22px}.image-wrap{height:65vw;min-height:220px}}
 </style>
 </head>
 <body><div class="shell">
 <header><a class="brand" href="https://hyeri-yu.github.io/hahaha-ras/"><span style="color:#E58B9D">꿈</span>꾸며 <span style="color:#83B99B">나</span>아가는 <span style="color:#E9B65F">RAS</span><small>HA HA HA · ART CLASS</small></a><a class="back" href="https://hyeri-yu.github.io/hahaha-ras/">← 꿈나라 교실</a></header>
-<section class="hero"><div style="font-size:42px">🎨</div><h1>하하하 명화감상</h1><p>서양 명화 · 한국 명화 · 현대 명화를 관찰하고 나만의 생각을 표현해요.</p><span>유치원 5~7세 · 작품별 출처 확인</span></section>
+<section class="hero"><div style="font-size:42px">🎨</div><h1>하하하 명화감상</h1><p>서양 명화 · 한국 명화 · 현대 명화를 관찰하고 나만의 생각을 표현해요.</p><span>유치원 5~7세 · 서양 명화 30점 · 한국 명화 9점 · 현대 명화 11점</span></section>
 <div class="stats"><div class="stat"><strong id="total">50</strong>전체 작품</div><div class="stat"><strong id="shown">50</strong>현재 주제 작품</div><div class="stat"><strong id="count">1 / 50</strong>감상 중인 작품</div></div>
 <h2>어떤 그림을 만나볼까요?</h2><p class="desc">작품을 고르거나 작가·작품 이름으로 찾아보세요.</p>
 <div class="filters" id="filters"><button class="filter active" data-cat="전체">전체 50</button><button class="filter" data-cat="서양 명화">서양 명화 30</button><button class="filter" data-cat="한국 명화">한국 명화 9</button><button class="filter" data-cat="현대 명화">현대 명화 11</button></div>
 <div class="search"><input id="search" placeholder="작품 또는 작가 이름 검색"><button class="action soft" onclick="searchArt()">검색</button><button class="action" onclick="randomArt()">🎲 랜덤</button></div>
 <h2>오늘의 명화</h2><p class="desc">그림을 천천히 살펴보세요. 무엇이 가장 먼저 눈에 들어오나요?</p>
-<section class="card"><div class="top"><span id="today">오늘의 명화</span><span id="position">1 / 30</span></div>
+<section class="card"><div class="top"><span id="today">오늘의 명화</span><span id="position">1 / 50</span></div>
 <div class="image-wrap"><img id="artImage" class="art-image" alt="작품 이미지" style="display:none"><div id="loading" class="loading">🖼️ 작품 이미지를 불러오고 있어요.</div><div id="fallback" class="fallback"><p>이미지를 불러오지 못했습니다. 아래 미술관·박물관 출처에서 원본을 확인해 주세요.</p><a id="fallbackLink" target="_blank" rel="noopener">공식 작품 출처 열기 ↗</a></div></div>
 <div class="info"><h2 class="title" id="artTitle"></h2><div class="artist" id="artArtist"></div><div class="story" id="artStory"></div><div class="source" id="artSource"></div></div>
 <div class="nav"><button onclick="prev()">← 이전 작품</button><button class="primary" onclick="next()">다음 작품 →</button></div></section>
