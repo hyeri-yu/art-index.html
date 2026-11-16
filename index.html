@@ -248,7 +248,7 @@ const works=[
   story:x[5]
 }));
 
-/* 이미지 폴더와 루트 경로를 차례로 확인 */
+/* 작품 목록과 화면 상태 */
 let list=[...works];
 let idx=0;
 let cat="전체";
@@ -257,6 +257,7 @@ let requestNo=0;
 
 const $=id=>document.getElementById(id);
 
+/* 작품 화면 표시 */
 function render(){
   if(!list.length){
     $("artTitle").textContent="검색 결과가 없어요.";
@@ -291,10 +292,12 @@ function render(){
   $("fallback").style.display="none";
   $("loading").style.display="block";
 
+  /* images 폴더를 먼저 확인하고, 없으면 저장소 루트 확인 */
   const candidates=[
     "./images/"+encodeURIComponent(w.file),
     "./"+encodeURIComponent(w.file)
   ];
+
   let attempt=0;
 
   im.onload=()=>{
