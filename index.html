@@ -58,7 +58,6 @@ function render(){
  if(!list.length)return;
  const w=list[idx],ticket=++requestNo;
  $('artTitle').textContent=w.title;$('artArtist').textContent=w.artist+' · '+w.year+' · '+w.cat;
- $('artStory').textContent=w.story;$('makeTitle').textContent=w.make;
  $('count').textContent=(idx+1)+' / '+list.length;$('position').textContent=(idx+1)+' / '+list.length;
  $('shown').textContent=list.length;$('total').textContent=works.length;
  $('artSource').innerHTML='작품·이미지 확인: <a href="'+w.source+'" target="_blank" rel="noopener">소장처/작품 이미지 출처 보기 ↗</a>';
