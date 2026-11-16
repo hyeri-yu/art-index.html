@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -114,22 +113,22 @@ footer{text-align:center;color:#b5a98d;border-top:1px solid #514632;padding:22px
 <div style="font-size:42px">🎨</div>
 <h1>하하하 명화감상</h1>
 <p>서양 명화 · 한국 명화 · 현대 명화를 관찰하고 나만의 생각을 표현해요.</p>
-<span>유치원 5~7세 · 서양 명화 30점 · 한국 명화 9점 · 현대 명화 11점</span>
+<span>유치원 5~7세 · 서양 명화 30점 · 한국 명화 9점 · 현대 명화 9점</span>
 </section>
 
 <div class="stats">
-<div class="stat"><strong id="total">50</strong>전체 작품</div>
-<div class="stat"><strong id="shown">50</strong>현재 주제 작품</div>
-<div class="stat"><strong id="count">1 / 50</strong>감상 중인 작품</div>
+<div class="stat"><strong id="total">48</strong>전체 작품</div>
+<div class="stat"><strong id="shown">48</strong>현재 주제 작품</div>
+<div class="stat"><strong id="count">1 / 48</strong>감상 중인 작품</div>
 </div>
 
 <h2>어떤 그림을 만나볼까요?</h2>
 <p class="desc">작품을 고르거나 작가·작품 이름으로 찾아보세요.</p>
 <div class="filters" id="filters">
-<button class="filter active" data-cat="전체">전체 50</button>
+<button class="filter active" data-cat="전체">전체 48</button>
 <button class="filter" data-cat="서양 명화">서양 명화 30</button>
 <button class="filter" data-cat="한국 명화">한국 명화 9</button>
-<button class="filter" data-cat="현대 명화">현대 명화 11</button>
+<button class="filter" data-cat="현대 명화">현대 명화 9</button>
 </div>
 <div class="search">
 <input id="search" placeholder="작품 또는 작가 이름 검색">
@@ -140,11 +139,11 @@ footer{text-align:center;color:#b5a98d;border-top:1px solid #514632;padding:22px
 <h2>오늘의 명화</h2>
 <p class="desc">그림을 천천히 살펴보세요. 무엇이 가장 먼저 눈에 들어오나요?</p>
 <section class="card">
-<div class="top"><span id="today">오늘의 명화</span><span id="position">1 / 50</span></div>
+<div class="top"><span id="today">오늘의 명화</span><span id="position">1 / 48</span></div>
 <div class="image-wrap">
 <img id="artImage" class="art-image" alt="작품 이미지" style="display:none">
 <div id="loading" class="loading">🖼️ 작품 이미지를 불러오고 있어요.</div>
-<div id="fallback" class="fallback"><p>이 작품의 이미지 파일을 images 폴더에서 찾지 못했습니다.</p></div>
+<div id="fallback" class="fallback"><p>이 작품의 이미지 파일을 찾지 못했습니다.</p></div>
 </div>
 <div class="info">
 <h2 class="title" id="artTitle"></h2>
@@ -165,6 +164,7 @@ footer{text-align:center;color:#b5a98d;border-top:1px solid #514632;padding:22px
 <div class="q"><b>2. 어떤 색과 모양이 가장 눈에 띄나요?</b><br>마음에 드는 부분을 골라 이야기해 보세요.</div>
 <div class="q"><b>3. 그림 속으로 들어간다면 무엇을 해보고 싶나요?</b><br>그림 속 장면을 상상해 보세요.</div>
 </div>
+
 <h2>명화 둘러보기</h2>
 <div class="gallery" id="gallery"></div>
 <div class="pager">
@@ -191,57 +191,53 @@ READ · ART · SPORTS<br>
 
 <script>
 const works=[
-["서양 명화","별이 빛나는 밤","빈센트 반 고흐","1889","TheStarryNightByVincentVanGogh.jpg","뉴욕 현대미술관 소장작으로 알려진 1889년 작품이에요. 소용돌이치는 하늘과 마을을 찾아보세요.","밤하늘을 그려요"],
-["서양 명화","해바라기","빈센트 반 고흐","1888","Sunflowers_National_Gallery.jpg","런던 내셔널 갤러리 소장 작품이에요. 꽃의 방향과 노란색의 차이를 살펴보세요.","내가 좋아하는 꽃"],
-["서양 명화","진주 귀걸이를 한 소녀","요하네스 페르메이르","1665년경","1665_Girl_with_a_Pearl_Earring.jpg","네덜란드 마우리츠하위스 소장 작품이에요. 소녀의 시선과 진주 귀걸이를 찾아보세요.","나만의 초상화"],
-["서양 명화","양귀비 들판","클로드 모네","1873","Claude_Monet_Poppy_Field_Argenteuil.jpg","초록 들판과 붉은 꽃들이 펼쳐져 있어요. 멀리 있는 사람들과 가까운 꽃의 크기를 비교해 보세요.","알록달록 꽃밭 그리기"],
-["서양 명화","사과와 오렌지가 있는 정물","폴 세잔","1899년경","Paul_Cezanne_Still_Life_with_Apples.jpg","사과와 오렌지, 천이 놓인 정물화예요. 둥근 과일에 빛이 닿는 부분을 찾아보세요.","과일 정물화 꾸미기"],
-["서양 명화","그랑드 자트 섬의 일요일 오후","조르주 쇠라","1884~1886","A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg","시카고 미술관 소장작을 촬영한 이미지예요. 작은 색점으로 표현된 사람과 강가 풍경을 살펴보세요.","점으로 풍경 그리기"],
-["서양 명화","아메리칸 고딕","그랜트 우드","1930","Grant_Wood_-_American_Gothic.jpeg","시카고 미술관 소장 작품이에요. 두 인물의 표정과 손에 든 물건을 관찰해 보세요.","우리 가족 초상화"],
-["서양 명화","야경","렘브란트","1642","The_Night_Watch.jpg","암스테르담 국립미술관의 대표작이에요. 사람들의 움직임과 빛이 비치는 곳을 찾아보세요.","우리들의 행진"],
-["서양 명화","수련","클로드 모네","1907","Claude_Monet_-_Water_Lilies.JPG","예루살렘 이스라엘 박물관 소장작으로 기록된 작품이에요. 연못 위 수련과 물빛을 살펴보세요.","나만의 연못"],
-["서양 명화","아몬드 꽃","빈센트 반 고흐","1890","Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg","하늘색 바탕에 가지와 꽃이 뻗어 있어요. 꽃봉오리와 활짝 핀 꽃을 찾아보세요.","봄꽃 가지 만들기"],
-["서양 명화","우유 따르는 여인","요하네스 페르메이르","1660년경","VermeerMilkmaid.jpg","암스테르담 국립미술관 소장 작품이에요. 여인이 우유를 따르는 모습과 식탁 위 물건을 관찰해 보세요.","부엌의 한 장면"],
-["한국 명화","씨름","김홍도","18세기","bon006504-22-01.jpg","국립중앙박물관 소장 《단원 풍속도첩》의 작품이에요. 씨름꾼과 둘러앉은 구경꾼을 찾아보세요.","우리들의 운동회"],
-["서양 명화","모나리자","레오나르도 다 빈치","1503~1519년경","Mona_Lisa_in_the_Louvre.jpg","루브르 박물관에 있는 작품을 촬영한 이미지예요. 인물의 미소와 뒤쪽 풍경을 살펴보세요.","나의 미소 그리기"],
-["서양 명화","아를의 반 고흐의 방","빈센트 반 고흐","1889","Bedroom_of_Van_Gogh_in_Arles.jpg","반 고흐가 아를에서 그린 방의 모습이에요. 의자와 침대, 창문과 벽의 색을 비교해 보세요.","내 방을 그려요"],
-["서양 명화","인상, 해돋이","클로드 모네","1872","Monet_-_Impression,_Sunrise.jpg","항구 위로 해가 떠오르는 순간을 그린 작품이에요. 물 위에 비친 주황빛과 흐릿한 배를 찾아보세요.","아침 풍경의 색"],
-["서양 명화","뱃놀이 일행의 오찬","피에르 오귀스트 르누아르","1880~1881","Luncheon_of_the_Boating_Party_Renoir_1881.jpg","필립스 컬렉션 소장 작품이에요. 함께 식사하는 사람들의 표정과 테이블 위 물건을 관찰해 보세요.","친구들과 소풍"],
-["서양 명화","무용 수업","에드가 드가","1874","Edgar_Degas_The_Dance_Class.jpg","메트로폴리탄 미술관 소장 작품으로 알려져 있어요. 발레 연습실에서 무용수들이 어떤 동작을 하는지 찾아보세요.","춤추는 몸짓"],
-["서양 명화","금붕어","앙리 마티스","1912","Goldfish_Matisse.jpg","마티스가 그린 금붕어 그림이에요. 물고기와 어항 주변의 색과 모양을 살펴보세요.","알록달록 물고기"],
-["서양 명화","잠자는 집시","앙리 루소","1897","Henri_Rousseau_-_La_Bohémienne_endormie_-_Google_Art_Project.jpg","달빛 아래 잠든 사람과 사자를 그린 작품이에요. 사자의 표정과 주변 풍경에서 어떤 이야기가 떠오르나요?","상상 속 밤 풍경"],
-["서양 명화","나와 마을","마르크 샤갈","1911","Marc_Chagall,_I_and_the_Village_(50393893081).jpg","뉴욕 현대미술관 소장 작품이에요. 사람과 동물, 집과 나무가 어떤 색과 모양으로 표현되었는지 찾아보세요.","나와 우리 마을"],
-["서양 명화","델프트 풍경","요하네스 페르메이르","1660~1661","View_of_Delft,_by_Johannes_Vermeer.jpg","마우리츠하위스 소장 작품이에요. 물에 비친 도시와 구름이 많은 하늘을 천천히 살펴보세요.","내가 사는 동네"],
-["서양 명화","그네","장 오노레 프라고나르","1767년경","Fragonard_-_swing.jpg","월리스 컬렉션 소장 작품이에요. 그네를 타는 사람과 주변 정원에 무엇이 있는지 찾아보세요.","정원에서 그네 타기"],
-["서양 명화","아르놀피니 부부의 초상","얀 반 에이크","1434","Van_Eyck_-_Arnolfini_Portrait.jpg","런던 내셔널 갤러리 소장 작품이에요. 두 사람과 방 안의 거울, 강아지와 신발을 찾아보세요.","우리 가족의 하루"],
-["서양 명화","건초 수레","존 컨스터블","1821","John_Constable_-_The_Hay_Wain_(1821).jpg","런던 내셔널 갤러리 소장 풍경화예요. 강물과 나무, 수레가 있는 시골 풍경을 관찰해 보세요.","초록빛 시골 풍경"],
-["서양 명화","이삭 줍는 사람들","장프랑수아 밀레","1857","Millet_Gleaners.jpg","오르세 미술관 소장 작품이에요. 세 사람이 땅에서 무엇을 줍고 있는지 살펴보세요.","들판에서 일하는 사람들"],
-
-["서양 명화","꿈","앙리 루소","1910","Henri_Rousseau_005.jpg","뉴욕 현대미술관 소장 작품이에요. 커다란 식물과 동물들이 가득한 정글에서 숨은 모습을 찾아보세요.","나만의 상상 정글"],
-["서양 명화","바벨탑","피터르 브뤼헐","1563","The_Tower_of_Babel_(Bruegel).jpg","빈 미술사 박물관 소장 작품으로 알려져 있어요. 아주 큰 탑을 짓는 사람들과 탑의 모습을 살펴보세요.","높이높이 탑 쌓기"],
-["서양 명화","생명의 나무","구스타프 클림트","1905~1909","Gustav_Klimt_032.jpg","나뭇가지의 둥근 곡선과 장식 무늬를 찾아보세요.","나만의 무늬 나무"],
-["서양 명화","생트빅투아르 산","폴 세잔","1904~1906","Mont_Sainte-Victoire_by_Paul_Cezanne.jpg","산과 나무, 하늘을 단순한 색면으로 나누어 표현했어요.","색종이로 산 풍경 만들기"],
-["서양 명화","두 자매(테라스에서)","피에르 오귀스트 르누아르","1881","Renoir_Pierre-Auguste_-_The_Two_Sisters_On_the_Terrace.jpg","테라스에 앉은 두 사람과 강가 풍경을 살펴보세요.","친구와 함께하는 봄날"],
-["서양 명화","생트아드레스의 정원","클로드 모네","1867","Claude_Monet_-_Jardin_à_Sainte-Adresse.jpg","정원과 바다, 깃발이 있는 풍경이에요. 화면에서 가장 밝은 곳을 찾아보세요.","우리 동네 정원 그리기"],
-["한국 명화","서당","김홍도","18세기","bon006504-23-01.jpg","조선 시대 서당에서 공부하는 아이들과 훈장님의 모습을 담았어요.","우리 교실 풍경 그리기"],
-["한국 명화","무동","김홍도","18세기","bon006504-24-01.jpg","악기를 연주하는 사람들 사이에서 춤추는 아이를 찾아보세요.","장단에 맞춰 움직임 표현하기"],
-["한국 명화","타작","김홍도","18세기","bon006504-14-01.jpg","사람들이 곡식을 거두고 나누는 모습을 그린 풍속화예요.","가을걷이 장면 꾸미기"],
-["한국 명화","단오풍정","신윤복","18세기","pan010770-000-01.jpg","단오날의 풍경을 담은 그림이에요. 나무와 그네, 사람들의 모습을 찾아보세요.","우리 전통 명절 풍경 그리기"],
-["한국 명화","인왕제색도","정선","1751","lkh000001-000-80001.jpg","비가 온 뒤 안개가 걷히는 인왕산을 그린 산수화예요.","먹으로 산과 안개 표현하기"],
-["한국 명화","호랑이와 까치","작자 미상","조선 후기","don002613-00-00.jpg","호랑이와 까치가 함께 등장하는 민화예요.","재미있는 동물 민화 만들기"],
-["한국 명화","책거리 병풍","작자 미상","조선 후기","hon000465-00-00.jpg","책과 여러 생활 물건을 정성스럽게 그린 그림이에요.","내가 좋아하는 물건 진열하기"],
-["한국 명화","초충도","신사임당","16세기","ssu003550-000-019.jpg","풀과 꽃, 작은 곤충들이 어우러진 그림이에요.","꽃과 곤충 관찰 그림"],
-["현대 명화","여러 개의 원","바실리 칸딘스키","1926","Vassily_Kandinsky_1926_-_Several_Circles_Gugg_0910_25.jpg","크기가 다른 원들이 우주처럼 떠 있어요.","색깔 원으로 나만의 우주 만들기"],
-["현대 명화","달팽이","앙리 마티스","1953","Henri_Matisse_The_Snail.jpg","색종이 조각을 이어 붙여 달팽이를 표현했어요.","색종이 오려 붙이기"],
-["현대 명화","성과 태양","파울 클레","1928","Burg_und_Sonne_-_Klee.jpg","네모와 세모가 모여 성과 도시처럼 보여요.","도형으로 상상 마을 만들기"],
-["현대 명화","빨강, 파랑, 노랑의 구성","피트 몬드리안","1930","Composition_with_Red_Blue_and_Yellow.jpg","검은 선과 기본 색으로 화면을 나누었어요.","직선과 색면으로 꾸미기"],
-["현대 명화","세네치오","파울 클레","1922","Senecio2.JPG","얼굴을 여러 색과 단순한 모양으로 표현했어요.","도형 얼굴 만들기"],
-["현대 명화","꽃","앤디 워홀","1964","Andy-Warhol-Flowers-1964.jpeg","꽃 모양과 색을 반복해서 표현한 작품이에요.","반복 무늬 꽃밭 만들기"],
-["현대 명화","어릿광대의 사육제","호안 미로","1924~1925","Joan_Miro_Harlequins_Carnival.jpg","점과 선, 기호 같은 모양이 가득한 상상의 세계예요.","상상 속 생물 그리기"],
-["현대 명화","빨강 파랑 노랑의 리듬","피트 몬드리안","1930년대","Piet_Mondriaan_1942_-_Broadway_Boogie_Woogie.jpg","직선과 색면이 어우러진 추상 작품이에요.","나만의 색면 구성"],
-["현대 명화","이카루스","앙리 마티스","1947","Matisse_Icarus.jpg","파란 바탕에 검은 형태와 작은 별 모양이 있어요.","밤하늘 별자리 콜라주"],
-["현대 명화","모빌","알렉산더 칼더","1950년대","Alexander_Calder_mobile.jpg","가벼운 형태들이 균형을 이루는 움직이는 조각 작품이에요.","종이 모빌 만들기"],
-["현대 명화","꿈","앙리 루소","1910","Henri_Rousseau_The_Dream_1910.jpg","커다란 식물과 동물이 있는 상상의 정글이에요.","나만의 상상 정글 꾸미기"]
+["서양 명화","별이 빛나는 밤","빈센트 반 고흐","1889","TheStarryNightByVincentVanGogh.jpg","뉴욕 현대미술관 소장작으로 알려진 1889년 작품이에요. 소용돌이치는 하늘과 마을을 찾아보세요."],
+["서양 명화","해바라기","빈센트 반 고흐","1888","Sunflowers_National_Gallery.jpg","런던 내셔널 갤러리 소장 작품이에요. 꽃의 방향과 노란색의 차이를 살펴보세요."],
+["서양 명화","진주 귀걸이를 한 소녀","요하네스 페르메이르","1665년경","1665_Girl_with_a_Pearl_Earring.jpg","네덜란드 마우리츠하위스 소장 작품이에요. 소녀의 시선과 진주 귀걸이를 찾아보세요."],
+["서양 명화","양귀비 들판","클로드 모네","1873","vincent_van_Gogh_-_Poppy_field_-_Google_Art_Project.jpg","초록 들판과 붉은 꽃들이 펼쳐져 있어요. 멀리 있는 사람들과 가까운 꽃의 크기를 비교해 보세요."],
+["서양 명화","사과와 오렌지가 있는 정물","폴 세잔","1899년경","Nature_morte_aux_pommes_et_aux_oranges,_par_Paul_Cézanne.jpg","사과와 오렌지, 천이 놓인 정물화예요. 둥근 과일에 빛이 닿는 부분을 찾아보세요."],
+["서양 명화","그랑드 자트 섬의 일요일 오후","조르주 쇠라","1884~1886","A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg","시카고 미술관 소장작을 촬영한 이미지예요. 작은 색점으로 표현된 사람과 강가 풍경을 살펴보세요."],
+["서양 명화","아메리칸 고딕","그랜트 우드","1930","Grant_Wood_-_American_Gothic.jpeg","시카고 미술관 소장 작품이에요. 두 인물의 표정과 손에 든 물건을 관찰해 보세요."],
+["서양 명화","야경","렘브란트","1642","La ronda de noche, por Rembrandt van Rijn.jpg","암스테르담 국립미술관의 대표작이에요. 사람들의 움직임과 빛이 비치는 곳을 찾아보세요."],
+["서양 명화","수련","클로드 모네","1907","Claude_Monet_-_Water_Lilies.JPG","예루살렘 이스라엘 박물관 소장작으로 기록된 작품이에요. 연못 위 수련과 물빛을 살펴보세요."],
+["서양 명화","아몬드 꽃","빈센트 반 고흐","1890","Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg","하늘색 바탕에 가지와 꽃이 뻗어 있어요. 꽃봉오리와 활짝 핀 꽃을 찾아보세요."],
+["서양 명화","우유 따르는 여인","요하네스 페르메이르","1660년경","VermeerMilkmaid.jpg","암스테르담 국립미술관 소장 작품이에요. 여인이 우유를 따르는 모습과 식탁 위 물건을 관찰해 보세요."],
+["한국 명화","씨름","김홍도","18세기","bon006504-22-01.jpg","국립중앙박물관 소장 《단원 풍속도첩》의 작품이에요. 씨름꾼과 둘러앉은 구경꾼을 찾아보세요."],
+["서양 명화","모나리자","레오나르도 다 빈치","1503~1519년경","Mona_Lisa_in_the_Louvre.jpg","루브르 박물관에 있는 작품을 촬영한 이미지예요. 인물의 미소와 뒤쪽 풍경을 살펴보세요."],
+["서양 명화","아를의 반 고흐의 방","빈센트 반 고흐","1889","Bedroom_of_Van_Gogh_in_Arles.jpg","반 고흐가 아를에서 그린 방의 모습이에요. 의자와 침대, 창문과 벽의 색을 비교해 보세요."],
+["서양 명화","인상, 해돋이","클로드 모네","1872","Monet_-_Impression,_Sunrise.jpg","항구 위로 해가 떠오르는 순간을 그린 작품이에요. 물 위에 비친 주황빛과 흐릿한 배를 찾아보세요."],
+["서양 명화","뱃놀이 일행의 오찬","피에르 오귀스트 르누아르","1880~1881","Luncheon_of_the_Boating_Party_Renoir_1881.jpg","필립스 컬렉션 소장 작품이에요. 함께 식사하는 사람들의 표정과 테이블 위 물건을 관찰해 보세요."],
+["서양 명화","무용 수업","에드가 드가","1874","Edgar_Degas_The_Dance_Class.jpg","메트로폴리탄 미술관 소장 작품으로 알려져 있어요. 발레 연습실에서 무용수들이 어떤 동작을 하는지 찾아보세요."],
+["서양 명화","금붕어","앙리 마티스","1912","Goldfish_Matisse.jpg","마티스가 그린 금붕어 그림이에요. 물고기와 어항 주변의 색과 모양을 살펴보세요."],
+["서양 명화","잠자는 집시","앙리 루소","1897","Henri_Rousseau_-_La_Bohémienne_endormie_-_Google_Art_Project.jpg","달빛 아래 잠든 사람과 사자를 그린 작품이에요. 사자의 표정과 주변 풍경에서 어떤 이야기가 떠오르나요?"],
+["서양 명화","나와 마을","마르크 샤갈","1911","Marc_Chagall,_I_and_the_Village_(50393893081).jpg","뉴욕 현대미술관 소장 작품이에요. 사람과 동물, 집과 나무가 어떤 색과 모양으로 표현되었는지 찾아보세요."],
+["서양 명화","델프트 풍경","요하네스 페르메이르","1660~1661","View_of_Delft,_by_Johannes_Vermeer.jpg","마우리츠하위스 소장 작품이에요. 물에 비친 도시와 구름이 많은 하늘을 천천히 살펴보세요."],
+["서양 명화","그네","장 오노레 프라고나르","1767년경","Fragonard_-_swing.jpg","월리스 컬렉션 소장 작품이에요. 그네를 타는 사람과 주변 정원에 무엇이 있는지 찾아보세요."],
+["서양 명화","아르놀피니 부부의 초상","얀 반 에이크","1434","Van_Eyck_-_Arnolfini_Portrait.jpg","런던 내셔널 갤러리 소장 작품이에요. 두 사람과 방 안의 거울, 강아지와 신발을 찾아보세요."],
+["서양 명화","건초 수레","존 컨스터블","1821","John_Constable_-_The_Hay_Wain_(1821).jpg","런던 내셔널 갤러리 소장 풍경화예요. 강물과 나무, 수레가 있는 시골 풍경을 관찰해 보세요."],
+["서양 명화","이삭 줍는 사람들","장프랑수아 밀레","1857","Millet_Gleaners.jpg","오르세 미술관 소장 작품이에요. 세 사람이 땅에서 무엇을 줍고 있는지 살펴보세요."],["서양 명화","꿈","앙리 루소","1910","Henri_Rousseau_005.jpg","뉴욕 현대미술관 소장 작품이에요. 커다란 식물과 동물들이 가득한 정글에서 숨은 모습을 찾아보세요."],
+["서양 명화","바벨탑","피터르 브뤼헐","1563","Pieter_Brueghel_the_Elder_-_The_Tower_of_Babel_(Vienna)_-_Google_Art_Project_-_edited.jpg.webp","빈 미술사 박물관 소장 작품으로 알려져 있어요. 아주 큰 탑을 짓는 사람들과 탑의 모습을 살펴보세요."],
+["서양 명화","생명의 나무","구스타프 클림트","1905~1909","Gustav_Klimt_032.jpg","나뭇가지의 둥근 곡선과 장식 무늬를 찾아보세요."],
+["서양 명화","생트빅투아르 산","폴 세잔","1904~1906","Cezanne_mont_sainte-victoire_ob.jpg","산과 나무, 하늘을 단순한 색면으로 나누어 표현했어요."],
+["서양 명화","두 자매(테라스에서)","피에르 오귀스트 르누아르","1881","Renoir_Pierre-Auguste_-_The_Two_Sisters_On_the_Terrace.jpg","테라스에 앉은 두 사람과 강가 풍경을 살펴보세요."],
+["서양 명화","생트아드레스의 정원","클로드 모네","1867","Claude_Monet_-_Jardin_à_Sainte-Adresse.jpg","정원과 바다, 깃발이 있는 풍경이에요. 화면에서 가장 밝은 곳을 찾아보세요."],
+["한국 명화","서당","김홍도","18세기","bon006504-23-01.jpg","조선 시대 서당에서 공부하는 아이들과 훈장님의 모습을 담았어요."],
+["한국 명화","무동","김홍도","18세기","bon006504-24-01.jpg","악기를 연주하는 사람들 사이에서 춤추는 아이를 찾아보세요."],
+["한국 명화","타작","김홍도","18세기","bon006504-14-01.jpg","사람들이 곡식을 거두고 나누는 모습을 그린 풍속화예요."],
+["한국 명화","단오풍정","신윤복","18세기","pan010770-000-01.jpg","단오날의 풍경을 담은 그림이에요. 나무와 그네, 사람들의 모습을 찾아보세요."],
+["한국 명화","인왕제색도","정선","1751","lkh000001-000-80001.jpg","비가 온 뒤 안개가 걷히는 인왕산을 그린 산수화예요."],
+["한국 명화","호랑이와 까치","작자 미상","조선 후기","don002613-00-00.jpg","호랑이와 까치가 함께 등장하는 민화예요."],
+["한국 명화","책거리 병풍","작자 미상","조선 후기","hon000465-00-00.jpg","책과 여러 생활 물건을 정성스럽게 그린 그림이에요."],
+["한국 명화","초충도","신사임당","16세기","ssu003550-000-019.jpg","풀과 꽃, 작은 곤충들이 어우러진 그림이에요."],
+["현대 명화","여러 개의 원","바실리 칸딘스키","1926","Vassily_Kandinsky_1926_-_Several_Circles_Gugg_0910_25.jpg","크기가 다른 원들이 우주처럼 떠 있어요."],
+["현대 명화","성과 태양","파울 클레","1928","Burg_und_Sonne_-_Klee.jpg","네모와 세모가 모여 성과 도시처럼 보여요."],
+["현대 명화","빨강, 파랑, 노랑의 구성","피트 몬드리안","1930","Piet_Mondriaan_1930_-_Mondrian_Composition_II_Red_Blue_and_Yellow.jpg","검은 선과 기본 색으로 화면을 나누었어요."],
+["현대 명화","세네치오","파울 클레","1922","Senecio2.JPG","얼굴을 여러 색과 단순한 모양으로 표현했어요."],
+["현대 명화","꽃","앤디 워홀","1964","Andy-Warhol-Flowers-1964.jpeg","꽃 모양과 색을 반복해서 표현한 작품이에요."],
+["현대 명화","어릿광대의 사육제","호안 미로","1924~1925","Carnaval of Harlequin Joan Miro.jpg","점과 선, 기호 같은 모양이 가득한 상상의 세계예요."],
+["현대 명화","빨강 파랑 노랑의 리듬","피트 몬드리안","1930년대","Piet_Mondriaan_1942_-_Broadway_Boogie_Woogie.jpg","직선과 색면이 어우러진 추상 작품이에요."],
+["현대 명화","이카루스","앙리 마티스","1947","Matisse_Icarus.jpg","파란 바탕에 검은 형태와 작은 별 모양이 있어요."],
+["현대 명화","모빌","알렉산더 칼더","1950년대","Alexander_Calder_mobile.jpg","가벼운 형태들이 균형을 이루는 움직이는 조각 작품이에요."]
 ].map((x,i)=>({
   id:i+1,
   cat:x[0],
@@ -249,12 +245,10 @@ const works=[
   artist:x[2],
   year:x[3],
   file:x[4],
-  story:x[5],
-  make:x[6]
+  story:x[5]
 }));
 
-/* GitHub images 폴더에서 이미지 불러오기 */
-const imageFolder="./";
+/* 이미지 폴더와 루트 경로를 차례로 확인 */
 let list=[...works];
 let idx=0;
 let cat="전체";
@@ -263,7 +257,6 @@ let requestNo=0;
 
 const $=id=>document.getElementById(id);
 
-/* 작품 한 점 표시 */
 function render(){
   if(!list.length){
     $("artTitle").textContent="검색 결과가 없어요.";
@@ -291,14 +284,18 @@ function render(){
   $("position").textContent=(idx+1)+" / "+list.length;
   $("shown").textContent=list.length;
   $("total").textContent=works.length;
-
   $("artSource").textContent="내 갤러리에 저장된 작품 이미지";
 
-  $("artImage").style.display="none";
+  const im=$("artImage");
+  im.style.display="none";
   $("fallback").style.display="none";
   $("loading").style.display="block";
 
-  const im=$("artImage");
+  const candidates=[
+    "./images/"+encodeURIComponent(w.file),
+    "./"+encodeURIComponent(w.file)
+  ];
+  let attempt=0;
 
   im.onload=()=>{
     if(ticket!==requestNo)return;
@@ -307,18 +304,26 @@ function render(){
     im.style.display="block";
   };
 
+  function tryImage(){
+    if(ticket!==requestNo)return;
+
+    if(attempt>=candidates.length){
+      im.style.display="none";
+      $("loading").style.display="none";
+      $("fallback").style.display="block";
+      $("fallback").textContent="이미지를 찾을 수 없어요: "+w.file;
+      return;
+    }
+
+    im.src=candidates[attempt++];
+  }
+
   im.onerror=()=>{
     if(ticket!==requestNo)return;
-    im.style.display="none";
-    $("loading").style.display="none";
-    $("fallback").style.display="block";
-    $("fallback").textContent=
-      "이미지 파일을 찾을 수 없어요: "+w.file+
-      " (GitHub images 폴더의 파일명을 확인해 주세요.)";
+    tryImage();
   };
 
-  im.src=imageFolder+encodeURIComponent(w.file);
-
+  tryImage();
   renderGallery();
 }
 
