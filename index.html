@@ -113,22 +113,22 @@ footer{text-align:center;color:#b5a98d;border-top:1px solid #514632;padding:22px
 <div style="font-size:42px">🎨</div>
 <h1>하하하 명화감상</h1>
 <p>서양 명화 · 한국 명화 · 현대 명화를 관찰하고 나만의 생각을 표현해요.</p>
-<span>유치원 5~7세 · 서양 명화 30점 · 한국 명화 9점 · 현대 명화 9점</span>
+<span>유치원 5~7세 · 서양 명화 30점 · 한국 명화 9점 · 현대 명화 11점</span>
 </section>
 
 <div class="stats">
-<div class="stat"><strong id="total">48</strong>전체 작품</div>
-<div class="stat"><strong id="shown">48</strong>현재 주제 작품</div>
-<div class="stat"><strong id="count">1 / 48</strong>감상 중인 작품</div>
+<div class="stat"><strong id="total">50</strong>전체 작품</div>
+<div class="stat"><strong id="shown">50</strong>현재 주제 작품</div>
+<div class="stat"><strong id="count">1 / 50</strong>감상 중인 작품</div>
 </div>
 
 <h2>어떤 그림을 만나볼까요?</h2>
 <p class="desc">작품을 고르거나 작가·작품 이름으로 찾아보세요.</p>
 <div class="filters" id="filters">
-<button class="filter active" data-cat="전체">전체 48</button>
+<button class="filter active" data-cat="전체">전체 50</button>
 <button class="filter" data-cat="서양 명화">서양 명화 30</button>
 <button class="filter" data-cat="한국 명화">한국 명화 9</button>
-<button class="filter" data-cat="현대 명화">현대 명화 9</button>
+<button class="filter" data-cat="현대 명화">현대 명화 11</button>
 </div>
 <div class="search">
 <input id="search" placeholder="작품 또는 작가 이름 검색">
@@ -235,9 +235,11 @@ const works=[
 ["현대 명화","세네치오","파울 클레","1922","Senecio2.JPG","얼굴을 여러 색과 단순한 모양으로 표현했어요."],
 ["현대 명화","꽃","앤디 워홀","1964","Andy-Warhol-Flowers-1964.jpeg","꽃 모양과 색을 반복해서 표현한 작품이에요."],
 ["현대 명화","어릿광대의 사육제","호안 미로","1924~1925","Carnaval of Harlequin Joan Miro.jpg","점과 선, 기호 같은 모양이 가득한 상상의 세계예요."],
-["현대 명화","빨강 파랑 노랑의 리듬","피트 몬드리안","1930년대","Piet_Mondriaan_1942_-_Broadway_Boogie_Woogie.jpg","직선과 색면이 어우러진 추상 작품이에요."],
 ["현대 명화","이카루스","앙리 마티스","1947","Matisse_Icarus.jpg","파란 바탕에 검은 형태와 작은 별 모양이 있어요."],
-["현대 명화","모빌","알렉산더 칼더","1950년대","Alexander_Calder_mobile.jpg","가벼운 형태들이 균형을 이루는 움직이는 조각 작품이에요."]
+["현대 명화","모빌","알렉산더 칼더","1950년대","Alexander_Calder_mobile.jpg","가벼운 형태들이 균형을 이루는 움직이는 조각 작품이에요."],
+["현대 명화","달팽이","앙리 마티스","1953","트레일.jpg","색종이를 잘라 배열해 달팽이를 표현한 작품이에요. 작품을 살펴본 뒤 색종이를 여러 모양으로 오려 나만의 동물이나 상상의 생물을 만들어 보세요."],
+["현대 명화","동심원","바실리 칸딘스키","1913","동심원.jpg","여러 색의 동그라미가 겹쳐 있어요. 색과 크기의 차이를 관찰한 뒤, 원을 겹쳐 나만의 색채 그림을 만들어 보세요."],
+["현대 명화","얼룩말","빅토르 바자렐리","1937","색말.jpg","검고 흰 곡선과 반복되는 무늬가 얼룩말의 모습을 만들어요. 선을 반복하고 휘어 보이게 그려 움직이는 듯한 착시 그림을 만들어 보세요."]
 ].map((x,i)=>({
   id:i+1,
   cat:x[0],
@@ -287,9 +289,6 @@ const imageFileFixes = {
   "이카루스":
     "773654_dean-black_l.jpg",
   
-  "빨강 파랑 노랑의 리듬":
-    "Piet_Mondriaan,_1942_-_Broadway_Boogie_Woogie.jpg",
-
   "어릿광대의 사육제":
     "Carnival of Harlequin Joan Miro.jpg",
 
