@@ -81,18 +81,10 @@ canvas{width:100%;height:280px;background:white;border-radius:10px;display:block
 .tools button:not(.color){border:0;border-radius:10px;background:white;color:#62806A;padding:8px 11px;font-weight:700}
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:15px}
 .gallery button{border:1px solid #EEE8F0;background:white;border-radius:12px;text-align:left;padding:10px;color:var(--text)}
-.gallery .gallery-item{border:1px solid #EEE8F0;background:white;border-radius:12px;padding:8px;color:var(--text)}
-.gallery .gallery-item.active{border:2px solid var(--pink);background:#FFF8FA}
-.gallery .gallery-open{width:100%;border:0;background:transparent;text-align:left;padding:3px;color:var(--text)}
+.gallery button.active{border:2px solid var(--pink);background:#FFF8FA}
 .gallery strong{display:block;color:var(--purple);font-size:13px}
 .gallery span{font-size:11px;color:#9A8DA0}
 .gallery .number{font-size:10px;color:#B29AB9}
-.gallery .gallery-check{display:flex;align-items:center;gap:5px;margin-top:7px;font-size:11px;color:#718A78}
-.gallery .gallery-check input{accent-color:var(--mint);width:15px;height:15px}
-.watched-main{display:flex;align-items:center;gap:9px;margin:14px 0 4px;padding:12px 14px;background:#F0F7F1;border-radius:12px;color:#587F67;font-size:14px;font-weight:800;cursor:pointer}
-.watched-main input{width:19px;height:19px;accent-color:#6F9D7C}
-.watched-summary{display:inline-block;margin:0 0 12px;padding:7px 12px;border-radius:18px;background:#F0F7F1;color:#587F67;font-size:13px}
-.watched-summary strong{font-size:15px}
 .pager{display:flex;justify-content:center;gap:12px;align-items:center;margin:16px 0}
 .pager button{border:0;background:#F2EAF7;color:var(--purple);padding:8px 13px;border-radius:10px}
 .tip{background:#F7F4FA;border-radius:18px;padding:18px;margin:30px 0}
@@ -183,7 +175,6 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
   <h2 class="art-title" id="artTitle"></h2>
   <div class="art-artist" id="artArtist"></div>
   <div class="art-story" id="artStory"></div>
-  <label class="watched-main"><input type="checkbox" id="watchedCheckbox"><span>아이들과 이 명화를 감상했어요</span></label>
   <div class="art-source" id="artSource"></div>
  </div>
  <div class="art-nav">
@@ -218,8 +209,7 @@ footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A
 </div>
 
 <h2 class="section-title">🗂️ 명화 50점 둘러보기</h2>
-<p class="description">작품을 누르면 해당 그림을 감상할 수 있어요. 감상한 작품은 체크해 두세요.</p>
-<p class="watched-summary">우리 반 감상 기록 <strong id="watchedCount">0</strong> / 50점</p>
+<p class="description">작품을 누르면 해당 그림을 감상할 수 있어요.</p>
 <div class="gallery" id="gallery"></div>
 <div class="pager">
  <button onclick="changeGalleryPage(-1)">이전</button>
@@ -306,33 +296,6 @@ const artworks=raw.map((r,i)=>({
  query:r[4],story:r[5],create:r[6]
 }));
 
-// 감상 완료한 작품 번호를 현재 브라우저에 저장합니다.
-const WATCHED_STORAGE_KEY="hahaArtClassWatchedV1";
-function loadWatchedArtIds(){
- try{
-  const saved=JSON.parse(localStorage.getItem(WATCHED_STORAGE_KEY)||"[]");
-  return new Set(saved.filter(id=>Number.isInteger(id)&&id>=1&&id<=artworks.length));
- }catch(error){return new Set();}
-}
-let watchedArtIds=loadWatchedArtIds();
-function saveWatchedArtIds(){
- try{localStorage.setItem(WATCHED_STORAGE_KEY,JSON.stringify([...watchedArtIds]));}
- catch(error){console.warn("감상 기록 저장 실패",error);}
-}
-function updateWatchedCount(){
- const el=$("watchedCount"); if(el)el.textContent=watchedArtIds.size;
-}
-function setArtworkWatched(id,checked){
- if(checked)watchedArtIds.add(id); else watchedArtIds.delete(id);
- saveWatchedArtIds(); updateWatchedCount(); renderGallery();
-}
-function chooseInitialArtworkIndex(){
- const unseen=artworks.filter(art=>!watchedArtIds.has(art.id));
- const pool=unseen.length?unseen:artworks;
- const chosen=pool[Math.floor(Math.random()*pool.length)];
- return artworks.findIndex(art=>art.id===chosen.id);
-}
-
 function getDayOfYear(date=new Date()){
  const start=new Date(date.getFullYear(),0,1);
  const today=new Date(date.getFullYear(),date.getMonth(),date.getDate());
@@ -347,7 +310,7 @@ function updateTodayLabel(){
 }
 
 let filtered=[...artworks];
-let currentIndex=0;
+let currentIndex=getDailyIndex(artworks);
 let category="전체";
 let galleryPage=0;
 let imageCache={};
@@ -365,8 +328,6 @@ function renderArtwork(){
  if(!filtered.length)return;
  updateTodayLabel();
  const art=filtered[currentIndex];
- $("watchedCheckbox").checked=watchedArtIds.has(art.id);
- $("watchedCheckbox").dataset.artId=art.id;
  $("artTitle").textContent=art.title;
  $("artArtist").textContent=art.artist+" · "+art.year+" · "+art.category;
  $("artStory").textContent=art.story;
@@ -599,24 +560,14 @@ $("searchInput").addEventListener("keydown",e=>{
 function renderGallery(){
  const start=galleryPage*16;
  const items=filtered.slice(start,start+16);
- $("gallery").innerHTML=items.map(art=>
-  '<div class="gallery-item '+(art.id===filtered[currentIndex].id?"active":"")+'">'+
-  '<button class="gallery-open" data-id="'+art.id+'">'+
+ $("gallery").innerHTML=items.map((art,i)=>
+  '<button class="'+(art.id===filtered[currentIndex].id?"active":"")+'" data-id="'+art.id+'">'+
   '<span class="number">작품 '+String(art.id).padStart(3,"0")+'</span>'+
-  '<strong>'+art.title+'</strong><span>'+art.artist+'</span></button>'+
-  '<label class="gallery-check"><input type="checkbox" class="watched-toggle" data-id="'+art.id+'" '+(watchedArtIds.has(art.id)?"checked":"")+'> 감상 완료</label></div>'
+  '<strong>'+art.title+'</strong><span>'+art.artist+'</span></button>'
  ).join("");
  const pages=Math.max(1,Math.ceil(filtered.length/16));
  $("galleryPage").textContent=(galleryPage+1)+" / "+pages;
 }
-$("gallery").addEventListener("change",e=>{
- const checkbox=e.target.closest("input.watched-toggle");
- if(checkbox)setArtworkWatched(Number(checkbox.dataset.id),checkbox.checked);
-});
-$("watchedCheckbox").addEventListener("change",e=>{
- const id=Number(e.target.dataset.artId);
- if(id)setArtworkWatched(id,e.target.checked);
-});
 $("gallery").addEventListener("click",e=>{
  const b=e.target.closest("button[data-id]");
  if(!b)return;
@@ -678,9 +629,7 @@ function downloadDrawing(){
  link.click();
 }
 
-/* 첫 화면: 아직 감상하지 않은 작품 중 하나를 무작위로 보여줍니다. */
-currentIndex=chooseInitialArtworkIndex();
-updateWatchedCount();
+/* 첫 화면 */
 clearCanvas();
 renderArtwork();
 </script>
