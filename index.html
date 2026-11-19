@@ -82,6 +82,12 @@ h2{font-size:27px;color:var(--gold2);margin:25px 0 7px}
 .tile.active{border:2px solid #d3b16a;background:#393226}
 .tile b{display:block;color:#e4cb91;font-size:16px}
 .tile small{color:#b9ae99;font-size:14px}
+.tile .watched-mark{display:block;margin-top:6px;color:#9bc59c;font-size:13px;font-weight:800}
+.watched-area{margin-top:15px;padding:14px;border:1px solid #76613a;background:#292720;border-radius:5px}
+.watched-area label{display:flex;align-items:center;gap:10px;color:#e5d5ad;font-size:17px;font-weight:800;cursor:pointer}
+.watched-area input{width:21px;height:21px;accent-color:#c7a765}
+.watched-summary{margin-top:8px;color:#bdb19a;font-size:14px}
+.watched-summary strong{color:#e3ca8c}
 .pager{display:flex;font-size:16px;justify-content:center;align-items:center;gap:12px;margin:14px;color:#e5d5ad}
 .tip{background:#292821;border:1px solid #5b4a2e;padding:16px;border-radius:4px;margin:25px 0}
 .tip p{margin:6px;font-size:16px;color:#d1c7b4}
@@ -149,6 +155,10 @@ footer{text-align:center;color:#b5a98d;border-top:1px solid #514632;padding:22px
 <h2 class="title" id="artTitle"></h2>
 <div class="artist" id="artArtist"></div>
 <div class="story" id="artStory"></div>
+<div class="watched-area">
+ <label><input type="checkbox" id="watchedCheckbox"> 아이들과 이 그림을 감상했어요</label>
+ <div class="watched-summary">우리 반 감상 기록 <strong id="watchedCount">0</strong> / 50점</div>
+</div>
 <div class="source" id="artSource"></div>
 </div>
 <div class="nav">
@@ -324,6 +334,50 @@ works.forEach(work => {
   }
 });
 
+/* 감상 완료 기록: 현재 브라우저에 저장 */
+const WATCHED_KEY = "hahaArtClassWatched_20261119";
+function loadWatchedIds(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(WATCHED_KEY)||"[]");
+    return new Set(saved.filter(id=>Number.isInteger(id)&&id>=1&&id<=works.length));
+  }catch(error){ return new Set(); }
+}
+let watchedIds=loadWatchedIds();
+function saveWatchedIds(){
+  try{ localStorage.setItem(WATCHED_KEY,JSON.stringify([...watchedIds])); }
+  catch(error){ console.warn("감상 기록 저장 실패",error); }
+}
+function updateWatchedSummary(){
+  $("watchedCount").textContent=watchedIds.size;
+}
+function findNextUnwatchedIndex(currentWorkId){
+  if(!list.length)return -1;
+  const currentPosition=list.findIndex(w=>w.id===currentWorkId);
+  for(let step=1;step<=list.length;step++){
+    const candidateIndex=(Math.max(currentPosition,0)+step)%list.length;
+    if(!watchedIds.has(list[candidateIndex].id))return candidateIndex;
+  }
+  return -1;
+}
+function markCurrentAsWatched(){
+  if(!list.length)return;
+  const currentWork=list[idx];
+  if(!currentWork || watchedIds.has(currentWork.id))return;
+  watchedIds.add(currentWork.id);
+  saveWatchedIds();
+  updateWatchedSummary();
+  renderGallery();
+  const nextIndex=findNextUnwatchedIndex(currentWork.id);
+  if(nextIndex<0){
+    $("watchedCheckbox").checked=true;
+    alert("명화 50점을 모두 감상했어요! 정말 잘했어요.");
+    return;
+  }
+  idx=nextIndex;
+  pageNo=Math.floor(idx/12);
+  render();
+}
+
 /* 작품 목록과 화면 상태 */
 let list=[...works];
 let idx=0;
@@ -357,6 +411,9 @@ function render(){
   $("artTitle").textContent=w.title;
   $("artArtist").textContent=w.artist+" · "+w.year+" · "+w.cat;
   $("artStory").textContent=w.story;
+  $("watchedCheckbox").checked=watchedIds.has(w.id);
+  $("watchedCheckbox").dataset.workId=w.id;
+  updateWatchedSummary();
   $("count").textContent=(idx+1)+" / "+list.length;
   $("position").textContent=(idx+1)+" / "+list.length;
   $("shown").textContent=list.length;
@@ -416,6 +473,7 @@ function renderGallery(){
     '" onclick="choose('+(start+i)+')">'+
     '<b>'+w.title+'</b>'+
     '<small>'+w.artist+'</small>'+
+    (watchedIds.has(w.id)?'<span class="watched-mark">✓ 감상 완료</span>':'')+
     '</button>'
   ).join("");
 
@@ -518,11 +576,16 @@ function closeViewer(){
 
 $("artImage").addEventListener("click",openViewer);
 
+$("watchedCheckbox").addEventListener("change",e=>{
+  if(e.target.checked)markCurrentAsWatched();
+});
+
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape")closeViewer();
 });
 
 /* 첫 작품 표시 */
+updateWatchedSummary();
 render();
 
 </script>
