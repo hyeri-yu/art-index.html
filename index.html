@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,638 +6,525 @@
 <title>하하하 명화감상 교실</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Square+Round:wght@400;700;800&display=swap');
-
 :root{
- --purple:#70577F;--pink:#E58B9D;--mint:#83B99B;
- --yellow:#E9B65F;--text:#5F526A;--light:#FAF8FB;
+  --bg:#171817;--panel:#222421;--panel2:#292a26;
+  --gold:#c7a765;--gold2:#e3ca8c;--cream:#f0e8d7;
+  --muted:#b5ad9d;--line:#514632;--text:#eee7d9;
 }
 *{box-sizing:border-box}
-body{margin:0;background:#fff;color:var(--text);font-family:'Nanum Square Round',sans-serif;line-height:1.7}
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-.shell{width:min(1120px,94%);margin:auto}
-header{padding:22px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.brand{text-decoration:none;color:var(--purple);font-size:25px;font-weight:800}
-.brand small{display:block;font-size:10px;letter-spacing:3px;color:#A48EAA}
-.pink{color:var(--pink)}.mint{color:var(--mint)}.yellow{color:var(--yellow)}
-.back{border:0;background:#F2EAF7;color:var(--purple);padding:10px 17px;border-radius:25px;font-weight:800}
-.hero{background:#FBF6F0;border-radius:24px;text-align:center;padding:30px 15px;margin:10px 0 25px}
-.hero-icon{font-size:48px}
-.hero h1{font-size:clamp(25px,4vw,34px);color:var(--purple);margin:5px 0}
-.hero p{margin:5px;color:#918398}
-.hero-label{display:inline-block;background:white;border-radius:20px;padding:5px 13px;color:#927D9D;font-size:12px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
-.stat{background:#FAF8FB;border-radius:15px;padding:13px;text-align:center}
-.stat strong{display:block;font-size:24px;color:var(--purple)}
-.stat span{font-size:12px;color:#968A9C}
-.section-title{font-size:22px;color:var(--purple);margin:28px 0 8px}
-.description{font-size:14px;color:#958A9A;margin:0 0 15px}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
-.filter{border:1px solid #E9DDED;background:white;color:var(--purple);border-radius:22px;padding:9px 13px;font-size:13px;font-weight:700}
-.filter.active{background:var(--purple);color:white}
-.search-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
-.search-row input{flex:1;min-width:180px;border:1px solid #E9DDED;border-radius:12px;padding:11px 13px;outline-color:var(--pink)}
-.action{border:0;border-radius:12px;padding:10px 15px;background:var(--purple);color:white;font-weight:800}
-.action.soft{background:#F2EAF7;color:var(--purple)}
-.art-card{border:1px solid #F0EBF2;border-radius:23px;overflow:hidden;background:white}
-.art-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:15px 18px 8px}
-.art-label{font-size:12px;color:#A48EAA;font-weight:800;letter-spacing:1px}
-.art-count{font-size:13px;color:#A48EAA}
-.image-wrap{min-height:300px;background:#F6F2F7;padding:15px;display:flex;align-items:center;justify-content:center}
-.art-image{display:none;max-width:100%;max-height:520px;object-fit:contain;border-radius:8px}
-.image-loading{text-align:center;color:#958A9A;padding:35px}
-.image-loading strong{display:block;font-size:36px}
-.image-fallback{display:none;text-align:center;padding:25px;color:#8E8096}
-.image-fallback a{color:var(--purple);font-weight:700}
-.art-info{padding:20px}
-.art-title{font-size:27px;font-weight:800;color:var(--purple);margin:0}
-.art-artist{color:#A48EAA;font-size:14px;margin:3px 0 12px}
-.art-story{background:#FAF8FB;border-radius:14px;padding:14px;font-size:14px;color:#75677D}
-.art-source{font-size:12px;color:#9A8DA0;margin-top:8px}
-.art-source a{color:var(--purple)}
-.art-nav{display:flex;justify-content:space-between;gap:8px;padding:0 18px 18px}
-.art-nav button{border:0;border-radius:12px;padding:10px 15px;background:#F2EAF7;color:var(--purple);font-weight:800}
-.art-nav .primary{background:var(--purple);color:white}
-.question-box{background:#F8F5FA;border-radius:20px;padding:18px;margin-top:15px}
-.question{background:white;border-radius:13px;padding:13px;margin:9px 0;display:flex;gap:12px}
-.q-num{width:30px;height:30px;flex-shrink:0;border-radius:50%;background:#FBECEF;color:#C4778D;display:grid;place-items:center;font-weight:800}
-.question strong{display:block;color:var(--purple);font-size:14px}
-.question span{font-size:13px;color:#968A9C}
-.feeling-box{background:#FFF8ED;border-radius:20px;padding:20px;margin-top:15px}
-.feelings{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.feeling{border:2px solid transparent;background:white;border-radius:13px;padding:9px 3px;color:#776A7F;font-size:12px;font-weight:700}
-.feeling span{display:block;font-size:25px}
-.feeling.selected{border-color:var(--pink);background:#FFF0F3}
-textarea{width:100%;min-height:85px;resize:vertical;border:1px solid #E9DFE8;background:white;border-radius:12px;padding:12px;color:var(--text);outline-color:var(--pink)}
-.saved{background:white;border-radius:12px;padding:13px;margin-top:12px;font-size:14px}
-.create-box{background:#F0F7F1;border-radius:20px;padding:20px;margin-top:15px}
-.create-box h3{color:#587F67;margin:0}
-canvas{width:100%;height:280px;background:white;border-radius:10px;display:block;touch-action:none}
-.canvas-wrap{padding:9px;background:white;border-radius:13px;margin-top:12px}
-.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
-.color{width:29px;height:29px;border:3px solid white;border-radius:50%;box-shadow:0 0 0 1px #ccc}
-.color.selected{box-shadow:0 0 0 3px var(--purple)}
-.tools button:not(.color){border:0;border-radius:10px;background:white;color:#62806A;padding:8px 11px;font-weight:700}
-.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:15px}
-.gallery button{border:1px solid #EEE8F0;background:white;border-radius:12px;text-align:left;padding:10px;color:var(--text)}
-.gallery button.active{border:2px solid var(--pink);background:#FFF8FA}
-.gallery strong{display:block;color:var(--purple);font-size:13px}
-.gallery span{font-size:11px;color:#9A8DA0}
-.gallery .number{font-size:10px;color:#B29AB9}
-.pager{display:flex;justify-content:center;gap:12px;align-items:center;margin:16px 0}
-.pager button{border:0;background:#F2EAF7;color:var(--purple);padding:8px 13px;border-radius:10px}
-.tip{background:#F7F4FA;border-radius:18px;padding:18px;margin:30px 0}
-.tip h3{margin:0;color:var(--purple)}
-.tip p{font-size:13px;color:#887C90;margin:5px 0}
-footer{text-align:center;border-top:1px solid #F0EBF2;padding:25px 10px;color:#A394A8;font-size:13px;margin-top:35px}
-@media(max-width:700px){
- .stats{grid-template-columns:repeat(3,1fr);gap:5px}
- .stat strong{font-size:20px}
- .gallery{grid-template-columns:repeat(2,1fr)}
- .feelings{grid-template-columns:repeat(3,1fr)}
- .image-wrap{min-height:220px}
- .art-title{font-size:23px}
- .art-nav button{flex:1;padding:9px 5px;font-size:12px}
- canvas{height:230px}
+body{
+  margin:0;
+  background:radial-gradient(ellipse at top,#343128 0%,#1d1e1b 42%,#141513 100%);
+  color:var(--text);
+  font-family:'Nanum Square Round',sans-serif;
+  line-height:1.8;font-size:18px;
 }
-
-/* 명화 전체 화면 보기 */
-.art-image{cursor:zoom-in}
-.fullscreen-viewer{display:none;position:fixed;inset:0;z-index:9999;background:rgba(20,16,24,.96);align-items:center;justify-content:center;padding:24px}
-.fullscreen-viewer.open{display:flex}
-.fullscreen-viewer img{max-width:96vw;max-height:90vh;object-fit:contain;box-shadow:0 8px 40px rgba(0,0,0,.35)}
-.fullscreen-close{position:absolute;top:18px;right:20px;border:0;border-radius:30px;background:#fff;color:#55445f;font-size:16px;font-weight:800;padding:11px 17px}
-.fullscreen-hint{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#fff;font-size:13px}
-
+button,input{font:inherit}
+button{cursor:pointer}
+.shell{width:min(1080px,94%);margin:auto}
+header{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;flex-wrap:wrap;padding:22px 0;border-bottom:1px solid #514632;
+}
+.brand{font-size:27px;font-weight:800;color:var(--gold2);text-decoration:none}
+.brand small{display:block;font-size:12px;letter-spacing:3px;color:#b8a77d}
+.back,.filter,.action,.nav button,.pager button{
+  border:1px solid #76613a;border-radius:12px;padding:10px 15px;font-weight:800;
+}
+.back,.filter,.nav button,.pager button{background:#292923;color:#e5d5ad}
+.hero{
+  background:linear-gradient(135deg,#292a25,#393329);text-align:center;
+  border:1px solid #76613a;border-radius:4px;padding:27px 12px;
+  margin:20px 0 22px;box-shadow:0 12px 34px #0005;
+}
+.hero h1{color:#e5cb8d;margin:8px;font-size:clamp(32px,4.5vw,42px);letter-spacing:1px}
+.hero p{margin:8px;color:#d0c4a8;font-size:18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.stat{background:#242520;text-align:center;border:1px solid #514632;border-radius:4px;padding:10px;color:#d8cfbd}
+.stat strong{display:block;font-size:28px;color:var(--gold2)}
+h2{font-size:27px;color:var(--gold2);margin:25px 0 7px}
+.desc{font-size:17px;color:#b8b09f;margin:0 0 12px}
+.filters,.search{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.filter{border:1px solid #6e5a36;background:#252620;color:#e3d8c0;font-size:16px;padding:12px 18px}
+.filter.active{background:#b89650;color:#171612;border-color:#e0c27d}
+.search input{
+  font-size:16px;flex:1;min-width:180px;border:1px solid #75613d;
+  background:#22231f;color:#f3ead8;border-radius:10px;padding:11px;
+}
+.search input::placeholder{color:#a99f8b}
+.action{font-size:16px;padding:12px 18px;background:#b89650;color:#171612;border-color:#e0c27d}
+.action.soft{background:#292923;color:#e6d6ad}
+.card{border:1px solid #8c7140;border-radius:5px;overflow:hidden;background:#211f1b;box-shadow:0 14px 38px #0006}
+.top{display:flex;justify-content:space-between;padding:14px 18px;color:#d4bd85;font-size:13px;background:#292720;border-bottom:1px solid #665332}
+.image-wrap{
+  height:min(62vw,560px);min-height:260px;
+  background:radial-gradient(ellipse,#39362e,#1a1b18 72%);
+  display:flex;align-items:center;justify-content:center;padding:22px;position:relative;
+}
+.art-image{
+  max-width:100%;max-height:100%;object-fit:contain;display:block;cursor:zoom-in;
+  border:8px solid #b08c4d;outline:1px solid #e0c98d;box-shadow:0 8px 28px #0009;
+}
+.loading,.fallback{text-align:center;color:#d3c6a8;padding:25px}
+.fallback{display:none}
+.info{padding:20px;background:#211f1b}
+.title{font-size:32px;color:#f0dfb6;font-weight:800;margin:0}
+.artist{color:#c5b58e;font-size:18px;margin:3px 0 10px}
+.story{background:#2b2922;border-left:3px solid #b89650;border-radius:3px;padding:13px;font-size:18px;color:#eee4d0}
+.source{font-size:15px;color:#bdb19a;margin-top:9px}
+.nav{display:flex;justify-content:space-between;gap:8px;padding:0 18px 18px;background:#211f1b}
+.nav button.primary{background:#b89650;color:#171612}
+.questions{background:#24241f;border:1px solid #5e4d31;border-radius:5px;padding:16px;margin-top:14px}
+.q{background:#302e27;font-size:17px;border:1px solid #514632;border-radius:4px;padding:12px;margin:8px 0;color:#e9e0ce}
+.q b{color:#e4c77f}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0}
+.tile{border:1px solid #5c4d32;background:#252620;border-radius:4px;padding:10px;text-align:left;color:#e9e0ce}
+.tile.active{border:2px solid #d3b16a;background:#393226}
+.tile b{display:block;color:#e4cb91;font-size:16px}
+.tile small{color:#b9ae99;font-size:14px}
+.pager{display:flex;font-size:16px;justify-content:center;align-items:center;gap:12px;margin:14px;color:#e5d5ad}
+.tip{background:#292821;border:1px solid #5b4a2e;padding:16px;border-radius:4px;margin:25px 0}
+.tip p{margin:6px;font-size:16px;color:#d1c7b4}
+.viewer{display:none;position:fixed;inset:0;background:rgba(7,7,6,.97);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.viewer.open{display:flex}
+.viewer img{max-width:96vw;max-height:90vh;object-fit:contain;border:8px solid #b08c4d;outline:1px solid #e0c98d}
+.viewer button{position:absolute;right:18px;top:16px;border:1px solid #c5a765;border-radius:22px;padding:10px 16px;background:#28251e;color:#f1dfb4;font-weight:800}
+footer{text-align:center;color:#b5a98d;border-top:1px solid #514632;padding:22px;margin-top:30px;font-size:13px}
+@media(max-width:650px){
+  .gallery{grid-template-columns:repeat(2,1fr)}
+  .stats{gap:5px}.stat strong{font-size:19px}
+  .title{font-size:26px}.image-wrap{height:65vw;min-height:220px}
+}
 </style>
 </head>
-
 <body>
 <div class="shell">
-
 <header>
- <a class="brand" href="https://hyeri-yu.github.io/hahaha-ras/">
-  <span><span class="pink">꿈</span>꾸며 <span class="mint">나</span><span>아가는 </span><span class="yellow">RAS</span></span>
-  <small>HA HA HA · ART CLASS</small>
- </a>
- <a class="back" href="https://hyeri-yu.github.io/hahaha-ras/">← 꿈나라 교실</a>
+<a class="brand" href="https://yutti-t.github.io/art-index.html/">
+<span style="color:#E58B9D">꿈</span>꾸며
+<span style="color:#83B99B">나</span>아가는
+<span style="color:#E9B65F">RAS</span>
+<small>HA HA HA · ART CLASS</small>
+</a>
+<a class="back" href="https://yutti-t.github.io/hahaha-ras/">← 꿈나라 교실</a>
 </header>
 
 <section class="hero">
- <div class="hero-icon">🎨</div>
- <h1>하하하 명화감상</h1>
- <p>그림을 자세히 보고, 마음을 표현하고, 나만의 작품을 만들어요.</p>
- <span class="hero-label">유치원 5~7세 · 명화 50점</span>
+<div style="font-size:42px">🎨</div>
+<h1>하하하 명화감상</h1>
+<p>서양 명화 · 한국 명화 · 현대 명화를 관찰하고 나만의 생각을 표현해요.</p>
+<span>유치원 5~7세 · 서양 명화 30점 · 한국 명화 9점 · 현대 명화 11점</span>
 </section>
 
 <div class="stats">
- <div class="stat"><strong id="totalCount">50</strong><span>전체 작품</span></div>
- <div class="stat"><strong id="categoryCount">50</strong><span>현재 주제 작품</span></div>
- <div class="stat"><strong id="currentCount">1 / 50</strong><span>감상 중인 작품</span></div>
+<div class="stat"><strong id="total">50</strong>전체 작품</div>
+<div class="stat"><strong id="shown">50</strong>현재 주제 작품</div>
+<div class="stat"><strong id="count">1 / 50</strong>감상 중인 작품</div>
 </div>
 
-<h2 class="section-title">🌈 어떤 그림을 만나볼까요?</h2>
-<p class="description">주제를 선택하거나 작품 이름과 화가를 검색해 보세요.</p>
-
+<h2>어떤 그림을 만나볼까요?</h2>
+<p class="desc">작품을 고르거나 작가·작품 이름으로 찾아보세요.</p>
 <div class="filters" id="filters">
- <button class="filter active" data-category="전체">전체 50점</button>
- <button class="filter" data-category="서양 명화">서양 명화 25점</button>
- <button class="filter" data-category="한국 전통 그림">한국 전통 그림 15점</button>
- <button class="filter" data-category="세계 여러 나라">세계 여러 나라 5점</button>
- <button class="filter" data-category="상상력과 추상">상상력과 추상 5점</button>
+<button class="filter active" data-cat="전체">전체 50</button>
+<button class="filter" data-cat="서양 명화">서양 명화 30</button>
+<button class="filter" data-cat="한국 명화">한국 명화 9</button>
+<button class="filter" data-cat="현대 명화">현대 명화 11</button>
+</div>
+<div class="search">
+<input id="search" placeholder="작품 또는 작가 이름 검색">
+<button class="action soft" onclick="searchArt()">검색</button>
+<button class="action" onclick="randomArt()">🎲 랜덤</button>
 </div>
 
-<div class="search-row">
- <input id="searchInput" type="search" placeholder="작품이나 화가 이름 검색하기">
- <button class="action soft" onclick="searchArt()">검색</button>
- <button class="action" onclick="randomArt()">🎲 랜덤 작품</button>
+<h2>오늘의 명화</h2>
+<p class="desc">그림을 천천히 살펴보세요. 무엇이 가장 먼저 눈에 들어오나요?</p>
+<section class="card">
+<div class="top"><span id="today">오늘의 명화</span><span id="position">1 / 48</span></div>
+<div class="image-wrap">
+<img id="artImage" class="art-image" alt="작품 이미지" style="display:none">
+<div id="loading" class="loading">🖼️ 작품 이미지를 불러오고 있어요.</div>
+<div id="fallback" class="fallback"><p>이 작품의 이미지 파일을 찾지 못했습니다.</p></div>
 </div>
-
-<h2 class="section-title">🖼️ 오늘의 명화</h2>
-<p class="description">그림을 천천히 살펴보세요. 어떤 것이 가장 먼저 눈에 들어오나요?</p>
-
-<div class="art-card">
- <div class="art-top">
-  <span class="art-label" id="todayLabel">오늘의 명화</span>
-  <span class="art-count" id="artCount">1 / 50</span>
- </div>
- <div class="image-wrap">
-  <img id="artImage" class="art-image" alt="명화">
-  <div id="imageLoading" class="image-loading"><strong>🖼️</strong>작품 이미지를 불러오고 있어요.</div>
-  <div id="imageFallback" class="image-fallback">
-   <div style="font-size:48px">🎨</div>
-   <p>이 작품의 이미지를 바로 불러오지 못했어요.</p>
-   <a id="commonsLink" target="_blank" rel="noopener">작품 이미지와 출처 찾아보기 ↗</a>
-  </div>
- </div>
- <div class="art-info">
-  <h2 class="art-title" id="artTitle"></h2>
-  <div class="art-artist" id="artArtist"></div>
-  <div class="art-story" id="artStory"></div>
-  <div class="art-source" id="artSource"></div>
- </div>
- <div class="art-nav">
-  <button onclick="previousArt()">← 이전 작품</button>
-  <button class="primary" onclick="nextArt()">다음 명화 →</button>
- </div>
+<div class="info">
+<h2 class="title" id="artTitle"></h2>
+<div class="artist" id="artArtist"></div>
+<div class="story" id="artStory"></div>
+<div class="source" id="artSource"></div>
 </div>
-
-<h2 class="section-title">👀 그림을 자세히 관찰해요</h2>
-<p class="description">정답은 없어요. 그림을 보며 자유롭게 이야기해 보세요.</p>
-<div class="question-box" id="questions"></div>
-
-<h2 class="section-title">🖍️ 나도 예술가!</h2>
-<div class="create-box">
- <h3 id="createTitle">나만의 그림을 그려보세요!</h3>
- <p id="createDescription">오늘의 명화를 보고 떠오른 생각을 자유롭게 표현해요.</p>
- <div class="canvas-wrap"><canvas id="drawingCanvas" width="1000" height="600"></canvas></div>
- <div class="tools" id="colorTools">
-  <button class="color selected" style="background:#E58B9D" data-color="#E58B9D"></button>
-  <button class="color" style="background:#83B99B" data-color="#83B99B"></button>
-  <button class="color" style="background:#70577F" data-color="#70577F"></button>
-  <button class="color" style="background:#E9B65F" data-color="#E9B65F"></button>
-  <button class="color" style="background:#6D9DC5" data-color="#6D9DC5"></button>
-  <button class="color" style="background:#E97867" data-color="#E97867"></button>
-  <button class="color" style="background:#333333" data-color="#333333"></button>
-  <button class="color" style="background:#FFFFFF" data-color="#FFFFFF"></button>
-  <label>붓 굵기 <input type="range" id="brushSize" min="2" max="35" value="8"></label>
-  <button onclick="eraser()">지우개</button>
-  <button onclick="clearCanvas()">그림 지우기</button>
-  <button onclick="downloadDrawing()">내 그림 저장 ↓</button>
- </div>
+<div class="nav">
+<button onclick="prev()">← 이전 작품</button>
+<button class="primary" onclick="next()">다음 작품 →</button>
 </div>
-
-<h2 class="section-title">🗂️ 명화 50점 둘러보기</h2>
-<p class="description">작품을 누르면 해당 그림을 감상할 수 있어요.</p>
-<div class="gallery" id="gallery"></div>
-<div class="pager">
- <button onclick="changeGalleryPage(-1)">이전</button>
- <span id="galleryPage">1 / 7</span>
- <button onclick="changeGalleryPage(1)">다음</button>
-</div>
-
-<section class="tip">
- <h3>👩‍🏫 선생님을 위한 감상 팁</h3>
- <p>• 아이에게 작품의 정답을 먼저 알려주기보다 자유롭게 관찰하도록 도와주세요.</p>
- <p>• “무엇이 보이니?”, “어떤 색이 가장 마음에 드니?”처럼 열린 질문을 활용해 주세요.</p>
- <p>• 아이마다 다른 느낌과 해석을 존중해 주세요.</p>
- <p>• 작품을 잘 그리는 것보다 자신의 생각을 표현하는 과정을 격려해 주세요.</p>
- <p>• 감상 기록과 그림은 사용 중인 브라우저에 저장되며, 다른 컴퓨터와 자동 공유되지는 않아요.</p>
 </section>
 
+<h2>그림을 자세히 관찰해요</h2>
+<p class="desc">정답은 없어요. 아이의 생각을 자유롭게 이야기해 보세요.</p>
+<div class="questions">
+<div class="q"><b>1. 그림 속에는 무엇이 보이나요?</b><br>사람, 동물, 식물, 물건을 찾아보세요.</div>
+<div class="q"><b>2. 어떤 색과 모양이 가장 눈에 띄나요?</b><br>마음에 드는 부분을 골라 이야기해 보세요.</div>
+<div class="q"><b>3. 그림 속으로 들어간다면 무엇을 해보고 싶나요?</b><br>그림 속 장면을 상상해 보세요.</div>
+</div>
+
+<h2>명화 둘러보기</h2>
+<div class="gallery" id="gallery"></div>
+<div class="pager">
+<button class="back" onclick="page(-1)">이전</button>
+<span id="pageText">1 / 1</span>
+<button class="back" onclick="page(1)">다음</button>
+</div>
+<section class="tip">
+<b>선생님을 위한 안내</b>
+<p>• 작품 이미지는 GitHub 저장소의 images 폴더에서 불러옵니다.</p>
+<p>• 작품 이미지가 폴더에 없거나 파일명이 다르면 표시되지 않습니다.</p>
+</section>
 <footer>
- 꿈꾸며 나아가는 RAS 꿈나라 교실<br>
- READ · ART · SPORTS<br>
- 읽고, 표현하고, 움직이며 성장하는 아이들
+꿈꾸며 나아가는 RAS 꿈나라 교실<br>
+READ · ART · SPORTS<br>
+<span style="display:inline-block;margin-top:10px;color:#e3ca8c;font-weight:800">Created by @yutti_.i</span>
 </footer>
 </div>
 
+<div id="viewer" class="viewer" onclick="if(event.target.id==='viewer')closeViewer()">
+<button onclick="closeViewer()">닫기 ✕</button>
+<img id="viewerImg" alt="명화 크게 보기">
+</div>
+
 <script>
-/*
-작품 데이터 50점
-작품별 검색어로 Wikimedia Commons에서 이미지를 불러옵니다.
-검색 결과에 따라 일부 작품은 이미지가 없을 수 있으며, 그 경우 출처 검색 링크를 제공합니다.
-*/
-const raw = [
-  ["서양 명화", "별이 빛나는 밤", "빈센트 반 고흐", "1889", "Vincent van Gogh The Starry Night 1889", "소용돌이치는 하늘과 반짝이는 별을 찾아보세요.", "나만의 별이 빛나는 밤"],
-  ["서양 명화", "해바라기", "빈센트 반 고흐", "1888", "Vincent van Gogh Sunflowers 1888", "꽃병 속 해바라기의 색과 모양을 살펴보세요.", "내가 좋아하는 꽃"],
-  ["서양 명화", "아를의 별이 빛나는 밤", "빈센트 반 고흐", "1888", "Vincent van Gogh Starry Night Over the Rhone 1888", "강물에 비친 불빛과 밤하늘을 찾아보세요.", "반짝이는 밤 풍경"],
-  ["서양 명화", "밤의 카페 테라스", "빈센트 반 고흐", "1888", "Vincent van Gogh Cafe Terrace at Night 1888", "카페의 노란 불빛과 밤거리를 관찰해 보세요.", "나만의 밤 카페"],
-  ["서양 명화", "자화상", "빈센트 반 고흐", "1889", "Vincent van Gogh Self Portrait 1889", "화가의 얼굴과 붓 터치를 살펴보세요.", "나의 얼굴 그리기"],
-  ["서양 명화", "수련", "클로드 모네", "1906년경", "Claude Monet Water Lilies 1906", "연못 위 수련과 물에 비친 빛을 찾아보세요.", "나만의 연못"],
-  ["서양 명화", "인상, 해돋이", "클로드 모네", "1872", "Claude Monet Impression Sunrise 1872", "해가 떠오르는 항구의 색을 살펴보세요.", "나만의 해돋이"],
-  ["서양 명화", "양산을 쓴 여인", "클로드 모네", "1875", "Claude Monet Woman with a Parasol 1875", "양산과 옷자락에서 바람을 느껴보세요.", "바람 부는 날"],
-  ["서양 명화", "일본식 다리", "클로드 모네", "1899", "Claude Monet Japanese Bridge 1899", "다리와 연못, 초록 식물을 찾아보세요.", "나만의 다리"],
-  ["서양 명화", "물랭 드 라 갈레트의 무도회", "오귀스트 르누아르", "1876", "Pierre Auguste Renoir Dance at Le Moulin de la Galette 1876", "사람들이 모여 춤추는 장면을 관찰해 보세요.", "즐거운 축제"],
-  ["서양 명화", "뱃놀이하는 사람들의 점심", "오귀스트 르누아르", "1881", "Pierre Auguste Renoir Luncheon of the Boating Party 1881", "함께 식사하는 사람들의 표정과 물건을 찾아보세요.", "친구와 함께하는 점심"],
-  ["서양 명화", "두 자매", "오귀스트 르누아르", "1881", "Pierre Auguste Renoir Two Sisters On the Terrace 1881", "두 사람의 옷과 주변 풍경을 살펴보세요.", "소중한 사람과 나"],
-  ["서양 명화", "키스", "구스타프 클림트", "1907~1908", "Gustav Klimt The Kiss 1907 1908", "금빛 무늬와 옷의 장식을 관찰해 보세요.", "반짝이는 무늬 꾸미기"],
-  ["서양 명화", "아델레 블로흐 바우어의 초상 I", "구스타프 클림트", "1907", "Gustav Klimt Portrait of Adele Bloch Bauer I 1907", "금빛 장식과 작은 무늬를 찾아보세요.", "화려한 초상화"],
-  ["서양 명화", "절규", "에드바르 뭉크", "1893", "Edvard Munch The Scream 1893 NG.M.00939", "인물의 표정과 물결치는 선을 관찰해 보세요.", "내 마음의 색깔"],
-  ["서양 명화", "진주 귀걸이를 한 소녀", "요하네스 페르메이르", "1665년경", "Johannes Vermeer Girl with a Pearl Earring", "소녀의 시선과 반짝이는 귀걸이를 찾아보세요.", "나의 특별한 초상화"],
-  ["서양 명화", "우유 따르는 여인", "요하네스 페르메이르", "1660년경", "Johannes Vermeer The Milkmaid", "여인이 우유를 따르는 모습을 살펴보세요.", "부엌에서 일어나는 일"],
-  ["서양 명화", "모나리자", "레오나르도 다 빈치", "1503~1519년경", "Leonardo da Vinci Mona Lisa", "여인의 미소와 뒤쪽 풍경을 관찰해 보세요.", "나의 비밀스러운 미소"],
-  ["서양 명화", "최후의 만찬", "레오나르도 다 빈치", "1495~1498", "Leonardo da Vinci The Last Supper", "긴 식탁에 모인 사람들의 모습을 살펴보세요.", "함께하는 식탁"],
-  ["서양 명화", "비너스의 탄생", "산드로 보티첼리", "1480년대", "Sandro Botticelli The Birth of Venus", "바다와 조개, 바람에 날리는 머리카락을 찾아보세요.", "바다에서 온 주인공"],
-  ["서양 명화", "아메리칸 고딕", "그랜트 우드", "1930", "Grant Wood American Gothic 1930", "두 사람의 표정과 손에 든 물건을 살펴보세요.", "우리 가족 초상화"],
-  ["서양 명화", "기억의 지속", "살바도르 달리", "1931", "Salvador Dali The Persistence of Memory 1931", "녹아내리는 시계와 낯선 풍경을 찾아보세요.", "상상 속 시계"],
-  ["서양 명화", "사과와 오렌지", "폴 세잔", "1899년경", "Paul Cezanne Apples and Oranges 1899", "과일의 모양과 색, 놓인 위치를 살펴보세요.", "과일 바구니"],
-  ["서양 명화", "그랑드 자트 섬의 일요일 오후", "조르주 쇠라", "1884~1886", "Georges Seurat A Sunday Afternoon on the Island of La Grande Jatte", "작은 점으로 표현된 사람과 나무를 찾아보세요.", "점으로 그리는 그림"],
-  ["서양 명화", "야경", "렘브란트", "1642", "Rembrandt The Night Watch 1642", "사람들의 움직임과 빛이 비치는 곳을 찾아보세요.", "우리들의 행진"],
-  ["한국 전통 그림", "씨름", "김홍도", "18세기", "Kim Hong-do Ssireum wrestling painting", "씨름하는 사람들과 둘러앉은 구경꾼을 찾아보세요.", "우리들의 운동회"],
-  ["한국 전통 그림", "무동", "김홍도", "18세기", "Kim Hong-do Dancing Boy Mudong painting", "춤추는 아이와 악기를 연주하는 사람들을 살펴보세요.", "신나는 춤 공연"],
-  ["한국 전통 그림", "서당", "김홍도", "18세기", "Kim Hong-do Seodang painting", "글을 배우는 아이들과 훈장님의 모습을 살펴보세요.", "우리 교실"],
-  ["한국 전통 그림", "타작", "김홍도", "18세기", "Kim Hong-do Threshing painting", "곡식을 털고 나르는 사람들의 모습을 관찰해 보세요.", "가을 추수"],
-  ["한국 전통 그림", "대장간", "김홍도", "18세기", "Kim Hong-do Blacksmith painting", "대장간에서 일하는 사람들의 모습을 찾아보세요.", "무엇을 만드는 곳일까"],
-  ["한국 전통 그림", "단오풍정", "신윤복", "18세기", "Shin Yun-bok Dano Day painting", "단오날 사람들의 놀이와 풍경을 찾아보세요.", "우리들의 전통 놀이"],
-  ["한국 전통 그림", "미인도", "신윤복", "18세기", "Shin Yun-bok Portrait of a Beauty painting", "한복의 색과 모양, 인물의 모습을 살펴보세요.", "아름다운 한복"],
-  ["한국 전통 그림", "월하정인", "신윤복", "18세기", "Shin Yun-bok Lovers Under the Moon painting", "달빛 아래 두 사람이 서 있는 모습을 관찰해 보세요.", "달빛 아래 산책"],
-  ["한국 전통 그림", "쌍검대무", "신윤복", "18세기", "Shin Yun-bok Dance with Two Swords painting", "칼춤을 추는 사람들의 움직임을 살펴보세요.", "우리들의 춤"],
-  ["한국 전통 그림", "연소답청", "신윤복", "18세기", "Shin Yun-bok Spring Outing painting", "봄날 나들이를 나온 사람들을 찾아보세요.", "봄 소풍"],
-  ["한국 전통 그림", "인왕제색도", "정선", "1751", "Jeong Seon Inwangjesaekdo 1751", "비가 온 뒤 산의 모습과 바위, 안개를 살펴보세요.", "우리 동네 산"],
-  ["한국 전통 그림", "금강전도", "정선", "1734년경", "Jeong Seon Geumgangjeondo painting", "높고 낮은 산봉우리와 자연의 모습을 찾아보세요.", "나만의 산 풍경"],
-  ["한국 전통 그림", "몽유도원도", "안견", "1447", "An Gyeon Dream Journey to the Peach Blossom Land 1447", "산과 복숭아꽃이 있는 상상 속 풍경을 살펴보세요.", "꿈속 꽃나라"],
-  ["한국 전통 그림", "책가도", "조선 후기 화원", "조선 후기", "Korean Joseon chaekgado bookshelves painting", "책과 그릇, 여러 물건이 놓인 모습을 찾아보세요.", "내 책장 꾸미기"],
-  ["한국 전통 그림", "까치호랑이", "조선 민화", "조선 후기", "Korean minhwa magpie tiger folk painting", "호랑이의 표정과 나무 위 까치를 찾아보세요.", "재미있는 동물 그림"],
-  ["세계 여러 나라", "큰 파도", "가쓰시카 호쿠사이", "1831년경", "Katsushika Hokusai The Great Wave off Kanagawa 1831", "커다란 파도와 작은 배, 멀리 있는 산을 찾아보세요.", "출렁출렁 바다"],
-  ["세계 여러 나라", "잠자는 집시", "앙리 루소", "1897", "Henri Rousseau The Sleeping Gypsy 1897", "달빛과 잠든 사람, 사자의 모습을 살펴보세요.", "달빛 사막"],
-  ["세계 여러 나라", "꿈", "앙리 루소", "1910", "Henri Rousseau The Dream 1910", "커다란 식물과 숲속의 인물을 찾아보세요.", "나의 꿈속 정글"],
-  ["세계 여러 나라", "두 명의 프리다", "프리다 칼로", "1939", "Frida Kahlo The Two Fridas 1939", "두 인물의 옷과 표정을 비교해 보세요.", "두 가지 내 모습"],
-  ["세계 여러 나라", "붉은 칸나", "조지아 오키프", "1924", "Georgia O Keeffe Red Canna 1924", "꽃잎의 곡선과 색이 이어지는 모습을 찾아보세요.", "꽃잎의 모양"],
-  ["상상력과 추상", "구성 8", "바실리 칸딘스키", "1923", "Wassily Kandinsky Composition VIII 1923", "원과 선, 삼각형이 어떻게 어울리는지 찾아보세요.", "도형으로 만드는 그림"],
-  ["상상력과 추상", "여러 개의 원", "바실리 칸딘스키", "1926", "Wassily Kandinsky Several Circles 1926", "크기가 다른 원을 찾아보세요.", "빙글빙글 원"],
-  ["상상력과 추상", "빨강 파랑 노랑의 구성", "피트 몬드리안", "1930", "Piet Mondrian Composition with Red Blue and Yellow 1930", "검은 선과 네모 칸, 원색을 찾아보세요.", "나만의 네모 구성"],
-  ["상상력과 추상", "브로드웨이 부기우기", "피트 몬드리안", "1942~1943", "Piet Mondrian Broadway Boogie Woogie 1942", "작은 네모들이 만드는 길과 리듬을 살펴보세요.", "네모 길 만들기"],
-  ["상상력과 추상", "빨간 풍선", "파울 클레", "1922", "Paul Klee Red Balloon 1922", "단순한 선과 색이 만드는 마을 풍경을 찾아보세요.", "나만의 색깔 마을"]
-];
-const artworks=raw.map((r,i)=>({
- id:i+1,category:r[0],title:r[1],artist:r[2],year:r[3],
- query:r[4],story:r[5],create:r[6]
+const works=[
+["서양 명화","별이 빛나는 밤","빈센트 반 고흐","1889","TheStarryNightByVincentVanGogh.jpg","뉴욕 현대미술관 소장작으로 알려진 1889년 작품이에요. 소용돌이치는 하늘과 마을을 찾아보세요."],
+["서양 명화","해바라기","빈센트 반 고흐","1888","Sunflowers_National_Gallery.jpg","런던 내셔널 갤러리 소장 작품이에요. 꽃의 방향과 노란색의 차이를 살펴보세요."],
+["서양 명화","진주 귀걸이를 한 소녀","요하네스 페르메이르","1665년경","1665_Girl_with_a_Pearl_Earring.jpg","네덜란드 마우리츠하위스 소장 작품이에요. 소녀의 시선과 진주 귀걸이를 찾아보세요."],
+["서양 명화","양귀비 들판","클로드 모네","1873","vincent_van_Gogh_-_Poppy_field_-_Google_Art_Project.jpg","초록 들판과 붉은 꽃들이 펼쳐져 있어요. 멀리 있는 사람들과 가까운 꽃의 크기를 비교해 보세요."],
+["서양 명화","사과와 오렌지가 있는 정물","폴 세잔","1899년경","Nature_morte_aux_pommes_et_aux_oranges,_par_Paul_Cézanne.jpg","사과와 오렌지, 천이 놓인 정물화예요. 둥근 과일에 빛이 닿는 부분을 찾아보세요."],
+["서양 명화","그랑드 자트 섬의 일요일 오후","조르주 쇠라","1884~1886","A_Sunday_on_La_Grande_Jatte,_Georges_Seurat,_1884.jpg","시카고 미술관 소장작을 촬영한 이미지예요. 작은 색점으로 표현된 사람과 강가 풍경을 살펴보세요."],
+["서양 명화","아메리칸 고딕","그랜트 우드","1930","Grant_Wood_-_American_Gothic.jpeg","시카고 미술관 소장 작품이에요. 두 인물의 표정과 손에 든 물건을 관찰해 보세요."],
+["서양 명화","야경","렘브란트","1642","La ronda de noche, por Rembrandt van Rijn.jpg","암스테르담 국립미술관의 대표작이에요. 사람들의 움직임과 빛이 비치는 곳을 찾아보세요."],
+["서양 명화","수련","클로드 모네","1907","Claude_Monet_-_Water_Lilies.JPG","예루살렘 이스라엘 박물관 소장작으로 기록된 작품이에요. 연못 위 수련과 물빛을 살펴보세요."],
+["서양 명화","아몬드 꽃","빈센트 반 고흐","1890","Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg","하늘색 바탕에 가지와 꽃이 뻗어 있어요. 꽃봉오리와 활짝 핀 꽃을 찾아보세요."],
+["서양 명화","우유 따르는 여인","요하네스 페르메이르","1660년경","VermeerMilkmaid.jpg","암스테르담 국립미술관 소장 작품이에요. 여인이 우유를 따르는 모습과 식탁 위 물건을 관찰해 보세요."],
+["한국 명화","씨름","김홍도","18세기","bon006504-22-01.jpg","국립중앙박물관 소장 《단원 풍속도첩》의 작품이에요. 씨름꾼과 둘러앉은 구경꾼을 찾아보세요."],
+["서양 명화","모나리자","레오나르도 다 빈치","1503~1519년경","Mona_Lisa_in_the_Louvre.jpg","루브르 박물관에 있는 작품을 촬영한 이미지예요. 인물의 미소와 뒤쪽 풍경을 살펴보세요."],
+["서양 명화","아를의 반 고흐의 방","빈센트 반 고흐","1889","Bedroom_of_Van_Gogh_in_Arles.jpg","반 고흐가 아를에서 그린 방의 모습이에요. 의자와 침대, 창문과 벽의 색을 비교해 보세요."],
+["서양 명화","인상, 해돋이","클로드 모네","1872","Monet_-_Impression,_Sunrise.jpg","항구 위로 해가 떠오르는 순간을 그린 작품이에요. 물 위에 비친 주황빛과 흐릿한 배를 찾아보세요."],
+["서양 명화","뱃놀이 일행의 오찬","피에르 오귀스트 르누아르","1880~1881","Luncheon_of_the_Boating_Party_Renoir_1881.jpg","필립스 컬렉션 소장 작품이에요. 함께 식사하는 사람들의 표정과 테이블 위 물건을 관찰해 보세요."],
+["서양 명화","무용 수업","에드가 드가","1874","Edgar_Degas_The_Dance_Class.jpg","메트로폴리탄 미술관 소장 작품으로 알려져 있어요. 발레 연습실에서 무용수들이 어떤 동작을 하는지 찾아보세요."],
+["서양 명화","금붕어","앙리 마티스","1912","Goldfish_Matisse.jpg","마티스가 그린 금붕어 그림이에요. 물고기와 어항 주변의 색과 모양을 살펴보세요."],
+["서양 명화","잠자는 집시","앙리 루소","1897","Henri_Rousseau_-_La_Bohémienne_endormie_-_Google_Art_Project.jpg","달빛 아래 잠든 사람과 사자를 그린 작품이에요. 사자의 표정과 주변 풍경에서 어떤 이야기가 떠오르나요?"],
+["서양 명화","나와 마을","마르크 샤갈","1911","Marc_Chagall,_I_and_the_Village_(50393893081).jpg","뉴욕 현대미술관 소장 작품이에요. 사람과 동물, 집과 나무가 어떤 색과 모양으로 표현되었는지 찾아보세요."],
+["서양 명화","델프트 풍경","요하네스 페르메이르","1660~1661","View_of_Delft,_by_Johannes_Vermeer.jpg","마우리츠하위스 소장 작품이에요. 물에 비친 도시와 구름이 많은 하늘을 천천히 살펴보세요."],
+["서양 명화","그네","장 오노레 프라고나르","1767년경","Fragonard_-_swing.jpg","월리스 컬렉션 소장 작품이에요. 그네를 타는 사람과 주변 정원에 무엇이 있는지 찾아보세요."],
+["서양 명화","아르놀피니 부부의 초상","얀 반 에이크","1434","Van_Eyck_-_Arnolfini_Portrait.jpg","런던 내셔널 갤러리 소장 작품이에요. 두 사람과 방 안의 거울, 강아지와 신발을 찾아보세요."],
+["서양 명화","건초 수레","존 컨스터블","1821","John_Constable_-_The_Hay_Wain_(1821).jpg","런던 내셔널 갤러리 소장 풍경화예요. 강물과 나무, 수레가 있는 시골 풍경을 관찰해 보세요."],
+["서양 명화","이삭 줍는 사람들","장프랑수아 밀레","1857","Millet_Gleaners.jpg","오르세 미술관 소장 작품이에요. 세 사람이 땅에서 무엇을 줍고 있는지 살펴보세요."],["서양 명화","꿈","앙리 루소","1910","Henri_Rousseau_005.jpg","뉴욕 현대미술관 소장 작품이에요. 커다란 식물과 동물들이 가득한 정글에서 숨은 모습을 찾아보세요."],
+["서양 명화","바벨탑","피터르 브뤼헐","1563","Pieter_Brueghel_the_Elder_-_The_Tower_of_Babel_(Vienna)_-_Google_Art_Project_-_edited.jpg.webp","빈 미술사 박물관 소장 작품으로 알려져 있어요. 아주 큰 탑을 짓는 사람들과 탑의 모습을 살펴보세요."],
+["서양 명화","생명의 나무","구스타프 클림트","1905~1909","Gustav_Klimt_032.jpg","나뭇가지의 둥근 곡선과 장식 무늬를 찾아보세요."],
+["서양 명화","생트빅투아르 산","폴 세잔","1904~1906","Cezanne_mont_sainte-victoire_ob.jpg","산과 나무, 하늘을 단순한 색면으로 나누어 표현했어요."],
+["서양 명화","두 자매(테라스에서)","피에르 오귀스트 르누아르","1881","Renoir_Pierre-Auguste_-_The_Two_Sisters_On_the_Terrace.jpg","테라스에 앉은 두 사람과 강가 풍경을 살펴보세요."],
+["서양 명화","생트아드레스의 정원","클로드 모네","1867","Claude_Monet_-_Jardin_à_Sainte-Adresse.jpg","정원과 바다, 깃발이 있는 풍경이에요. 화면에서 가장 밝은 곳을 찾아보세요."],
+["한국 명화","서당","김홍도","18세기","bon006504-23-01.jpg","조선 시대 서당에서 공부하는 아이들과 훈장님의 모습을 담았어요."],
+["한국 명화","무동","김홍도","18세기","bon006504-24-01.jpg","악기를 연주하는 사람들 사이에서 춤추는 아이를 찾아보세요."],
+["한국 명화","타작","김홍도","18세기","images(2).jpg","사람들이 곡식을 거두고 나누는 모습을 그린 풍속화예요."],
+["한국 명화","단오풍정","신윤복","18세기","pan010770-000-01.jpg","단오날의 풍경을 담은 그림이에요. 나무와 그네, 사람들의 모습을 찾아보세요."],
+["한국 명화","인왕제색도","정선","1751","lkh000001-000-80001.jpg","비가 온 뒤 안개가 걷히는 인왕산을 그린 산수화예요."],
+["한국 명화","호랑이와 까치","작자 미상","조선 후기","don002613-00-00.jpg","호랑이와 까치가 함께 등장하는 민화예요."],
+["한국 명화","책거리 병풍","작자 미상","조선 후기","hon000465-00-00.jpg","책과 여러 생활 물건을 정성스럽게 그린 그림이에요."],
+["한국 명화","초충도","신사임당","16세기","ssu003550-000-019.jpg","풀과 꽃, 작은 곤충들이 어우러진 그림이에요."],
+["현대 명화","여러 개의 원","바실리 칸딘스키","1926","Vassily_Kandinsky_1926_-_Several_Circles_Gugg_0910_25.jpg","크기가 다른 원들이 우주처럼 떠 있어요."],
+["현대 명화","성과 태양","파울 클레","1928","Burg_und_Sonne_-_Klee.jpg","네모와 세모가 모여 성과 도시처럼 보여요."],
+["현대 명화","빨강, 파랑, 노랑의 구성","피트 몬드리안","1930","Piet_Mondriaan_1930_-_Mondrian_Composition_II_Red_Blue_and_Yellow.jpg","검은 선과 기본 색으로 화면을 나누었어요."],
+["현대 명화","세네치오","파울 클레","1922","Senecio2.JPG","얼굴을 여러 색과 단순한 모양으로 표현했어요."],
+["현대 명화","꽃","앤디 워홀","1964","Andy-Warhol-Flowers-1964.jpeg","꽃 모양과 색을 반복해서 표현한 작품이에요."],
+["현대 명화","어릿광대의 사육제","호안 미로","1924~1925","Carnaval of Harlequin Joan Miro.jpg","점과 선, 기호 같은 모양이 가득한 상상의 세계예요."],
+["현대 명화","이카루스","앙리 마티스","1947","Matisse_Icarus.jpg","파란 바탕에 검은 형태와 작은 별 모양이 있어요."],
+["현대 명화","모빌","알렉산더 칼더","1950년대","Alexander_Calder_mobile.jpg","가벼운 형태들이 균형을 이루는 움직이는 조각 작품이에요."],
+["현대 명화","달팽이","앙리 마티스","1953","트레일.jpg","색종이를 잘라 배열해 달팽이를 표현한 작품이에요. 작품을 살펴본 뒤 색종이를 여러 모양으로 오려 나만의 동물이나 상상의 생물을 만들어 보세요."],
+["현대 명화","동심원","바실리 칸딘스키","1913","동심원.jpg","여러 색의 동그라미가 겹쳐 있어요. 색과 크기의 차이를 관찰한 뒤, 원을 겹쳐 나만의 색채 그림을 만들어 보세요."],
+["현대 명화","얼룩말","빅토르 바자렐리","1937","색말.jpg","검고 흰 곡선과 반복되는 무늬가 얼룩말의 모습을 만들어요. 선을 반복하고 휘어 보이게 그려 움직이는 듯한 착시 그림을 만들어 보세요."]
+].map((x,i)=>({
+  id:i+1,
+  cat:x[0],
+  title:x[1],
+  artist:x[2],
+  year:x[3],
+  file:x[4],
+  story:x[5]
 }));
 
-function getDayOfYear(date=new Date()){
- const start=new Date(date.getFullYear(),0,1);
- const today=new Date(date.getFullYear(),date.getMonth(),date.getDate());
- return Math.floor((today-start)/86400000);
-}
-function getDailyIndex(list){
- return list.length ? getDayOfYear()%list.length : 0;
-}
-function updateTodayLabel(){
- const d=new Date();
- $("todayLabel").textContent="오늘의 명화 · "+d.getFullYear()+"년 "+(d.getMonth()+1)+"월 "+d.getDate()+"일";
-}
+  
+/* 작품 이미지 파일명 수정 */
+const imageFileFixes = {
+  "양귀비 들판":
+  "Vincent_van_Gogh_-_Poppy_field_-_Google_Art_Project.jpg",
 
-let filtered=[...artworks];
-let currentIndex=getDailyIndex(artworks);
-let category="전체";
-let galleryPage=0;
-let imageCache={};
+  "야경":
+    "La_ronda_de_noche,_por_Rembrandt_van_Rijn.jpg",
+
+  "수련":
+    "Claude_Monet_-_Water_Lilies.jpg",
+
+  "꿈":
+    "Henri_Rousseau_-_Le_Rêve_-_Google_Art_Project.jpg",
+
+  "바벨탑":
+    "Pieter_Bruegel_the_Elder_-_The_Tower_of_Babel_(Vienna)_-_Google_Art_Project_-_edited.jpg.webp",
+
+  "생트빅투아르 산":
+    "Cezanne_mont-sainte-victoire-oberhalb-der-route-du-tholonet.jpg",
+
+  "두 자매(테라스에서)":
+    "Renoir,_Pierre-Auguste_-_The_Two_Sisters,_On_the_Terrace.jpg",
+
+  "여러 개의 원":
+    "Vassily_Kandinsky,_1926_-_Several_Circles,_Gugg_0910_25.jpg",
+
+ "빨강, 파랑, 노랑의 구성":
+    "Piet_Mondriaan,_1930_-_Mondrian_Composition_II_in_Red,_Blue,_and_Yellow.jpg",
+
+  "모빌":
+    "mobile_sur_deux_plans_pompidou-1.webp",
+
+  "양귀비 들판":
+    "Vincent_van_Gogh_-_Poppy_field_-_Google_Art_Project.jpg",
+
+  "이카루스":
+    "773654_dean-black_l.jpg",
+  
+  "어릿광대의 사육제":
+    "Carnival of Harlequin Joan Miro.jpg",
+
+  "타작": "images (2).jpg",
+
+  "단오풍정": "images (3).jpg",
+
+  "인왕제색도": "images (4).jpg",
+
+  "책거리 병풍": "images (5).jpg",
+
+  "초충도": "images (6).jpg",
+
+  "호랑이와 까치":
+  "RLlzIstaF6b5Sa4z1cHiIVeBk4rO79Rct7udiokef27MXbpJIOYqCD_B-7Xy1c7mzgqQ3GDT8yvObWKsNpkLYw.webp",
+
+  "서당":
+  "OzNuenRlTeFNKk2pZmYbOTQxUgb_CI1mqV1zg2A3Td0GOgzzUx7ofZ4p2lvL8_2foEdWWzqCAnDWmbpfCrfAYQ.webp",
+
+  "무동": "75917_49295_3624.jpg",
+  
+  "달팽이": "달팽이.jpg",
+
+  "동심원": "동심원.jpg",
+  
+  "얼룩말": "얼룩말.jpg",
+  
+};
+
+works.forEach(work => {
+  if (imageFileFixes[work.title]) {
+    work.file = imageFileFixes[work.title];
+  }
+});
+
+/* 작품 목록과 화면 상태 */
+let list=[...works];
+let idx=0;
+let cat="전체";
+let pageNo=0;
+let requestNo=0;
 
 const $=id=>document.getElementById(id);
 
-function updateStats(){
- $("totalCount").textContent=artworks.length;
- $("categoryCount").textContent=filtered.length;
- $("currentCount").textContent=(currentIndex+1)+" / "+filtered.length;
- $("artCount").textContent=(currentIndex+1)+" / "+filtered.length;
-}
+/* 작품 화면 표시 */
+function render(){
+  if(!list.length){
+    $("artTitle").textContent="검색 결과가 없어요.";
+    $("artArtist").textContent="";
+    $("artStory").textContent="다른 작품 이름이나 작가 이름으로 검색해 보세요.";
+    $("artSource").textContent="";
+    $("artImage").style.display="none";
+    $("loading").style.display="none";
+    $("fallback").style.display="none";
+    $("shown").textContent="0";
+    $("count").textContent="0 / 0";
+    $("position").textContent="0 / 0";
+    $("gallery").innerHTML="";
+    $("pageText").textContent="0 / 0";
+    return;
+  }
 
-function renderArtwork(){
- if(!filtered.length)return;
- updateTodayLabel();
- const art=filtered[currentIndex];
- $("artTitle").textContent=art.title;
- $("artArtist").textContent=art.artist+" · "+art.year+" · "+art.category;
- $("artStory").textContent=art.story;
- $("createTitle").textContent=art.create;
- $("createDescription").textContent=art.story+" 그림에서 마음에 든 색과 모양을 활용해 나만의 작품을 만들어 보세요.";
+  const w=list[idx];
+  const ticket=++requestNo;
 
- $("artImage").style.display="none";
- imageRequestSerial++;
- $("imageLoading").style.display="block";
- $("imageFallback").style.display="none";
- $("imageLoading").innerHTML="<strong>🖼️</strong>작품 이미지를 불러오고 있어요.";
+  $("artTitle").textContent=w.title;
+  $("artArtist").textContent=w.artist+" · "+w.year+" · "+w.cat;
+  $("artStory").textContent=w.story;
+  $("count").textContent=(idx+1)+" / "+list.length;
+  $("position").textContent=(idx+1)+" / "+list.length;
+  $("shown").textContent=list.length;
+  $("total").textContent=works.length;
+  $("artSource").textContent="내 갤러리에 저장된 작품 이미지";
 
- const commonsSearch="https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search="+encodeURIComponent(art.query);
- $("commonsLink").href=commonsSearch;
- $("artSource").innerHTML='이미지 검색: <a href="'+commonsSearch+'" target="_blank" rel="noopener">Wikimedia Commons에서 작품 이미지 보기 ↗</a>';
+  const im=$("artImage");
+  im.style.display="none";
+  $("fallback").style.display="none";
+  $("loading").style.display="block";
 
- renderQuestions(art);
- clearCanvas();
- selectedFeeling="";
- document.querySelectorAll(".feeling").forEach(b=>b.classList.remove("selected"));
- updateStats();
- renderGallery();
+  /* images 폴더를 먼저 확인하고, 없으면 저장소 루트 확인 */
+  const candidates=[
+    "./images/"+encodeURIComponent(w.file),
+    "./"+encodeURIComponent(w.file)
+  ];
 
- if(imageCache[art.id]){
-  const requestId = ++imageRequestSerial;
-  showImage(imageCache[art.id], requestId);
- }else{
-  findImage(art);
- }
-}
+  let attempt=0;
 
-let imageRequestSerial = 0;
+  im.onload=()=>{
+    if(ticket!==requestNo)return;
+    $("loading").style.display="none";
+    $("fallback").style.display="none";
+    im.style.display="block";
+  };
 
-function artistPrefix(query){
- const prefixes = [
-  "Vincent van Gogh","Claude Monet","Pierre Auguste Renoir","Gustav Klimt",
-  "Edvard Munch","Johannes Vermeer","Leonardo da Vinci","Sandro Botticelli",
-  "Grant Wood","Salvador Dali","Paul Cezanne","Georges Seurat","Rembrandt",
-  "Kim Hong-do","Shin Yun-bok","Jeong Seon","An Gyeon","Katsushika Hokusai",
-  "Henri Rousseau","Frida Kahlo","Georgia O Keeffe","Wassily Kandinsky",
-  "Piet Mondrian","Paul Klee"
- ];
- return prefixes.find(p => query.toLowerCase().startsWith(p.toLowerCase())) || "";
-}
+  function tryImage(){
+    if(ticket!==requestNo)return;
 
-function makeFallback(art){
- const link = $("commonsLink");
- link.href = "https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=" +
-   encodeURIComponent(art.query);
- $("imageLoading").style.display = "none";
- $("imageFallback").style.display = "block";
-}
-
-async function findImage(art){
- const img = $("artImage");
- const requestId = ++imageRequestSerial;
- const prefix = artistPrefix(art.query);
- const title = prefix ? art.query.slice(prefix.length).trim() : art.query;
- const stop = new Set(["the","and","with","at","on","of","a","an","over","in","i","painting","art"]);
- const words = value => value.toLowerCase()
-   .replace(/[^a-z0-9가-힣 ]/g," ").split(/\s+/)
-   .filter(w => w.length > 2 && !stop.has(w));
- const titleWords = words(title);
- const searchTerms = [...new Set([art.query, title, art.title + " " + art.artist])];
-
- let bestUrl = "";
- let bestScore = 0;
-
- for(const term of searchTerms){
-  try{
-   const api = "https://commons.wikimedia.org/w/api.php?action=query&generator=search" +
-    "&gsrsearch=" + encodeURIComponent(term) +
-    "&gsrnamespace=6&gsrlimit=50&prop=imageinfo&iiprop=url&iiurlwidth=1600" +
-    "&format=json&origin=*";
-   const response = await fetch(api, {mode:"cors", cache:"no-store"});
-   if(!response.ok) continue;
-   const data = await response.json();
-   const pages = data.query && data.query.pages ? Object.values(data.query.pages) : [];
-
-   for(const page of pages){
-    const info = page.imageinfo && page.imageinfo[0];
-    const url = info && (info.thumburl || info.url);
-    if(!url) continue;
-    const fileWords = words(page.title || "");
-    const titleHits = titleWords.filter(w => fileWords.includes(w)).length;
-    const score = titleHits;
-    if(score > bestScore){
-     bestScore = score;
-     bestUrl = url;
+    if(attempt>=candidates.length){
+      im.style.display="none";
+      $("loading").style.display="none";
+      $("fallback").style.display="block";
+      $("fallback").textContent="이미지를 찾을 수 없어요: "+w.file;
+      return;
     }
-   }
-   // 작품명 단어가 두 개 이상 일치하는 결과가 있으면 추가 검색을 멈춥니다.
-   if(bestScore >= 2) break;
-  }catch(error){
-   // 다음 검색 방식으로 넘어갑니다.
+
+    im.src=candidates[attempt++];
   }
- }
 
- // 위키미디어 검색이 실패한 경우, 영어 작품명으로 위키백과 대표 이미지를 시도합니다.
- if(!bestUrl && prefix){
-  try{
-   const slug = title.replace(/[,:]/g,"").trim().replace(/\s+/g,"_");
-   const summaryUrl = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(slug);
-   const response = await fetch(summaryUrl, {mode:"cors", cache:"no-store"});
-   if(response.ok){
-    const data = await response.json();
-    if(data.thumbnail && data.thumbnail.source) bestUrl = data.thumbnail.source;
-  }
-  }catch(error){}
- }
+  im.onerror=()=>{
+    if(ticket!==requestNo)return;
+    tryImage();
+  };
 
- // 사용자가 다른 작품으로 이동한 뒤 도착한 이전 검색 결과는 표시하지 않습니다.
- if(requestId !== imageRequestSerial) return;
-
- if(bestUrl){
-  imageCache[art.id] = bestUrl;
-  showImage(bestUrl, requestId);
- }else{
-  makeFallback(art);
- }
+  tryImage();
+  renderGallery();
 }
 
-function showImage(url, requestId){
- const img = $("artImage");
- img.onload = () => {
-  if(requestId !== undefined && requestId !== imageRequestSerial) return;
-  $("imageLoading").style.display = "none";
-  $("imageFallback").style.display = "none";
-  img.style.display = "block";
- };
- img.onerror = () => {
-  if(requestId !== undefined && requestId !== imageRequestSerial) return;
-  img.style.display = "none";
-  $("imageLoading").style.display = "none";
-  $("imageFallback").style.display = "block";
- };
- img.style.display = "none";
- img.src = url;
-}
-
-function openFullscreen(){
- const src=$("artImage").src;
- if(!src || $("artImage").style.display==="none")return;
- $("fullscreenImage").src=src;
- $("fullscreenViewer").classList.add("open");
- document.body.style.overflow="hidden";
-}
-function closeFullscreen(){
- $("fullscreenViewer").classList.remove("open");
- $("fullscreenImage").src="";
- document.body.style.overflow="";
-}
-$("artImage").addEventListener("click",openFullscreen);
-$("fullscreenViewer").addEventListener("click",e=>{
- if(e.target.id==="fullscreenViewer")closeFullscreen();
-});
-document.addEventListener("keydown",e=>{
- if(e.key==="Escape")closeFullscreen();
-});
-
-function renderQuestions(art){
- const questions=[
-  ["그림 속에는 무엇이 보이나요?","사람, 동물, 식물, 물건을 천천히 찾아보세요."],
-  ["어떤 색깔과 모양이 가장 눈에 띄나요?","마음에 드는 부분을 골라 이야기해 보세요."],
-  ["그림 속으로 들어간다면 무엇을 해보고 싶나요?","그림 속 장면을 상상해 보세요."]
- ];
- $("questions").innerHTML=questions.map((q,i)=>
-  '<div class="question"><div class="q-num">'+(i+1)+'</div><div><strong>'+q[0]+'</strong><span>'+q[1]+'</span></div></div>'
- ).join("");
-}
-
-function nextArt(){
- currentIndex=(currentIndex+1)%filtered.length;
- renderArtwork();
-}
-function previousArt(){
- currentIndex=(currentIndex-1+filtered.length)%filtered.length;
- renderArtwork();
-}
-function randomArt(){
- if(!filtered.length)return;
- currentIndex=Math.floor(Math.random()*filtered.length);
- renderArtwork();
- window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function setCategory(cat){
- category=cat;
- filtered=cat==="전체"?[...artworks]:artworks.filter(a=>a.category===cat);
- currentIndex=getDailyIndex(filtered);
- galleryPage=0;
- document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b.dataset.category===cat));
- $("searchInput").value="";
- renderArtwork();
-}
-
-$("filters").addEventListener("click",e=>{
- const button=e.target.closest("button[data-category]");
- if(button)setCategory(button.dataset.category);
-});
-
-function searchArt(){
- const term=$("searchInput").value.trim().toLowerCase();
- if(!term){
-  setCategory("전체");
-  return;
- }
- filtered=artworks.filter(a=>
-  (a.title+" "+a.artist+" "+a.category+" "+a.year).toLowerCase().includes(term)
- );
- currentIndex=0;
- galleryPage=0;
- document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
- renderArtwork();
- if(!filtered.length){
-  $("artTitle").textContent="검색 결과가 없어요.";
-  $("artArtist").textContent="다른 작품명이나 화가 이름을 검색해 보세요.";
-  $("artStory").textContent="예: 고흐, 모네, 김홍도, 호랑이";
-  $("imageLoading").style.display="none";
-  $("imageFallback").style.display="none";
-  $("questions").innerHTML="";
-  $("gallery").innerHTML="";
-  updateStats();
- }
-}
-$("searchInput").addEventListener("keydown",e=>{
- if(e.key==="Enter")searchArt();
-});
-
+/* 작품 목록 */
 function renderGallery(){
- const start=galleryPage*16;
- const items=filtered.slice(start,start+16);
- $("gallery").innerHTML=items.map((art,i)=>
-  '<button class="'+(art.id===filtered[currentIndex].id?"active":"")+'" data-id="'+art.id+'">'+
-  '<span class="number">작품 '+String(art.id).padStart(3,"0")+'</span>'+
-  '<strong>'+art.title+'</strong><span>'+art.artist+'</span></button>'
- ).join("");
- const pages=Math.max(1,Math.ceil(filtered.length/16));
- $("galleryPage").textContent=(galleryPage+1)+" / "+pages;
+  const start=pageNo*12;
+  const part=list.slice(start,start+12);
+
+  $("gallery").innerHTML=part.map((w,i)=>
+    '<button class="tile '+(start+i===idx?"active":"")+
+    '" onclick="choose('+(start+i)+')">'+
+    '<b>'+w.title+'</b>'+
+    '<small>'+w.artist+'</small>'+
+    '</button>'
+  ).join("");
+
+  $("pageText").textContent=
+    (pageNo+1)+" / "+Math.max(1,Math.ceil(list.length/12));
 }
-$("gallery").addEventListener("click",e=>{
- const b=e.target.closest("button[data-id]");
- if(!b)return;
- const idx=filtered.findIndex(a=>a.id===Number(b.dataset.id));
- if(idx>=0){
-  currentIndex=idx;
-  renderArtwork();
+
+/* 작품 선택 */
+function choose(n){
+  if(n<0||n>=list.length)return;
+  idx=n;
+  pageNo=Math.floor(idx/12);
+  render();
   window.scrollTo({top:0,behavior:"smooth"});
- }
-});
-function changeGalleryPage(delta){
- const pages=Math.max(1,Math.ceil(filtered.length/16));
- galleryPage=Math.max(0,Math.min(pages-1,galleryPage+delta));
- renderGallery();
 }
 
-/* 감상 기록 */
-/* 그림판 */
-const canvas=$("drawingCanvas");
-const ctx=canvas.getContext("2d");
-let drawing=false,color="#E58B9D",brush=8,erase=false;
-function clearCanvas(){
- ctx.fillStyle="#fff";
- ctx.fillRect(0,0,canvas.width,canvas.height);
-}
-function getPos(e){
- const r=canvas.getBoundingClientRect();
- return {x:(e.clientX-r.left)*canvas.width/r.width,y:(e.clientY-r.top)*canvas.height/r.height};
-}
-canvas.addEventListener("pointerdown",e=>{
- drawing=true;
- canvas.setPointerCapture(e.pointerId);
- const p=getPos(e);
- ctx.beginPath();ctx.moveTo(p.x,p.y);
-});
-canvas.addEventListener("pointermove",e=>{
- if(!drawing)return;
- const p=getPos(e);
- ctx.lineWidth=brush;
- ctx.lineCap="round";ctx.lineJoin="round";
- ctx.strokeStyle=erase?"#fff":color;
- ctx.lineTo(p.x,p.y);ctx.stroke();
-});
-function stopDraw(){drawing=false;ctx.beginPath()}
-canvas.addEventListener("pointerup",stopDraw);
-canvas.addEventListener("pointercancel",stopDraw);
-document.querySelectorAll(".color").forEach(b=>{
- b.addEventListener("click",()=>{
-  color=b.dataset.color;erase=false;
-  document.querySelectorAll(".color").forEach(x=>x.classList.toggle("selected",x===b));
- });
-});
-$("brushSize").addEventListener("input",e=>brush=Number(e.target.value));
-function eraser(){erase=true;document.querySelectorAll(".color").forEach(b=>b.classList.remove("selected"))}
-function downloadDrawing(){
- const link=document.createElement("a");
- link.download="하하하-명화감상-나의그림.png";
- link.href=canvas.toDataURL("image/png");
- link.click();
+/* 다음 작품 */
+function next(){
+  if(!list.length)return;
+  idx=(idx+1)%list.length;
+  pageNo=Math.floor(idx/12);
+  render();
 }
 
-/* 첫 화면 */
-clearCanvas();
-renderArtwork();
+/* 이전 작품 */
+function prev(){
+  if(!list.length)return;
+  idx=(idx-1+list.length)%list.length;
+  pageNo=Math.floor(idx/12);
+  render();
+}
+
+/* 랜덤 작품 */
+function randomArt(){
+  if(!list.length)return;
+  idx=Math.floor(Math.random()*list.length);
+  pageNo=Math.floor(idx/12);
+  render();
+}
+
+/* 카테고리 선택 */
+function setCat(c){
+  cat=c;
+  list=works.filter(w=>c==="전체"||w.cat===c);
+  idx=0;
+  pageNo=0;
+
+  document.querySelectorAll(".filter").forEach(b=>{
+    b.classList.toggle("active",b.dataset.cat===c);
+  });
+
+  render();
+}
+
+document.querySelectorAll(".filter").forEach(b=>{
+  b.addEventListener("click",()=>setCat(b.dataset.cat));
+});
+
+/* 작품과 작가 이름 검색 */
+function searchArt(){
+  const q=$("search").value.trim().toLowerCase();
+
+  list=works.filter(w=>
+    (cat==="전체"||w.cat===cat)&&
+    (w.title+" "+w.artist).toLowerCase().includes(q)
+  );
+
+  idx=0;
+  pageNo=0;
+  render();
+}
+
+/* 갤러리 페이지 이동 */
+function page(d){
+  const maxPage=Math.max(0,Math.ceil(list.length/12)-1);
+  pageNo=Math.max(0,Math.min(maxPage,pageNo+d));
+  renderGallery();
+}
+
+/* 오늘 날짜 */
+const d=new Date();
+$("today").textContent=
+  "오늘의 명화 · "+d.getFullYear()+"년 "+
+  (d.getMonth()+1)+"월 "+d.getDate()+"일";
+
+/* 작품 이미지 크게 보기 */
+function openViewer(){
+  if($("artImage").style.display!=="block")return;
+  $("viewerImg").src=$("artImage").src;
+  $("viewer").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+
+/* 확대 화면 닫기 */
+function closeViewer(){
+  $("viewer").classList.remove("open");
+  $("viewerImg").src="";
+  document.body.style.overflow="";
+}
+
+$("artImage").addEventListener("click",openViewer);
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape")closeViewer();
+});
+
+/* 첫 작품 표시 */
+render();
+
 </script>
-
-<div id="fullscreenViewer" class="fullscreen-viewer" role="dialog" aria-modal="true" aria-label="명화 전체 화면">
- <button class="fullscreen-close" onclick="closeFullscreen()">닫기 ✕</button>
- <img id="fullscreenImage" alt="명화 크게 보기">
- <div class="fullscreen-hint">화면 바깥을 누르거나 닫기를 누르면 돌아갑니다.</div>
-</div>
-
 </body>
 </html>
